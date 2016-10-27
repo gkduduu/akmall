@@ -35,6 +35,7 @@ repositories {
     maven {
         url = 'https://oss.sonatype.org/content/repositories/snapshots'
     }
+    jcenter()
 }
 
 apply plugin: 'com.android.application'
@@ -54,6 +55,9 @@ dependencies {
     //안드로이드 어노테이션
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+    //zxing(바코드)
+    compile 'com.journeyapps:zxing-android-embedded:3.4.0'
+
     compile 'com.android.support:appcompat-v7:22.0.0'
     testCompile 'junit:junit:4.12'
 }
