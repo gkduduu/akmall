@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/image_review"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background" >
+
+    <include
+        android:id="@+id/header"
+        android:layout_alignParentTop="true"
+        layout="@layout/header" />
+
+    <com.ak.android.akmall.widget.NavigationTabView
+        android:id="@+id/bottomNaviTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomNaviTab"
+            android:layout_below="@id/header">
+
+        <LinearLayout
+            style="@style/body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/box"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="@string/image_review_hint"
+                    android:minLines="6"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dash" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_weight"
+                    android:padding="7dp" >
+
+                    <ImageButton
+                        android:id="@+id/bnt_appraisal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/akbtn_appraisal"
+                        android:contentDescription="@string/appraisal" />
+
+                    <ImageView
+                        android:id="@+id/bnt_img_uplod"
+                        android:layout_width="41dp"
+                        android:layout_height="41dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/akbnt_img_uplod"
+                        android:contentDescription="@string/image_upload"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/appraisal_benefit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/akappraisal_benefit"
+                android:contentDescription="@string/appraisal_benefit" />
+        </LinearLayout>
+        <!-- // body -->
+    </ScrollView>
+
+    <!-- 구매만족도 평가 -->
+
+    <LinearLayout
+        android:id="@+id/product_write_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/box_dark"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:visibility="gone" >
+
+        <TextView
+            style="@style/label_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/design" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_light" >
+
+            <RatingBar
+                android:id="@+id/RatingBar01"
+                style="@style/Widget.AK.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="1"
+                android:stepSize="1.0" />
+        </FrameLayout>
+
+        <TextView
+            style="@style/label_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_light" >
+
+            <RatingBar
+                android:id="@+id/RatingBar02"
+                style="@style/Widget.AK.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="1"
+                android:stepSize="1.0" />
+        </FrameLayout>
+
+        <TextView
+            style="@style/label_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quality_performance" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_light" >
+
+            <RatingBar
+                android:id="@+id/RatingBar03"
+                style="@style/Widget.AK.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="1"
+                android:stepSize="1.0" />
+        </FrameLayout>
+
+        <TextView
+            style="@style/label_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shipping" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_light" >
+
+            <RatingBar
+                android:id="@+id/RatingBar04"
+                style="@style/Widget.AK.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="1"
+                android:stepSize="1.0" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="20dp" >
+
+            <Button
+                android:id="@+id/bnt_appraisal_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/akbnt_appraisal_ok" />
+
+            <Button
+                android:id="@+id/bnt_appraisal_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7sp"
+                android:background="@drawable/akbnt_appraisal_cancel" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

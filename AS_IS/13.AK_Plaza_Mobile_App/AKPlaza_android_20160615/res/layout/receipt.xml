@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ak_receipt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <!-- top 고정 -->
+
+        <include
+            android:id="@+id/include_top_main"
+            android:layout_width="match_parent"
+            android:layout_height="110dip"
+            layout="@layout/include_top_main_02" />
+
+        <LinearLayout 
+		android:layout_width="fill_parent"
+	    android:layout_height="46dip"
+	    android:background="#fff"
+	     android:orientation="horizontal" 
+	    >
+
+	    <ImageView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dip"
+	        android:layout_gravity="center_vertical"
+	        android:background="@drawable/title_bulet"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+		  	    android:layout_height="wrap_content"
+		  	    android:layout_gravity="center_vertical"
+                android:text="@string/receipt_reg_manual"
+                android:textSize="16dip"
+		  	    android:textStyle="bold"
+		  	    android:textColor="#161616"/>
+        </LinearLayout>
+        <View
+	  	    android:layout_width="fill_parent"
+	  	    android:layout_height="2dp"
+	  	    android:background="#342f2a" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="99.75dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="11.25dip"
+            android:layout_marginRight="11.25dip"
+            android:layout_marginTop="15dip"
+            android:background="@drawable/login_input" >
+
+            <LinearLayout
+                android:layout_width="262.5dip"
+                android:layout_height="99.75dip"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="262.5dip"
+                    android:layout_height="49.875dip"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/receipt_nm"
+                        android:layout_width="262.5dip"
+                        android:layout_height="49.875dip"
+                        android:layout_marginLeft="8dip"
+                        android:background="@null"
+                        android:hint="@string/receipt_barcode_input_hint"
+                        android:maxLength="18"
+                        android:textColor="#73675b"
+                        android:textSize="16.5sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="262.5dip"
+                    android:layout_height="49.875dip"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/total_price"
+                        android:layout_width="262.5dip"
+                        android:layout_height="49.875dip"
+                        android:layout_marginLeft="8dip"
+                        android:background="@null"
+                        android:hint="@string/receipt_total_price"
+                        android:maxLength="30"
+                        android:textColor="#73675b"
+                        android:textSize="16.5sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- 등록하기 버튼 -->
+
+        <Button
+            android:id="@+id/receipt_btn"
+            android:layout_width="150dip"
+            android:layout_height="37.5dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dip"
+            android:background="@drawable/ak_receipt_btn"
+            android:text="@string/receipt_registration_btn"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.25dip"
+            android:layout_marginTop="15dip"
+            android:background="#fff"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                    android:text="@string/bullet"
+                    android:textColor="#161616"
+                    android:textSize="13sp" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/receipt_03"
+                    android:textColor="#161616"
+                    android:textSize="13.5sp" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                    android:text="@string/bullet"
+                    android:textColor="#161616"
+                    android:textSize="13sp" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/receipt_04"
+                    android:textColor="#161616"
+                    android:textSize="13.5sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.ak.android.akplaza.maintab.BottomTab
+        android:id="@+id/bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

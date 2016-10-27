@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"   
+    android:background="#828282" >
+	
+	  <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical">
+
+		  <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="45dip">	      
+	      
+		      <RelativeLayout
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"
+		          android:layout_gravity="center_vertical" >
+	
+		          <TextView
+		              android:layout_width="wrap_content"
+		              android:layout_height="wrap_content"
+		              android:layout_marginLeft="11.25dip"
+		              android:text="전체메뉴"
+		              android:textColor="#ffffff"
+		              android:textSize="18.75sp" 
+		              android:layout_centerVertical="true"/>
+	
+		          <!--  
+		          <Button
+		              android:id="@+id/main_btn_close"
+		              android:layout_width="34.5dip"
+		              android:layout_height="34.5dip"
+		              android:layout_alignParentRight="true"
+		              android:layout_marginRight="6dip"
+		              android:background="@drawable/ak_main_btn_close"
+		              android:layout_centerVertical="true" />
+		          -->    	
+		      </RelativeLayout>
+		</LinearLayout>
+        <com.ak.android.akplaza.widget.AkPlazaWebView
+	        android:layout_width="match_parent" 
+	        android:id="@+id/webPopup" 
+	        android:layout_height="match_parent" 
+	        android:layout_centerInParent="true"        
+		    android:layout_marginLeft="7.5dip"
+		    android:layout_marginRight="7.5dip"
+		    android:layout_marginBottom="7.5dip" />
+                 
+        
+  </LinearLayout>     
+
+</RelativeLayout>

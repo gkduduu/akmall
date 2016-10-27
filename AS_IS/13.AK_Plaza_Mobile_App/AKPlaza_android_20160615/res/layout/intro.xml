@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/intro_relative"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#272727"
+  >
+   <!--     
+  	<com.ak.android.akplaza.common.AkAnimationView
+	     android:id="@+id/anim_view" 
+	     android:layout_centerInParent="true"
+	     android:layout_width="fill_parent"
+	     android:layout_height="fill_parent"/>
+	 -->     
+	
+  	<ImageView
+	     android:id="@+id/introanimation" 
+	     android:layout_centerInParent="true"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:background="@drawable/default_01"
+	     />  
+	 	
+    	<!-- <ProgressBar android:id="@+android:id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_centerInParent="true"
+        /> -->
+</RelativeLayout>

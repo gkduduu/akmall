@@ -1,0 +1,15 @@
+PODS:
+  - AdBrix (2.0.5)
+  - IgaworksCore (2.2.4)
+
+DEPENDENCIES:
+  - AdBrix
+  - IgaworksCore
+
+SPEC CHECKSUMS:
+  AdBrix: d7187e6a18567a3804a795757d02269fbd309cf6
+  IgaworksCore: 54beb68f109840b12d702881b52b810f876df56d
+
+PODFILE CHECKSUM: 94e6da6f075f393072c6ae6dc96aa0f4aa623aad
+
+COCOAPODS: 1.0.1

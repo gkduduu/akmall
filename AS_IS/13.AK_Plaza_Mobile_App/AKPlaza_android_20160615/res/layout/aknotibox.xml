@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notibox_relative"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF" >
+	
+	 <LinearLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
+	 >
+
+					<!-- top 고정 -->
+
+		 <include
+		     android:id="@+id/include_top_main"
+		     android:layout_width="match_parent"
+		     android:layout_height="110dip"
+		     layout="@layout/include_top_main_02" />
+	
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="37dip"
+	    android:background="#fff"
+	    >
+	    <ImageView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dip"
+	        android:layout_gravity="center_vertical"
+	        android:background="@drawable/title_bulet"/>
+	  	<TextView 
+	  	    android:layout_width="wrap_content"
+	  	    android:layout_height="wrap_content"
+	  	    android:layout_gravity="center_vertical"
+	  	    android:text="알림보관함"
+	  	    android:textSize="16dip"
+	  	    android:textStyle="bold"
+	  	    android:textColor="#161616"/>
+
+	  	
+
+	</LinearLayout>
+	<View
+	  	    android:layout_width="fill_parent"
+	  	    android:layout_height="2dp"
+	  	    android:background="#342f2a" />
+	<LinearLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_weight="1" 
+		android:orientation="vertical"
+		android:background="#FFFFFF"
+	>
+		<ListView 
+	     android:id="@+id/alram_save_listView"	
+	     android:layout_height="wrap_content"
+	     android:layout_width="fill_parent"
+	     android:layout_weight="1"
+		 android:cacheColorHint="#00000000"
+		 android:scrollingCache="false"
+		 android:divider="#ccc"				     
+		 android:dividerHeight="1dip"
+		 android:scrollbars="none"
+		 android:fadingEdge="none"
+		 android:background="#FFFFFF"
+		 android:listSelector="#19000000"
+		/>		
+
+	</LinearLayout>	
+		<!-- <RelativeLayout 
+		    android:id="@+id/noti_more_button"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/list_more">
+
+			<TextView
+			    android:id="@+id/textView1"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerInParent="true"
+			    android:text="더보기 ▼"
+			    android:textColor="@color/black"
+			    android:textStyle="bold" />
+		    
+		</RelativeLayout> -->
+    	 <com.ak.android.akplaza.maintab.BottomTab
+			android:id="@+id/bottom"
+	     	android:layout_height="wrap_content"
+    	 	android:layout_width="fill_parent"/>		
+</LinearLayout>
+       <!-- <include layout="@layout/include_bottom"
+    	 android:id="@+id/bottom"
+    	 android:layout_alignParentBottom="true"	
+    	 android:layout_height="wrap_content"
+    	 android:layout_width="fill_parent"/> -->
+
+</RelativeLayout>

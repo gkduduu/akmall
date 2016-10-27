@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BarcodeHistoryList</key>
+	<array>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.02</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.04</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://sunsideup.tistory.com</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.05</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://91.1.105.166/coding/wsg/</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.06</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://91.1.105.166/coding/wsg/color.html</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.07</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://mobile.tutsplus.com/</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2011.01.02</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.02</string>
+			<key>BarcodeHistoryName</key>
+			<string>7http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.02</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.02</string>
+			<key>BarcodeHistoryName</key>
+			<string>9http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2010.01.02</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2012.01.01</string>
+			<key>BarcodeHistoryName</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2012.02.01</string>
+			<key>BarcodeHistoryName</key>
+			<string>주말장터에 놀러오세요~</string>
+		</dict>
+		<dict>
+			<key>BarcodeHistoryDate</key>
+			<string>2012.03.03</string>
+			<key>BarcodeHistoryName</key>
+			<string>봄 옷 장만하세요~ 빈폴 특가 50% 세일</string>
+		</dict>
+	</array>
+</dict>
+</plist>

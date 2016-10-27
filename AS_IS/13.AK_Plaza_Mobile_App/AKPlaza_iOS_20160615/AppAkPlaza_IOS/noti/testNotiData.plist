@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NotiList</key>
+	<array>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.02</string>
+			<key>NotiName</key>
+			<string>1오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.04</string>
+			<key>NotiName</key>
+			<string>2오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.05</string>
+			<key>NotiName</key>
+			<string>3오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.06</string>
+			<key>NotiName</key>
+			<string>4오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.07</string>
+			<key>NotiName</key>
+			<string>5오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2011.01.02</string>
+			<key>NotiName</key>
+			<string>6오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.02</string>
+			<key>NotiName</key>
+			<string>7오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.02</string>
+			<key>NotiName</key>
+			<string>8오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.02</string>
+			<key>NotiName</key>
+			<string>9오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string> 
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2010.01.02</string>
+			<key>NotiName</key>
+			<string>10오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2012.01.01</string>
+			<key>NotiName</key>
+			<string>오늘 좋은 물건 들어왔어요~ 구경들 하세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2012.02.01</string>
+			<key>NotiName</key>
+			<string>주말장터에 놀러오세요~</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+		<dict>
+			<key>NotiDate</key>
+			<string>2012.03.03</string>
+			<key>NotiName</key>
+			<string>봄 옷 장만하세요~ 빈폴 특가 50% 세일</string>
+            <key>NotiURL</key>
+			<string>http://www.google.com</string>
+		</dict>
+	</array>
+</dict>
+</plist>

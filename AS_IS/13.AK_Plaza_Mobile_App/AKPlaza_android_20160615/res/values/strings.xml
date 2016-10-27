@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AK PLAZA</string>
+    <string name="aplaza_logo">AK PLAZA</string>
+    <string name="entry_image">응모 이미지</string>
+    <string name="empty"> </string>
+    <string name="photo_event">포토 이벤트</string>
+
+    <!-- 공통 -->
+    <string name="prev">이전</string>
+    <string name="show">보기</string>
+    <!-- // 공통 -->
+
+
+    <!-- 다이얼로그 Message -->
+    <string name="data_info">3G/4G로 서비스 이용 시 많은 데이터 통화료가 발생할 수 있습니다. 무선랜(Wi-Fi)이나 데이터 정액제를 통해 부담없이 사용하실 수 있습니다.</string>
+    <string name="network_error">Wifi 혹은 3G/4G망이 연결되지 않았거나 원활하지 않습니다.네트워크 확인후 다시 접속해 주세요.</string>
+    <string name="pushRegistMeaage"><![CDATA["AK Plaza"에서 푸시 알림을 보내고자 합니다]]></string>
+    <string name="confirm_call">전화 연결</string>
+    <string name="call">통화</string>
+    <string name="not_found_other_app">처리 가능한 앱이 존재하지 않습니다.</string>
+    <string name="confirm_start_map_app">맵으로 이동 하시겠습니까?</string>
+
+    <!-- 로그인 /알림 설정 -->
+    <string name="sns_twitt">트위터 설정</string>
+    <string name="sns_facebook">페이스북 설정</string>
+    <string name="no_set">미설정</string>
+    <string name="login_set">AK PLAZA 로그인</string>
+    <string name="logout_set">AK PLAZA 로그아웃</string>
+    <string name="alrim_set">알림 설정</string>
+    <string name="alrim_info_01">알림 기능을 설정 하시면 AK PLAZA 이벤트 및</string>
+    <string name="alrim_info_02">쇼핑혜택 정보를 받으실 수 있습니다.</string>
+    <string name="loginalrimset_01">사용자 설정</string>
+    <string name="fail_regist_alarm">알림 등록에 실패하였습니다.</string>
+
+    <!-- 로그인 -->
+    <string name="id_text">아이디를 입력해주세요</string>
+    <string name="pw_text">비밀번호를 입력해주세요</string>
+    <string name="login_info_01"><![CDATA[AK Members <a href="%s">[회원가입]</a>하고, 다양한 혜택과 서비스를 이용하세요.]]></string>
+    <string name="login_info_02">[아이디/비밀번호] 찾기는 PC버전에서 가능합니다.</string>
+    <string name="login_info_03">기존 애경백화점 회원님께서는 아이디를</string>
+    <string name="login_info_04">대문자로 입력해 주시기 바랍니다.</string>
+    <string name="login_id">아이디</string>
+    <string name="login_password">비밀번호</string>
+    <string name="login_auto">자동 로그인</string>
+    <string name="login">로그인</string>
+
+    <!-- 영수증 바코드 등록 -->
+    <string name="receipt_01">영수증 바코드 번호</string>
+    <string name="receipt_02">총 결재금액</string>
+    <string name="receipt_03">구매하신 물품 영수증의 하단에 18자리의 바코드를 확인하세요.</string>
+    <string name="receipt_04">영수증 바코드 적립기간을 구매하신 영수증 발생일로 부터 30일간 적립 유효합니다.</string>
+    <string name="receipt_reg_manual">영수증 바코드 직접등록</string>
+    <string name="receipt_barcode_input_hint">영수증 바코드 번호</string>
+    <string name="receipt_total_price">총 결재 금액</string>
+    <string name="receipt_registration_btn">등록하기</string>
+    <string name="receipt_registration_doing">등록중…</string>
+
+    <!-- 멤버스카드 -->
+    <string name="membercard_info_01">카드발급방법</string>
+    <string name="membercard_info_02">인터넷 발급 : 신청 2주일내 수령지 배송</string>
+    <string name="membercard_info_03">AK PLAZA 현장발급 : 즉시발급</string>
+    <string name="membercard_call"><![CDATA[tel:031-779-3500]]></string>
+
+    <!-- 바코드 -->
+    <string name="barcode_title_bar">영수증 등록</string>
+    <string name="barcode_info_bar"><![CDATA[바코드를 자동으로 인식합니다.]]></string>
+    <string name="barcode_info_bar2"><![CDATA[AK PLAZA 영수증 바코드를 스캔하시면 애플이 적립됩니다.]]></string>
+
+    <!-- QR Code Scan -->
+    <string name="msg_camera_framework_bug">죄송합니다. 기기의 카메라에 오류가 생겼습니다. 기기를 재시작 해야될 수도 있습니다.</string>
+    <string name="msg_unsupported_qrcode">유효하지 않은 주소 입니다.</string>
+    <string name="msg_qrcode_auto_scan">QR코드를 자동으로 인식합니다.</string>
+    <string name="qrcode_scan">QR코드 검색</string>
+    <string name="qr">QR</string>
+    <string name="qr_history">QR 기록</string>
+
+    <!-- 알림보관함 -->
+    <string name="login_required_notibox">해당 알림 메시지를 확인 하려면 로그인을 해야합니다.</string>
+
+    <!-- common -->
+    <string name="bullet">•</string>
+
+    <!-- mobile event -->
+    <string name="title">제목</string>
+    <string name="title_description">5자 이상 100자 이하</string>
+    <string name="content">내용</string>
+    <string name="content_description">5자 이상 4000자 이하</string>
+    <string name="image">이미지</string>
+    <string name="select_img">이미지 선택</string>
+    <string name="event_contents_copyright">다른 사람의 권리를 침해하거나 명예를 훼손하는 게시물은 이용약관 및 관련법률에 의해 제재를 받으실 수 있습니다.</string>
+    <string name="submit">확인</string>
+    <string name="cancel">취소</string>
+    <string name="writer">작성자</string>
+    <string name="event_required_login">이벤트에 응모하려면 로그인을 해야합니다.</string>
+    <string name="alert">알림</string>
+    <string name="event_entry_doing">이벤트 응모중…</string>
+    <string name="event_entry_modifying">이벤트 응모 수정중…</string>
+    <string name="event_entry_info_checking">이벤트 응모 정보 조회중…</string>
+    <string name="posting_image">사진등록</string>
+
+    <!-- attachment image -->
+    <string name="add_image_attachment">이미지 첨부</string>
+    <string name="attach_image">저장된 사진 선택</string>
+    <string name="attach_take_photo">사진촬영</string>
+
+    <!-- PostHttpClient.java -->
+    <string name="socket_time">1000</string>
+
+    <!-- FaceBook -->
+    <string name="app_desc">Checkout out Hackbook for Android to learn how you can make your android apps social using Facebook Platform.</string>
+    <string name="app_action">I am using the AKmall for Android</string>
+    <string name="request_message">Learn how to make your android apps social.</string>
+    <string name="request">Request!</string>
+    <string name="upload">Upload Photo</string>
+    <string name="post">Wall Post!</string>
+    <string name="delete">Delete Post</string>
+    <string name="no_login">Graph API Explorer</string>
+    <string name="get_permissions">Get Permissions</string>
+    <string name="access_token">Access Token:</string>
+    <string name="graph_domain">https://m.facebook.com/</string>
+    <!-- <string name="submit">Submit</string> -->
+    <string name="label_output">Output:</string>
+    <string name="show_metadata">Show metadata</string>
+    <string name="show_picture">Show picture</string>
+    <string name="view_url">URL</string>
+    <string name="target_url">Target URL:</string>
+    <string name="exception">Exception: </string>
+    <string name="tip_label">Tip:</string>
+    <string name="facebook_error">Facebook Error: </string>
+    <string name="api_response">Api Response:</string>
+    <string name="view_source">View Source</string>
+    <string name="view_post">View Post</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="source_code">Source Code:</string>
+    <string name="please_wait"><![CDATA[Please wait...]]></string>
+    <string name="view_photo">View Photo</string>
+    <string name="hide_photo">Hide Photo</string>
+    <string name="tag_photo">Tag Photo</string>
+    <string name="graph_button">Graph API</string>
+    <string name="fql_button">FQL Query</string>
+    <string name="source_tag">Source tag:</string>
+    <string name="permission_source_tag">Source tag: \"perms_tag\"</string>
+    <string name="Graph_FQL_title">Graph API or FQL Query?</string>
+    <string name="Graph_FQL_msg">Get friends using Graph or FQL Query?\n\nWith FQL query you can sort the list by names, whereas with Graph list will be ordered by UID and can\'t be changed.</string>
+    <string name="can_post_on_wall_title">Post on friend\'s wall</string>
+    <string name="can_post_on_wall">Friends list fetched. You can post on friend\'s wall by clicking on the item.</string>
+    <string name="ok">OK</string>
+    <string name="post_on_wall_title">Post on Wall?</string>
+    <string name="post_on_wall">Would you like to post on %1$s\'s wall</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="save">Save</string>
+    <string name="reset">Reset</string>
+    <string name="get_fields">Get Fields</string>
+    <string name="fields">Fields</string>
+    <string name="connections">Connections</string>
+    <string name="checkin">Check-in</string>
+    <!-- <string name="cancel">Cancel</string> -->
+    <string name="user">User Data</string>
+    <string name="friend">Friends Data</string>
+    <string name="extended">Extended</string>
+    <string name="gallery_remote_title">Upload from gallery or remote?</string>
+    <string name="gallery_remote_msg">Upload picture from phone\' gallery or remote server?</string>
+    <string name="gallery_button">Gallery</string>
+    <string name="remote_button">Remote</string>
+    <string name="get_location">Get Location?</string>
+    <string name="get_default_or_new_location">Get current location or use Times Square as the location?</string>
+    <string name="current_location_button">Current Location</string>
+    <string name="fetching_current_permissions"><![CDATA[Fetching current permissions...]]></string>
+    <string name="explorer_message">Also, checkout the web-version of the <a href="http://developers.facebook.com/tools/explorer">Graph API Explorer tool</a></string>
+    <string name="nearby_places"><![CDATA[Fetching nearby places...]]></string>
+    <string name="times_square_button">Times Square</string>
+    <string name="check_in_title">Check-in?</string>
+    <string name="permissions">Permissions</string>
+    <string name="back_parent">Back to parent</string>
+    <string name="fields_and_connections">Fields \u0026 Connections</string>
+    <string name="permissions_request">Select Permissions:</string>
+    <string name="permission_detail">Checkout <a href="https://developers.facebook.com/docs/authentication/permissions/">permissions reference doc</a></string>
+    <string name="fetching_location"><![CDATA[Fetching Location...]]></string>
+    <string name="check_in_at">Would you like to check-in at %1$s?</string>
+    <string name="post_tip">\'read_stream\' permission is required to view and delete the post.\n\nUse SDK dialogs to publish stories or post on friends wall. <a href="https://developers.facebook.com/docs/reference/dialogs">More info</a>\n\n<a href="https://developers.facebook.com/docs/reference/api/Comment">Like and Comment on a post</a></string>
+    <string name="photo_tip">Photos are by default uploaded to the app\'s album. Specify album_id to upload to specific album. E.g. https://graph.facebook.com/{album_id}/photos.\n\nMore Info: https://developers.facebook.com/docs/reference/api/photo</string>
+    <string name="fqlquery">Enter FQL Query:</string>
+    <string name="enable_gps_title">Enable GPS</string>
+    <string name="enable_gps">Please enable GPS to get nearby places and check-in</string>
+    <string name="gps_settings">GPS Settings</string>
+
+</resources>

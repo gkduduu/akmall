@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="green">#23CF34</color>
+    <color name="orange">#E47833</color>
+    <color name="lite_blue">#4E78A0</color>
+    <color name="blue">#0000FF</color>
+    <color name="grey">#FF909090</color>
+    <color name="background">#f5f5f5</color>
+    <color name="background_weight">#FFFEF7FA</color>
+    <color name="header_background">#FFF183B1</color>
+    <color name="list_divider">#FFE9CDDB</color>
+    <drawable name="my_text_color">#444444</drawable>
+
+    <color name="viewfinder_frame">#FFFF0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#B0000000</color>
+    <color name="possible_result_points">#C0FFFF00</color>
+    <color name="transparent">#00000000</color>
+    <color name="result_image_border">#FFFFFFFF</color>
+    <color name="result_points">#C000FF00</color>
+    <color name="top_title_background">#e10064</color>
+     
+    <color name="list_bg_active">#0A246A</color>
+    <color name="list_bg_dark">#F2F2F2</color>
+    <color name="list_bg_light">#FFFFFF</color>
+    <color name="list_header_bg">#C2C2C2</color>
+    <color name="list_header_text">#2C2C2C</color>
+</resources>

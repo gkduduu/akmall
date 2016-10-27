@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<!--  Used in XMLController.java -->
+	<string-array name="luxury_category">
+		<item>onlyak</item>
+		<item>luxBrand</item>
+		<item>luxItem</item>
+		<item>luxuryMainGoodsList</item>
+	</string-array>
+	<string-array name="luxury_category_name">
+		<item>ONLY AK</item>
+		<item>BRAND</item>
+		<item>ITEM</item>
+	</string-array>	
+	
+	<string-array name="image_upload">
+		<item>카메라로 찍기</item>
+		<item>사진 앨범에서 선택</item>			
+	</string-array>	
+	
+	<!--  AkBrand.java  -->
+	<string-array name="akbrand_disp_class_nm">
+		<item>GUCCI</item>
+		<item>PRADA</item>
+		<item>FENDI</item>
+		<item>FERRAGAMO</item>
+		<item>BURBERRY</item>
+		<item>BALLY</item>
+		<item>ETRO</item>
+		<item>COACH</item>				
+	</string-array>		
+	<string-array name="akbrand_disp_class_cd">
+		<item>263403</item>
+		<item>263404</item>
+		<item>263405</item>
+		<item>263407</item>
+		<item>263408</item>
+		<item>263409</item>
+		<item>263411</item>
+		<item>263410</item>
+		<!-- <item>26340101</item>
+		<item>26340102</item>
+		<item>26340104</item>
+		<item>263406</item>
+		<item>263408</item>
+		<item>263409</item>
+		<item>263411</item>
+		<item>263415</item>		 -->	
+	</string-array>		
+	
+
+	
+    <!-- Used in View/NotiSet.java -->
+    <string-array name="alram_sound_select">
+        <item>무음</item>
+        <item>진동</item>
+        <item>알림소리</item>               
+    </string-array>    
+    
+    <string-array name="notiSet_time">
+        <item>am 1</item>
+        <item>am 2</item>
+        <item>am 3</item>
+        <item>am 4</item>
+        <item>am 5</item>
+        <item>am 6</item>
+        <item>am 7</item>
+        <item>am 8</item>
+        <item>am 9</item>
+        <item>am 10</item>
+        <item>am 11</item>
+        <item>am 12</item>
+        <item>pm 1</item>
+        <item>pm 2</item>
+        <item>pm 3</item>        
+        <item>pm 4</item>
+        <item>pm 5</item>       
+        <item>pm 6</item>       
+        <item>pm 7</item>       
+        <item>pm 8</item>       
+        <item>pm 9</item>       
+        <item>pm 10</item>        
+        <item>pm 11</item>        
+        <item>pm 12</item>                
+    </string-array>
+
+    <string-array name="notiSet_time_url">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>        
+        <item>15</item>
+        <item>16</item>       
+        <item>17</item>       
+        <item>18</item>       
+        <item>19</item>       
+        <item>20</item>       
+        <item>21</item>        
+        <item>22</item>        
+        <item>23</item> 
+        <item>24</item>                        
+    </string-array>                       
+</resources>

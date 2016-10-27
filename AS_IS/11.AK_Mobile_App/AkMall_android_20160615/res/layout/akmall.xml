@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" >
+                    
+                    <com.ak.android.akmall.widget.AkMallWebView
+                        android:id="@+id/akMallWebview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbarStyle="insideOverlay" />
+                	
+                    <LinearLayout
+                        android:id="@+id/akContentsLayout"
+		                android:layout_width="match_parent"
+		                android:layout_height="match_parent"
+		                android:orientation="vertical" >
+                	</LinearLayout>
+                    
+                    <ProgressBar
+                        android:id="@+id/barProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/bar_rogress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:max="100"
+                        android:progress="0" />
+                    
+                    <ProgressBar
+                        android:id="@+id/centerProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />                    
+                </FrameLayout>
+				
+                
+                <LinearLayout
+                    	android:id="@+id/toolbar"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content"
+		                android:orientation="vertical">
+	                <LinearLayout
+	                    android:background="@drawable/toolbar_line"
+		                android:layout_width="match_parent"
+		                android:layout_height="1dp"
+		                android:orientation="vertical" />
+	                <com.ak.android.akmall.widget.NavigationTabView
+	                    android:id="@+id/bottomNaviTab"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="50dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+    <ViewStub
+        android:id="@+id/stubIntro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/akintro" />
+    
+    <ViewStub
+        android:id="@+id/stubGuide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/akguide" />
+
+</FrameLayout>

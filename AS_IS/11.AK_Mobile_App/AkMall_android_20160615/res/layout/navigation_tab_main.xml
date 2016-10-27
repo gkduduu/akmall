@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ak.android.akmall.widget.EqualMarginLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_main_tab"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="horizontal"
+    android:gravity="center"
+    >
+	
+    <ImageButton
+        android:id="@+id/btnMainTabHome"
+        android:layout_width="0px"
+        android:layout_weight="1"
+        android:layout_height="40dp"
+        android:background="@drawable/tab_home"
+        android:contentDescription="@string/home" 
+        android:adjustViewBounds="false"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        />
+    
+    <ImageButton
+        android:id="@+id/btnMainTabSearch"
+        android:layout_width="0px"
+        android:layout_weight="1"
+        android:layout_height="40dp"  
+        android:contentDescription="@string/search_and_category"
+        android:background="@drawable/tab_search"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+         /> 
+    	
+	<ImageButton
+	    android:id="@+id/btnMainTabHistory"
+	    android:layout_width="0px"
+	    android:layout_height="40dp"
+	    android:layout_marginLeft="12dp"
+	    android:layout_marginRight="12dp"
+	    android:layout_weight="1"
+	    android:background="@drawable/tab_history"
+	    />
+    
+    <ImageButton
+        android:id="@+id/btnMainTabShortcut"
+        android:layout_width="0px"
+        android:layout_weight="1"
+       	android:layout_height="40dp"   
+        android:contentDescription="@string/cart"
+        android:background="@drawable/tab_gocategory" 
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        /> 
+    
+	<ImageButton
+	    android:id="@+id/btnMainTabEvent"
+	    android:layout_width="0px"
+        android:layout_weight="1"
+	    android:layout_height="40dp"        
+	    android:contentDescription="@string/delivery"
+	    android:background="@drawable/tab_event" 
+	    android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+	    />
+	
+	<ImageButton
+        android:id="@+id/btnMainTabMyAk"
+        android:layout_width="0px"
+        android:layout_weight="1"
+	    android:layout_height="40dp"  
+        android:contentDescription="@string/myak"
+        android:background="@drawable/tab_my" 
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        />
+
+</com.ak.android.akmall.widget.EqualMarginLinearLayout>

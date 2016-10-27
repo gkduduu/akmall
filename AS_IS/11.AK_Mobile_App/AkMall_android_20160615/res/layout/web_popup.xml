@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/web_popup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background" >
+
+    <include
+        android:id="@+id/header"
+        android:layout_alignParentTop="true"
+        layout="@layout/header" />
+
+    <com.ak.android.akmall.widget.NavigationTabView
+        android:id="@+id/bottomNaviTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNaviTab"
+        android:layout_below="@id/header" >
+
+        <com.ak.android.akmall.widget.AkMallWebView
+            android:id="@+id/akMallWebview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+
+        <ProgressBar
+            android:id="@+id/webviewProgressBar"
+            style="@style/Widget.AK.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+    
+</RelativeLayout>

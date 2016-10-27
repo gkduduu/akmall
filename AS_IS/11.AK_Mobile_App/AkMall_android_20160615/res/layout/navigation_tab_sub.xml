@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ak.android.akmall.widget.EqualMarginLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_sub_tab"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tab_sub_bg"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/btnSubTabHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/home"
+        android:src="@drawable/tab_sub_home" />
+
+    <ImageButton
+        android:id="@+id/btnSubTabBackward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/backward"
+        android:src="@drawable/tab_sub_prev" />
+
+    <ImageButton
+        android:id="@+id/btnSubTabForward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/forward"
+        android:src="@drawable/tab_sub_next" />
+
+    <ImageButton
+        android:id="@+id/btnSubTabScrollTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/top"
+        android:src="@drawable/tab_sub_top" />
+
+    <ImageButton
+        android:id="@+id/btnSubTabMyAk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/myak"
+        android:src="@drawable/tab_sub_my" />
+
+</com.ak.android.akmall.widget.EqualMarginLinearLayout>

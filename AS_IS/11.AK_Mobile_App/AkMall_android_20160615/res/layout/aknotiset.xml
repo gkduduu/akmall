@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relate_notiset"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <include
+        layout="@layout/header" 
+        android:id="@+id/header"/>    
+    
+    
+    
+    <LinearLayout
+       	android:layout_width="match_parent"
+       	android:layout_height="match_parent"
+       	android:layout_below="@id/header"
+	    android:gravity="top|center"
+	    android:paddingTop="15dp"
+       	android:orientation="vertical" >
+       	
+        <TextView
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"
+	       android:paddingLeft="10dp"
+	       android:paddingBottom="10dp"
+	       android:text="@string/my_alram_13"
+	       android:textColor="#333333"
+	       android:textSize="14sp" 
+	       android:textStyle="bold"/>
+        
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="46dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:gravity="center|left"
+	       	android:background="@drawable/box_1"
+	        android:orientation="horizontal" >
+    		
+            <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:gravity="left"
+		        android:orientation="vertical" >
+               
+	           <TextView
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:paddingLeft="10dp"               
+	               android:text="@string/my_alram_3"
+	               android:textColor="#333333"
+	               android:textSize="14sp" />
+	           
+	           <TextView
+	               android:id="@+id/notset_text_02"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:paddingLeft="10dp"               
+	               android:text="@string/none_setting"
+	               android:textColor="#e10064"
+	               android:textSize="12sp" />
+	       </LinearLayout>
+           
+           <RelativeLayout
+	           android:layout_width="match_parent"
+	           android:layout_height="wrap_content"
+	           android:paddingRight="10dp" 
+	           android:gravity="center_vertical|right">
+               
+               <Button
+	               android:id="@+id/button_on_2"
+	               android:layout_width="51dp"
+	               android:layout_height="31dp"
+	               android:gravity="center_vertical"
+	               android:background="@drawable/my_on"
+	               android:visibility="gone" />
+               
+               <Button
+	               android:id="@+id/button_off_2"
+	               android:layout_width="51dp"
+	               android:layout_height="31dp"
+	               android:gravity="center_vertical"
+	               android:background="@drawable/my_off"
+	               android:visibility="visible" />
+           </RelativeLayout>
+        </LinearLayout>
+        
+        
+        
+        <TextView
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"
+	       android:paddingTop="15dp"
+	       android:paddingLeft="10dp"
+	       android:paddingBottom="10dp"
+	       android:text="@string/my_alram_9"
+	       android:textColor="#333333"
+	       android:textSize="14sp" 
+	       android:textStyle="bold"/>
+        
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="46dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:gravity="center|left"
+	        android:background="@drawable/box_1"
+	        android:orientation="horizontal" >
+           
+    		<LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:gravity="left"
+		        android:orientation="vertical" >
+	        
+	           <TextView
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:paddingLeft="10dp"               
+	               android:text="@string/my_alram_11"
+	               android:textColor="#333333"
+	               android:textSize="14sp" />
+	           
+	       </LinearLayout>
+           
+           <RelativeLayout
+	           android:layout_width="match_parent"
+	           android:layout_height="wrap_content"
+	           android:paddingRight="14dp" 
+	           android:gravity="center_vertical|right">
+               
+               <Button
+	               android:id="@+id/time_check_on"
+	               android:layout_width="51dp"
+	               android:layout_height="31dp"
+	               android:gravity="center_vertical"
+	               android:background="@drawable/my_on"
+	               android:visibility="gone" />
+               
+               <Button
+	               android:id="@+id/time_check_off"
+	               android:layout_width="51dp"
+	               android:layout_height="31dp"
+	               android:gravity="center_vertical"
+	               android:background="@drawable/my_off"
+	               android:visibility="visible" />
+               
+           </RelativeLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/check_time_layout"
+	        android:layout_width="match_parent"
+	        android:layout_height="46dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:gravity="center|left"
+	        android:background="@drawable/box_line"
+	        android:orientation="horizontal" >
+    		
+            <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:gravity="left"
+		        android:orientation="vertical" >
+               
+	           <TextView
+	               android:id="@+id/check_time_string"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:paddingLeft="10dp"               
+	               android:text="@string/none_setting"
+	               android:textColor="#333333"
+	               android:textSize="14sp" />
+	       	</LinearLayout>
+           	
+            <RelativeLayout
+	           android:layout_width="match_parent"
+	           android:layout_height="wrap_content"
+	           android:paddingRight="14dp" 
+	           android:gravity="center_vertical|right">
+               
+               <ImageView
+	               android:layout_width="7.5dp"
+	               android:layout_height="12dp"
+	               android:background="@drawable/arrow_go"/>
+               
+           </RelativeLayout>
+           
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/sound_set_layout"
+	        android:layout_width="match_parent"
+	        android:layout_height="46dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:gravity="center|left"
+	        android:background="@drawable/box_line"
+	        android:orientation="horizontal" >
+    		
+            <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:gravity="left"
+		        android:orientation="vertical" >
+               
+	           <TextView
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:paddingLeft="10dp"               
+	               android:text="@string/my_alram_12"
+	               android:textColor="#333333"
+	               android:textSize="14sp" />
+	           
+	           <TextView
+	               android:id="@+id/sound_set_text"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:paddingLeft="10dp"               
+	               android:text="@string/none_setting"
+	               android:textColor="#e10064"
+	               android:textSize="12sp" />
+	       </LinearLayout>
+           
+           <RelativeLayout
+	           android:layout_width="match_parent"
+	           android:layout_height="wrap_content"
+	           android:paddingRight="14dp" 
+	           android:gravity="center_vertical|right">
+               
+               <ImageView
+	               android:layout_width="7.5dp"
+	               android:layout_height="12dp"
+	               android:background="@drawable/arrow_go"/>
+               
+           </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+    
+    
+</RelativeLayout>

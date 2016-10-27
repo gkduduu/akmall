@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ak_loginalrimset"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <!-- top 고정 -->
+
+        <include
+            android:id="@+id/include_top_main"
+            android:layout_width="match_parent"
+            android:layout_height="110dip"
+            layout="@layout/include_top_main_02" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dip"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                 android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dip"
+		        android:layout_gravity="center_vertical"
+		        android:background="@drawable/title_bulet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loginalrimset_01"
+                android:textSize="16dip"
+		  	    android:textStyle="bold"
+		  	    android:textColor="#161616" />
+        </LinearLayout>
+        <View
+	  	    android:layout_width="fill_parent"
+	  	    android:layout_height="2dp"
+	  	    android:background="#342f2a" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.25dip"
+            android:layout_marginRight="11.25dip"
+            android:layout_marginTop="15dip"
+            android:background="@drawable/setting_box3"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/login_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="52.5dip"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/login_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="11.25dip"
+                    android:text="@string/login_set"
+                    android:textColor="#222222"
+                    android:textSize="16.5sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/login_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dip"
+                        android:text="@string/no_set"
+                        android:textColor="#121212"
+                        android:textSize="13.5sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/arrow_gray_right_02"
+                        android:layout_width="15dip"
+                        android:layout_height="23.25dip"
+                        android:layout_marginRight="7.5dip"
+                        android:background="@drawable/arrow"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/twitt_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="52.5dip"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/text_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="11.25dip"
+                    android:text="@string/sns_twitt"
+                    android:textColor="#222222"
+                    android:textSize="16.5sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/twitt_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dip"
+                        android:text="@string/no_set"
+                        android:textColor="#121212"
+                        android:textSize="13.5sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/arrow_gray_right_02"
+                        android:layout_width="15dip"
+                        android:layout_height="23.25dip"
+                        android:layout_marginRight="7.5dip"
+                        android:background="@drawable/arrow"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/facebook_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="52.5dip"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/text_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="11.25dip"
+                    android:text="@string/sns_facebook"
+                    android:textColor="#222222"
+                    android:textSize="16.5sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/fb_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dip"
+                        android:text="@string/no_set"
+                        android:textColor="#121212"
+                        android:textSize="13.5sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/arrow_gray_right_02"
+                        android:layout_width="15dip"
+                        android:layout_height="23.25dip"
+                        android:layout_marginRight="7.5dip"
+                        android:background="@drawable/arrow"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!-- <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="52.5dip"
+            android:layout_marginLeft="11.25dip"
+            android:layout_marginRight="11.25dip"
+            android:layout_marginTop="15dip"
+            android:background="@drawable/setting_box1" 
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/alrimset_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="52.5dip"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/alrim_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dip"
+                android:text="@string/alrim_set"
+                android:textColor="#222222"
+                android:textSize="16.5sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/alrim_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="11.25dip" />
+
+                <Button
+                    android:id="@+id/alrim_on"
+                    android:layout_width="103.5dip"
+                    android:layout_height="34.5dip"
+                    android:layout_marginRight="15dip"
+                    android:background="@drawable/switch_on"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/alrim_off"
+                    android:layout_width="103.5dip"
+                    android:layout_height="34.5dip"
+                    android:layout_marginRight="15dip"
+                    android:background="@drawable/switch_off"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </RelativeLayout> -->
+
+        <!--
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.25dip"
+            android:layout_marginTop="15dip"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="13.5dip"
+                android:layout_height="13.5dip"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/text_bulet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alrim_info_01"
+                android:textColor="#73675b"
+                android:textSize="13.5sp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dip"
+            android:text="@string/alrim_info_02"
+            android:textColor="#73675b"
+            android:textSize="13.5sp"
+            android:visibility="visible" /> 
+        -->
+    </LinearLayout>
+
+    <com.ak.android.akplaza.maintab.BottomTab
+        android:id="@+id/bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

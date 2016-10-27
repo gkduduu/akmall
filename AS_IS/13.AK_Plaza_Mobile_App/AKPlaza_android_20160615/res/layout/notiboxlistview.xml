@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="fill_parent"
+  android:layout_height="56dip"
+  android:id="@+id/alram_save_listbg"
+  android:gravity="center_vertical"  
+  android:background="#ffffff"
+>
+	  	<TextView 
+			android:id="@+id/alram_save_text"
+			android:layout_width="220dip"
+			android:layout_height="wrap_content"
+			android:maxLines="2"
+			android:textSize="14dip"
+			android:textColor="#342f2a"
+			android:layout_marginLeft="10dip"	 
+			android:layout_centerVertical="true" 
+			android:text="동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산"
+			android:ellipsize="end"
+	 	/>
+	 	<TextView 
+			android:id="@+id/alram_save_date"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:maxLines="1"
+			android:textSize="12dip"
+			android:textColor="#8a8a8a"
+			android:layout_marginRight="26dip"
+			android:text="2007-04-12"
+			android:layout_centerVertical="true" 
+	 		/>  	
+	 	<ImageView 
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:background="@drawable/arrow"
+	 	    android:layout_alignParentRight="true"
+	 	    android:layout_marginRight="10dip"
+	 	    android:layout_centerVertical="true"
+	 	    />
+</RelativeLayout>

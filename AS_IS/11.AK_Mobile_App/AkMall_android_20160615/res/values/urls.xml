@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="scheme_akmall">akmall</string>
+    <string name="luxury_category_url"><![CDATA[act=luxury]]></string>
+    <string name="luxury_onlyak_url">act=luxuryOnlyAk</string>
+    <string name="luxury_catemain_url">act=luxurycataMain</string>
+    <string name="my_login"><![CDATA[act=login&Id=%1$s&Pass=%2$s&isAkApp=Android]]></string>
+    <string name="my_logout"><![CDATA[act=logout&isAkApp=Android]]></string>
+    <string name="my_userinfo"><![CDATA[act=userInfo]]></string>
+    <string name="my_myinfo"><![CDATA[act=myInfo]]></string>
+
+    <!-- 알림보관함 -->
+    <string name="notisetBox"><![CDATA[act=getAlarmList]]></string>
+    
+    <!-- push 메시지 조회 (URL 이동) -->
+    <string name="act_view_push_detail"><![CDATA[act=viewPushDetail&push_id=%s&isAkApp=Android]]></string>
+
+    <!-- Device Deny 상태값 -->
+    <string name="alarmdenylist"><![CDATA[act=getDenyList&token=#token#]]></string>
+    <string name="alarmdenyupdate"><![CDATA[act=updateDeny&type=alarm&eid=#eid#&deny=#state#&token=#token#]]></string>
+    <string name="act_update_all_deny"><![CDATA[act=updateAllDeny&deny=%1$s&token=%2$s]]></string>
+    <string name="alarmdenytimeupdate"><![CDATA[act=updateDeny&type=denytime&starthh=%1$s&endhh=%2$s&token=%3$s]]></string>
+
+    <!-- Device Push 인증 -->
+    <string name="devicereg"><![CDATA[act=DeviceRegist&phonetype=2&token=%1$s&appid=%2$s&deny_all=%3$s&oldtoken=%4$s&version=%5$s]]></string>
+    <string name="updateduserid"><![CDATA[act=updateDeviceUser&token=%1$s&version=%2$s]]></string>
+
+    <!-- 이미지 리뷰 -->
+    <string name="imgreview"><![CDATA[act=insertGoodsCommentDo&eval1=#eval1#&eval2=#eval2#&eval3=#eval3#&eval4=#eval4#&commentTitle=#title#&commentContents=#content#]]></string>
+
+    <!-- 회원가입 -->
+    <string name="act_signup">act=signup</string>
+    <string name="param_signup">&amp;isAkApp=Android&amp;appVersion=%d</string>
+    <string name="act_usepolicy">act=usepolicy</string>
+    <string name="act_infopolicy">act=infopolicy</string>
+
+    <!-- mobileWeb Link(address.do) -->
+    <string name="uri_address">/app/address.do?</string>
+    <string name="ispurl2"><![CDATA[http://market.android.com/details?id=kvp.jjy.MispAndroid320&feature=search_result#?t=W251bGwsMSwxLDEsImt2cC5qankuTWlzcEFuZHJvaWQzMjAiXQ..]]></string>
+    <string name="ispurl"><![CDATA[market://details?id=kvp.jjy.MispAndroid320]]></string>
+
+    <!-- 상품평 혜택 조회 -->
+    <string name="goodsCommentBenefit"><![CDATA[act=goodsCommentBenefit]]></string>
+    <string name="save">저장</string>
+
+    <!-- string -->
+    <string name="uri_search">/search/Search.do</string>
+    <string name="uri_home">/main/Main.do</string>
+    <string name="uri_category">/display/ShopFront.do</string>    
+    <string name="uri_myak">/mypage/MyPlaceMain.do</string>
+    <string name="uri_login">/login/Login.do</string>
+    <string name="uri_loginOut">/login/Logout.do</string>
+    <string name="uri_shortcut">/order/ShoppingCart.do</string>
+    <string name="uri_event">/mypage/OrderDeliInquiry.do</string>
+    <string name="uri_history">/mypage/RecentChoicGoods.do</string>
+    
+    <!-- string name="uri_myak">/mypage/mypage.do?act=main</string>
+    <string name="uri_login">/login.do</string-->
+    
+    <string name="uri_search_suggest">/search/search.do?act=getSuggest&amp;q=%1$s</string>
+    <string name="uri_search_popular">/planned/akBest.do?act=bestSearchJSON&amp;limit=%1$d</string>
+    <string name="uri_personal_setting">/mypage/UserSetupMain.do</string>
+
+</resources>

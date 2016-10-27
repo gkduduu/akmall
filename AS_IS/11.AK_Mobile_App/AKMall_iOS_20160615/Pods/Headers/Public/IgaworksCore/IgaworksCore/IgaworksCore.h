@@ -1,0 +1,1 @@
+link ../../../../IgaworksCore/IgaworksCore.framework/Versions/A/Headers/IgaworksCore.h

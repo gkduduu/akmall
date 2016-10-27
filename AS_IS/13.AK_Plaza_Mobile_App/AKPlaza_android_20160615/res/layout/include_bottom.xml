@@ -1,0 +1,39 @@
+<com.ak.android.akplaza.widget.EqualMarginLinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+		android:orientation="horizontal"
+		android:id="@+id/bottom_tab"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"	
+		android:background="#272727">
+
+		<Button
+		    android:id="@+id/tab_home"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/tab_back" />
+
+		<Button
+	     android:id="@+id/tab_myak" 
+		 android:background="@drawable/tab_myak"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+		/>	
+		<Button
+	     android:id="@+id/tab_search" 
+		 android:background="@drawable/tab_search"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+		/>	
+		<Button
+	     android:id="@+id/tab_notice" 
+		 android:background="@drawable/tab_notice"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+		/>	
+		<Button
+	     android:id="@+id/tab_akmall" 
+		 android:background="@drawable/tab_estore"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+		/>		
+
+</com.ak.android.akplaza.widget.EqualMarginLinearLayout>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">터치AK몰</string>
+
+    <!-- 다이얼로그 Message -->
+    <string name="data_payment_info">3G로 서비스 이용 시 많은 데이터 통화료가 발생할 수 있습니다. 무선랜(Wi-Fi)이나 데이터 정액제를 통해 부담없이 사용하실 수 있습니다.</string>
+	<string name="data_payment_info_title">데이터 통화료 안내</string>
+    <string name="confirm_call">전화 연결</string>
+    <string name="call">통화</string>
+    <string name="alert">알림</string>
+    <string name="network_error">WiFi 혹은 3G망이 연결되지 않았거나 원활하지 않습니다.네트워크 확인후 다시 접속해 주세요!</string>
+	<string name="service_finish">서비스를 종료하시겠습니까?</string>
+	<string name="finish">종료</string>
+	<string name="not_attachment_image">첨부할 수 없는 이미지 입니다.</string>
+	<string name="not_attachment_image_by_not_found">첨부할 수 없는 이미지 입니다.\n이미지 파일이 존재하지 않거나 접근할 수 없는 상태입니다.</string>
+	<string name="not_attachment_image_by_out_of_memory">메모리가 부족하여 이미지를 첨부 할 수 없는 상태입니다.</string>
+	<string name="required_search_keyword">검색어를 입력해주세요.</string>
+	<string name="notfound_kakaotalk">카카오톡 어플 설치후 이용해주세요.</string>
+	
+    <!-- 알림 금지 시간 설정 -->
+    <string name="noti_deny_time_setting">알림 금지 시간대설정</string>
+    <string name="notistart_time">시작시간</string>
+    <string name="notiend_time">종료시간</string>
+    <string name="start_time_select">시작 시간 선택</string>
+    <string name="end_time_select">종료 시간 선택</string>
+    <string name="start_time_required">시작시간을 선택해주세요.</string>
+    <string name="end_time_required">종료시간을 선택해주세요.</string>
+    <string name="noti_deny_time_saved">알림 금지 시간이 설정 되었습니다</string>
+    <string name="noti_deny_time_save_fail">오류가 발생하여 알림 금지 시간을 설정하지 못하였습니다.</string>
+    <string name="noti_deny_set_fail">오류가 발생하여 알림 금지 시간 설정할 수 없습니다.</string>
+    <string name="none_setting">미설정</string>
+    <string name="enable_setting">설정</string>
+
+    <!-- 알림 설정 -->
+    <string name="request_allow_push">푸쉬알림 수신 동의를 하시면 AK몰에서 진행되는 다양한 혜택 정보를 받아보실 수 있습니다. (추후 사용자 설정에서 수신거부 가능)</string>
+    <string name="my_alram_0">아싸특가 알림</string>
+    <string name="my_alram_1">핫클릭 반값 알림</string>
+    <string name="my_alram_2">특가 소식 알림</string>
+    <string name="my_alram_3">PUSH 알림 받기</string>
+    <string name="my_alram_4">생일 알림</string>
+    <string name="my_alram_5">결혼기념일 알림</string>
+    <string name="my_alram_6">밤 12마다</string>
+    <string name="my_alram_7">아침 12마다</string>
+    <string name="my_alram_9">알림설정 옵션</string>
+    <string name="my_alram_10">생일·결혼기념일 알림 설정 시 축하 쿠폰 등의 고객 혜택을 받으실 수 있습니다.</string>
+    <string name="my_alram_11">알림 금지 시간</string>
+    <string name="my_alram_12">알림소리/진동 설정</string>
+    <string name="my_alram_13">알림설정 항목</string>
+    <string name="silent">무음</string>
+    <string name="vibration">진동</string>
+    <string name="sound">알림 소리</string>
+    <string name="start_time">시작 시간</string>
+    <string name="end_time">종료 시간</string>
+    <string name="allow">승인</string>
+    <string name="disallow">허용 안 함</string>
+    <string name="show">보기</string>
+    <string name="alarmbox">알림 보관함</string>
+    <string name="alarm_setting">쇼핑 정보 알림 설정</string>
+    <string name="unable_set_up_alarm">알림을 설정 할 수 없는 상태입니다.</string>
+    <string name="fail_regist_alarm">알림 등록에 실패하였습니다.</string>
+    <string name="lunar_calendar">음력</string>
+    <string name="solar_calendar">양력</string>
+    <string name="wedding_date_none">결혼 기념일 정보가 없습니다</string>
+    <string name="sound_comment">원하는 기능을 체크해야 서비스를 받을 수 있습니다. 또한 폰설정에도 기능체크를 하셔야 합니다.</string>
+    <string name="alarm_show_later">나중에 확인하기</string>
+
+    <!-- 로그인 -->
+    <string name="id_text">아이디를 입력해주세요</string>
+    <string name="pw_text">비밀번호를 입력해주세요</string>
+    <string name="login_info_01">비밀번호, 아이디 찾기는\nPC웹 AK몰(www.akmall.com)에서 가능합니다.</string>
+    <string name="login_info_02">PC웹 AK몰(www.akmall.com)에서</string>
+    <string name="login_info_03">이용하실 수 있습니다.</string>
+    <string name="signup">간단 회원가입</string>
+    <string name="login_setting">로그인설정</string>
+    <string name="required_login">로그인이 필요합니다.</string>
+    <string name="empty"> </string>
+    <string name="facebook_login">로그인</string>
+    <string name="facebook_logout">로그아웃</string>
+    <string name="logout_fail">로그아웃에 실패하였습니다.</string>
+
+    <!-- 타이틀 -->
+    <string name="prev">이전</string>
+    <string name="review_write">상품평쓰기</string>
+    <string name="popup">팝업</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="suggest_keyword">추천 검색어</string>
+    <string name="popular_keyword">인기 검색어</string>
+
+    <!-- 네비게이션 탭 -->
+    <string name="home">홈</string>
+    <string name="search_and_category">검색/카테고리</string>
+    <string name="cart">장바구니</string>
+    <string name="delivery">주문배송</string>
+    <string name="myak">마이페이지</string>
+    
+    <string name="shortcut">바로가기</string>
+    <string name="event">이벤트</string>
+    <string name="backward">뒤로</string>
+    <string name="forward">앞으로</string>
+    <string name="top">위로</string>
+
+    <!-- 이미지 리뷰 -->
+    <string name="design">디자인</string>
+    <string name="price">가격</string>
+    <string name="quality_performance">품질/성능</string>
+    <string name="shipping">배송</string>
+    <string name="image_review_hint">상품평 작성과 상품에 대한 평점을 주세요.</string>
+	<string name="appraisal">구매만족도 평가하기</string>
+	<string name="image_upload">이미지 업로드</string>
+	<string name="appraisal_benefit">상품평 작성시 혜택</string>
+    <string name="required_content">내용을 입력해주세요.</string>
+    <string name="required_rating">구매만족도를 평가해주세요.</string>
+    <string name="select_image">등록할 사진을 선택해주세요.</string>
+    <string name="review_post_success">상품평이 등록되었습니다.</string>
+    <string name="review_post_already">이미 상품평을 등록하셨습니다.</string>
+    <string name="review_post_error">상품평 등록중 오류가 발생하였습니다.</string>
+	<string name="complete">완료</string>
+	<string name="review_posting">상품평 등록중..</string>
+	
+	<!-- 결제 -->
+	<string name="not_found_other_app">처리 가능한 앱이 존재하지 않습니다.</string>
+	<string name="not_found_isp_app">모바일 ISP 앱이 설치되어 있지 않습니다.</string>
+	<string name="not_found_payment_app">결제에 필요한 앱이 설치되어 있지 않습니다.</string>
+	
+	<!-- QR Code Scan --> 
+	<string name="msg_camera_framework_bug">죄송합니다. 기기의 카메라에 오류가 생겼습니다. 기기를 재시작 해야될 수도 있습니다.</string>
+	<string name="msg_unsupported_qrcode">유효하지 않은 주소 입니다.</string>
+	<string name="msg_qrcode_auto_scan">QR코드를 자동으로 인식합니다.</string>
+	<string name="qrcode_scan">QR코드 검색</string>
+	<string name="qr">QR</string>	
+	
+	<!-- 메뉴 -->
+	<string name="refresh">새로고침</string>
+	<string name="login">로그인</string>
+	<string name="logout">로그아웃</string>
+	<string name="settings">사용자 설정</string>
+	
+	<!-- 검색바 -->
+	<string name="staging_hint">I love staging</string>
+
+	<!-- 루팅 팝업 -->	
+	<string name="msg_rooting_popup">고객님의 안전한 쇼핑을 위해 변경되지 않은 운영체제(순정상태)를 탑재한 단말기에 한해 서비스이용이 가능합니다</string>
+	
+ 	<string name="facebook_app_id">292834090734238</string>
+
+</resources>

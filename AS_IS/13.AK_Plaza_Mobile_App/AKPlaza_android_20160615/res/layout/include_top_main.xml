@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="52.5dip"
+    android:background="@drawable/navi_back" >
+
+    <Button
+        android:id="@+id/btn_top_qr"
+        android:layout_width="64.5dip"
+        android:layout_height="33dip"
+        android:layout_marginLeft="7.5dip"
+        android:layout_marginTop="9dip"
+        android:background="@drawable/ak_navi_btn_qr" />
+
+    <ImageView
+        android:id="@+id/plaza_logo"
+        android:layout_width="145.5dip"
+        android:layout_height="25.5dip"
+        android:layout_centerInParent="true"
+        android:background="@drawable/logo"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" >
+
+        <Button
+            android:id="@+id/btn_all_menu"
+            android:layout_width="64.5dip"
+            android:layout_height="33dip"
+            android:layout_marginRight="7.5dip"
+            android:layout_marginTop="9dip"
+            android:background="@drawable/ak_navi_btn_all" />
+    </LinearLayout>
+
+</RelativeLayout>

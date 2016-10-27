@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:scrollbars="vertical" >
+    
+    <include
+        android:id="@+id/header"
+        android:layout_alignParentTop="true"
+        layout="@layout/header" />
+
+    <LinearLayout
+       	android:layout_width="match_parent"
+       	android:layout_height="match_parent"
+       	android:layout_below="@id/header"
+       	android:background="@color/transparent"
+	    android:gravity="top|center"
+       	android:orientation="vertical" >
+		
+        <LinearLayout
+	       	android:layout_width="match_parent"
+	       	android:layout_height="62dp"
+	       	android:background="@drawable/box_line2"
+	       	android:gravity="center|left"
+	       	android:orientation="vertical" >
+       		
+            <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:background="@color/transparent"
+		        android:gravity="center|left"
+		        android:orientation="horizontal" >
+	    		<LinearLayout
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:gravity="left"
+			        android:orientation="vertical" >
+		        
+		           <TextView
+		               android:layout_width="wrap_content"
+		               android:layout_height="wrap_content"
+		               android:paddingLeft="10dp"               
+		               android:text="@string/silent"
+		               android:textColor="#333333"
+		               android:textSize="14sp" />
+		           
+		           
+		       </LinearLayout>
+           
+	           <RelativeLayout
+		           android:layout_width="match_parent"
+		           android:layout_height="wrap_content"
+		           android:paddingRight="10dp" 
+		           android:gravity="center_vertical|right">
+	              
+	               <Button
+		               android:id="@+id/mSilentCheck_Off"
+		               android:layout_width="22dp"
+		               android:layout_height="22dp"
+		               android:gravity="center_vertical"
+		               android:background="@drawable/user_setting_check_off"
+		               android:visibility="gone" />
+	               
+	               <Button
+		               android:id="@+id/mSilentCheck_On"
+		               android:layout_width="22dp"
+		               android:layout_height="22dp"
+		               android:gravity="center_vertical"
+		               android:background="@drawable/user_setting_check_on"
+		               android:visibility="visible" />
+	           </RelativeLayout>
+	      	</LinearLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+	       	android:layout_width="match_parent"
+	       	android:layout_height="62dp"
+	       	android:background="@drawable/box_line2"
+	       	android:gravity="center|left"
+	       	android:orientation="vertical" >
+       		
+            <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:background="@color/transparent"
+		        android:gravity="center|left"
+		        android:orientation="horizontal" >
+	    		<LinearLayout
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:gravity="left"
+			        android:orientation="vertical" >
+		        
+		           <TextView
+		               android:layout_width="wrap_content"
+		               android:layout_height="wrap_content"
+		               android:paddingLeft="10dp"               
+		               android:text="@string/vibration"
+		               android:textColor="#333333"
+		               android:textSize="14sp" />
+		           
+		           
+		       </LinearLayout>
+           
+	           <RelativeLayout
+		           android:layout_width="match_parent"
+		           android:layout_height="wrap_content"
+		           android:paddingRight="10dp" 
+		           android:gravity="center_vertical|right">
+	               
+	               <Button
+		               android:id="@+id/mShakeCheck_Off"
+		               android:layout_width="22dp"
+		               android:layout_height="22dp"
+		               android:gravity="center_vertical"
+		               android:background="@drawable/user_setting_check_off"
+		               android:visibility="gone" />
+	               
+	               <Button
+		               android:id="@+id/mShakeCheck_On"
+		               android:layout_width="22dp"
+		               android:layout_height="22dp"
+		               android:gravity="center_vertical"
+		               android:background="@drawable/user_setting_check_on"
+		               android:visibility="visible" />
+	           </RelativeLayout>
+	      	</LinearLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+	       	android:layout_width="match_parent"
+	       	android:layout_height="62dp"
+	       	android:background="@drawable/box_line2"
+	       	android:gravity="center|left"
+	       	android:orientation="vertical" >
+       		
+            <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:background="@color/transparent"
+		        android:gravity="center|left"
+		        android:orientation="horizontal" >
+	    		<LinearLayout
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:gravity="left"
+			        android:orientation="vertical" >
+		        
+		           <TextView
+		               android:layout_width="wrap_content"
+		               android:layout_height="wrap_content"
+		               android:paddingLeft="10dp"               
+		               android:text="@string/sound"
+		               android:textColor="#333333"
+		               android:textSize="14sp" />
+		           
+		           
+		       </LinearLayout>
+           
+	           <RelativeLayout
+		           android:layout_width="match_parent"
+		           android:layout_height="wrap_content"
+		           android:paddingRight="10dp" 
+		           android:gravity="center_vertical|right">
+	               
+	               <Button
+		               android:id="@+id/mSoundCheck_Off"
+		               android:layout_width="22dp"
+		               android:layout_height="22dp"
+		               android:gravity="center_vertical"
+		               android:background="@drawable/user_setting_check_off"
+		               android:visibility="gone" />
+	                
+	               <Button
+		               android:id="@+id/mSoundCheck_On"
+		               android:layout_width="22dp"
+		               android:layout_height="22dp"
+		               android:gravity="center_vertical"
+		               android:background="@drawable/user_setting_check_on"
+		               android:visibility="visible" />
+	           </RelativeLayout>
+	      	</LinearLayout>
+        </LinearLayout>
+        
+        <TextView
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"    
+	       android:paddingTop="7dp"
+	       android:paddingLeft="10dp"
+	       android:text="@string/sound_comment"
+	       android:textColor="#666666"
+	       android:textSize="12sp" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Gallery1">
+        <attr name="android:galleryItemBackground" />
+    </declare-styleable>
+    
+    <color name="bally">#999999</color>
+    <color name="pagetextcolor">#bfb3a6</color>
+</resources>

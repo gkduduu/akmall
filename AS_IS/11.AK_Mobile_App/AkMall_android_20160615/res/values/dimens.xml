@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="qrcode_auto_scan_msg">14sp</dimen>   
+</resources>

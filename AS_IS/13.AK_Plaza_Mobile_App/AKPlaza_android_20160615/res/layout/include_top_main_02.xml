@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+<!--     <Button
+        android:id="@+id/btn_top_back"
+        android:layout_width="57dip"
+        android:layout_height="33dip"
+        android:layout_marginLeft="7.5dip"
+        android:layout_marginTop="9dip"
+        android:background="@drawable/ak_navi_btn_back"
+        android:onClick="backButtonPressed" /> -->
+
+    <ImageView
+        android:id="@+id/plaza_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/logo_header_new"
+        android:contentDescription="@string/aplaza_logo" 
+        />
+
+    <WebView
+        android:id="@+id/appheader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+</RelativeLayout>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ak.android.akplaza"
+    android:versionCode="35"
+    android:versionName="2.1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <permission
+        android:name="com.ak.android.akplaza.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.ak.android.akplaza.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
+    <!-- <uses-permission android:name="android.permission.WRITE_CONTACTS" /> -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" /> -->
+    <!-- <uses-permission android:name="android.permission.VIBRATE" /> -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- Wifi related -->
+    <!-- <uses-permission android:name="android.permission.WRITE_SETTINGS" /> -->
+    <!-- <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- TelephonyManager를 이용한 단말 정보 얻어 오기 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="false" />
+
+    <application
+        android:name=".common.AKPlazaApplication"
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar" >
+
+        <!-- 일반 View -->
+        <activity
+            android:name=".intro.IntroActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 트위터 -->
+        <activity
+            android:name=".common.sns.twitter.TwitterLogin"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.ak.android.akplaza.common.sns.twitter.TwitterLogin" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <!-- WebView -->
+        <activity
+            android:name=".common.WebViewActivity"
+            android:label="AK PLAZA"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="web"
+                    android:scheme="@string/scheme_akplaza" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".alarm.NotiBoxActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".login.LoginMainActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".login.LoginSubActivity"
+            android:label="AK PLAZA Login"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app"
+                    android:path="/login/"
+                    android:scheme="@string/scheme_akplaza" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".receipt.ReceiptSubActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!-- 모바일 이벤트 -->
+        <activity
+            android:name=".mobileevent.activity.PhotoEventActivity"
+            android:label="@string/photo_event"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- Barcode, Qrcode Scan -->
+        <activity
+            android:name=".qrcode.QrCodeScanActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".qrcode.HistoryActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 푸쉬 알림 -->
+        <receiver
+            android:name=".C2dm_BroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.ak.android.akplaza" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.ak.android.akplaza" />
+            </intent-filter>
+        </receiver>
+        
+        <activity android:screenOrientation="portrait"
+                  android:name=".common.ResultRcvActivity">
+            <intent-filter> 
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="akplaza" />
+            </intent-filter>
+        </activity>
+        <!-- p65458 20150716 IgawCommon  sdk 연동 add -->
+        <meta-data android:name="igaworks_app_key" android:value="642432900" />
+        <meta-data android:name="igaworks_hash_key" android:value="519202446289476d" />
+        
+    </application>
+
+</manifest>

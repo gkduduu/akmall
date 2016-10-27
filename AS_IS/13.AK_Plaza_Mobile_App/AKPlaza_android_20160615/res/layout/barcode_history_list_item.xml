@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="46dip"
+    android:orientation="horizontal" 
+    android:background="#e5e2d5">
+    
+    <ImageView 
+        	android:id="@+id/barcode_format_img"
+			android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:background="@drawable/history_qr"
+	    	android:layout_marginLeft="6dip"
+	    	android:layout_marginTop="6dip"
+	    />
+    
+    <LinearLayout
+        android:id="@+id/barcode_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="25dip"
+        android:layout_toRightOf="@id/barcode_format_img"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/barcode_result_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dip"
+            android:layout_marginTop="6dip"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="http://opencast.naver.com/BD447/56/flow"
+            android:textColor="@color/black"
+            android:textSize="23px" />
+
+        <TextView
+            android:id="@+id/barcode_result_stamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dip"
+            android:layout_marginTop="3dip"
+            android:text="2012.01.01"
+            android:textSize="20px" />
+    </LinearLayout>
+    
+	 <ImageView 
+		android:id="@+id/barcode_history_arrow" 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="13dip"
+		android:layout_marginRight="6dip"
+		android:layout_alignParentRight="true"
+		android:background="@drawable/arrow_black_right"
+	     />
+
+</RelativeLayout>

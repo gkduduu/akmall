@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.AK.ProgressBar.Horizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_ak</item>
+        <!-- <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_ak</item> -->
+        <item name="android:minHeight">6dp</item>
+        <item name="android:maxHeight">6dp</item>
+    </style>
+
+    <style name="Widget.AK.RatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_ak</item>
+        <item name="android:indeterminateDrawable">@drawable/ratingbar_ak</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxHeight">48dp</item>
+    </style>
+
+    <style name="Header">
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+
+    <style name="Header.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Header.Button">
+        <!-- <item name="android:shadowColor">#77000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">1</item> -->
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/btn_headr_text_dark</item>       
+    </style>
+
+    <style name="Header.Button.Prev">
+        <item name="android:background">@drawable/btn_header_prev</item>
+    </style>
+
+    <style name="Header.Button.Normal">
+        <item name="android:background">@drawable/btn_header_dark</item>
+    </style>
+
+    <style name="body">
+        <item name="android:padding">7dp</item>
+    </style>
+
+    <style name="label_dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+    
+    <style name="transparentView">
+		<item name="android:windowFrame">@null</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowTitleStyle">@null</item>
+		<item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+		<item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+		<item name="android:backgroundDimEnabled">true</item>
+		<item name="android:background">@android:color/transparent</item>
+	</style>
+
+</resources>

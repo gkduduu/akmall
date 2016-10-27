@@ -1,0 +1,6 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/IgaworksCore" "${PODS_ROOT}/LiveOps"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2" $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/IgaworksCore" "${PODS_ROOT}/Headers/Public/LiveOps"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/IgaworksCore" -isystem "${PODS_ROOT}/Headers/Public/LiveOps"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"xml2" -framework "CoreTelephony" -framework "IgaworksCore" -framework "LiveOps" -framework "SystemConfiguration" -framework "iAd"
+PODS_ROOT = ${SRCROOT}/Pods

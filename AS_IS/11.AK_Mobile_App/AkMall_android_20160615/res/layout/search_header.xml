@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/header_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:orientation="horizontal"    
+    android:paddingRight="6.6dp" >
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/header_bi" 
+        android:layout_marginLeft="7.3dp"/>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6.6dp"
+        android:layout_marginRight="6.6dp"
+        android:layout_weight="1" >
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/header_search_bar_input"
+            android:ems="10"
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
+
+        <ImageButton
+            android:id="@+id/btnClearText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:contentDescription="@string/clear"
+            android:paddingRight="8dp"
+            android:src="@drawable/header_search_del"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/btnQrScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:contentDescription="@string/qr"
+        android:src="@drawable/header_btn_qr" />
+
+    <ImageButton
+        android:id="@+id/btnSearchCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:contentDescription="@string/cancel"
+        android:src="@drawable/header_btn_cancel"
+        android:visibility="gone" />
+
+</LinearLayout>

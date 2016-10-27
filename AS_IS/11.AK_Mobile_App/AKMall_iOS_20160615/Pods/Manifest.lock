@@ -1,0 +1,13 @@
+PODS:
+  - IgaworksCore (2.0.4)
+  - LiveOps (2.0.5)
+
+DEPENDENCIES:
+  - IgaworksCore
+  - LiveOps
+
+SPEC CHECKSUMS:
+  IgaworksCore: ec43f8af0a8c35a3100e38d8a96e430b9c4722bb
+  LiveOps: f59600a89dbeff417e46794d0c9595668dc830e3
+
+COCOAPODS: 0.39.0

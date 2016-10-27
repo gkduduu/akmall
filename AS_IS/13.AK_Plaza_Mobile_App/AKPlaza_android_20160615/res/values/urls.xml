@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="scheme_akplaza">akplaza</string>
+
+    <string name="url_address"><![CDATA[app/address.do?]]></string>
+    <string name="url_getAlarmList"><![CDATA[act=getAlarmList]]></string>
+    <string name="act_main"><![CDATA[act=index]]></string>
+    <string name="act_login"><![CDATA[act=login]]></string>
+    <string name="act_logout"><![CDATA[act=logout]]></string>
+    <string name="act_certificate"><![CDATA[act=certificate]]></string>
+    <string name="act_members"><![CDATA[act=membersCard]]></string>
+    <!-- <string name="act_applereceiptregproc"><![CDATA[act=appleReceiptRegProc&recptNo=%1$s&recptPay=%2$s]]></string> -->
+    <string name="act_devicereg"><![CDATA[act=pushDeviceRegist&token=%1$s&phonetype=1&appid=%2$s&deny=%3$s]]></string>
+    <string name="act_regdevice_token"><![CDATA[act=pushDeviceRegist&token=%1$s&phonetype=1&appid=%2$s&deny=%3$s]]></string>
+    <string name="act_getDenyState"><![CDATA[act=getDenyState&token=#token#]]></string>
+    <string name="act_updatedeny"><![CDATA[act=updateDeny&token=#token#&deny=#deny#]]></string>
+    <string name="act_myak"><![CDATA[act=myak]]></string>
+    <string name="act_update_device_token_userid">act=updateDeviceTokenUserid&amp;token=%s</string>
+    <string name="act_signin_device">signinDevice</string>
+    <string name="act_header"><![CDATA[act=appHeader]]></string>
+
+    <!-- 전체메뉴 -->
+    <string name="act_appLnb"><![CDATA[act=appLnb]]></string>
+    <string name="act_searchBrand"><![CDATA[act=searchBrand]]></string>
+    <string name="act_akmile"><![CDATA[act=akmile]]></string>
+
+    <!-- 회원가입 -->
+    <string name="act_signup">act=signup</string>
+    <string name="param_signup"><![CDATA[&isAkApp=Android&appVersion=%d]]></string>
+    <string name="act_usepolicy">act=usepolicy</string>
+    <string name="act_infopolicy">act=infopolicy</string>
+
+    <!-- push 메시지 조회 (URL 이동) -->
+    <string name="act_view_push_detail"><![CDATA[act=viewPushDetail&push_id=%s&isApp=Y]]></string>
+
+</resources>

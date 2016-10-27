@@ -1,0 +1,35 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "11cfe9fc-2774-0841-a834-1b6ec3ef9355++120",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "24e55314-51ba-b74a-ba89-a60a568529ff++9478" : {
+
+    },
+    "11cfe9fc-2774-0841-a834-1b6ec3ef9355++120" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "24e55314-51ba-b74a-ba89-a60a568529ff++9478" : 0,
+    "11cfe9fc-2774-0841-a834-1b6ec3ef9355++120" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9E46FE3B-CB19-44D8-85A0-617211139725",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "24e55314-51ba-b74a-ba89-a60a568529ff++9478" : "AKPlaza_iPhone_Svn\/",
+    "11cfe9fc-2774-0841-a834-1b6ec3ef9355++120" : "AKPlaza_iOS\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AppAkPlaza_IOS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AppAkPlaza_IOS.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/91.3.115.203\/svn\/akm",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "11cfe9fc-2774-0841-a834-1b6ec3ef9355++120"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/210.219.255.123:8443\/svn\/AKMall",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "24e55314-51ba-b74a-ba89-a60a568529ff++9478"
+    }
+  ]
+}

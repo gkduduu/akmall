@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="akurl_array">
+	    <item><![CDATA[http://m.akmall.com]]></item>
+	    <item><![CDATA[http://www.akmall.com]]></item>
+	    <item><![CDATA[http://m.akplaza.com]]></item>
+	    <item><![CDATA[http://www.akplaza.com]]></item>
+	</string-array>    
+</resources>
