@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_voice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="android.ak.com.akmall.activity.VoiceActivity">
+
+    <Button
+        android:id="@+id/VOICE_START_RECORDING"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="음성인식 시작"/>
+    <Button
+        android:id="@+id/VOICE_STOP_RECORDING"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="음성인식 종료"/>
+
+    <TextView
+        android:id="@+id/VOICE_RESULT_TEXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="result"/>
+</LinearLayout>

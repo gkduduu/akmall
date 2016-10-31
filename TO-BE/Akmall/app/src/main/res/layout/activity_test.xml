@@ -5,23 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="android.ak.com.akmall.TestActivity">
+    tools:context="android.ak.com.akmall.activity.TestActivity">
 
     <Button
+        android:id="@+id/TEST_QRCODE"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="qr코드"/>
 
     <Button
+        android:id="@+id/TEST_VOICE"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="qr코드"/>
+        android:text="음성인식"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="동영상플레이"/>
-    
     <VideoView
         android:id="@+id/TEST_VIDEO"
         android:layout_width="match_parent"
