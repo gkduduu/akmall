@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Akmall</string>
+
+    <!--사용자설정-->
+    <string name="setting_title">사용자 설정</string>
+    <string name="setting_login">로그인</string>
+    <string name="setting_alarm">알림 설정</string>
+    <string name="setting_alarm_receive">알림 받기</string>
+    <string name="setting_alarm_time">알림금지 시간설정</string>
+    <string name="setting_alarm_nosound">무음 알림 받기</string>
+    <string name="setting_version">앱 버전 정보</string>
+    <string name="setting_center">고객센터</string>
+    <string name="setting_call">전화하기</string>
+    <string name="setting_consult">문의하기</string>
+    <string name="setting_number">1588-2055</string>
+    <string name="setting_ptop">1:1 상담문의</string>
 </resources>

@@ -6,6 +6,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -36,6 +39,18 @@ public class TestActivity extends Activity {
     void clickVoice() {
         //	056d36313be683772dd4d3662952304b
         startActivityForResult(new Intent(this,VoiceActivity_.class),999);
+    }
+
+    //파워딜
+    @Click(R.id.TEST_POWER)
+    void clickPower() {
+
+    }
+
+    //설정
+    @Click(R.id.TEST_SETTING)
+    void clickSetting() {
+        startActivity(new Intent(this,SettingActivity_.class));
     }
 
     @AfterViews

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#349862"
     tools:context="android.ak.com.akmall.activity.TestActivity">
 
     <Button
@@ -18,6 +19,19 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="음성인식"/>
+
+    <Button
+        android:id="@+id/TEST_POWER"
+        android:background="@drawable/round_ffffff_op70"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="파워딜"/>
+
+    <Button
+        android:id="@+id/TEST_SETTING"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="설정"/>
 
     <VideoView
         android:id="@+id/TEST_VIDEO"
