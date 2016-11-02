@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/I_POWERDEAL_MAINIV"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"/>
+
+    <RelativeLayout
+        android:layout_width="107dp"
+        android:layout_height="18dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/round_ffffff_op70">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="58dp"
+            android:textSize="10sp"
+            android:text="88:88:88"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:id="@+id/imageView" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/round_e2005e">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            android:text="마감임박"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="130dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/list_ak_logo"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="18dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/I_POWERDEAL_MAINIV">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:textSize="12sp"
+            android:textColor="#333"
+            android:text="상품명"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:text="상품소개"/>
+            <TextView
+                android:id="@+id/i_powerdeal_gumae"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textSize="11sp"
+                android:text="구매중"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/i_powerdeal_gumae"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:text="003개"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

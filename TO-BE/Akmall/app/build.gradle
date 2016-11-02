@@ -59,6 +59,11 @@ dependencies {
     //zxing(바코드)
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
     compile 'com.google.zxing:core:3.2.0'
+
+    //asynkjop
+    compile 'com.arasthel:asyncjob-library:1.0.3'
+
+    compile 'com.android.support:recyclerview-v7:+'
     compile 'com.android.support:appcompat-v7:22.0.0'
     testCompile 'junit:junit:4.12'
     compile project(':daum-speech')

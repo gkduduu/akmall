@@ -4,6 +4,7 @@
     <!--사용자설정-->
     <string name="setting_title">사용자 설정</string>
     <string name="setting_login">로그인</string>
+    <string name="setting_logout">로그아웃</string>
     <string name="setting_alarm">알림 설정</string>
     <string name="setting_alarm_receive">알림 받기</string>
     <string name="setting_alarm_time">알림금지 시간설정</string>
