@@ -28,7 +28,8 @@ public class TestActivity extends Activity {
     @ViewById
     VideoView TEST_VIDEO;
 
-    //qr코드 스캔
+    //qr코드 스캔/6
+
     @Click(R.id.TEST_QRCODE)
     void clickQR() {
         new IntentIntegrator(this).initiateScan();
@@ -42,9 +43,9 @@ public class TestActivity extends Activity {
     }
 
     //파워딜
-    @Click(R.id.TEST_POWER)
+    @Click(R.id.TEST_POWERDEAL)
     void clickPower() {
-
+        startActivity(new Intent(this,ShopPowerDealActivity_.class));
     }
 
     //설정

@@ -12,24 +12,35 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by gkdud on 2016-08-10.
+ * Created by gkdud on 2016-11-02.
+ * 파워딜 아답타
  */
 public class PowerDealAdapter extends RecyclerView.Adapter<PowerDealAdapter.ViewHolder> {
-    boolean isModifying;
     Context context;
     ArrayList<String> list = new ArrayList<>();
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView holderTitle;
+        TextView I_POWERDEAL_REDTV;
+        TextView I_POWERDEAL_TIMETV;
+        ImageView I_POWERDEAL_MAINIV;
+        TextView I_POWERDEAL_TITLE;
+        TextView I_POWERDEAL_CONTENT;
+        TextView I_POWERDEAL_EA;
 
         public ViewHolder(View view) {
             super(view);
-//            holderTitle = (TextView)view.findViewById(R.id.MY_TV_TITLE);
+             I_POWERDEAL_REDTV = (TextView)view.findViewById(R.id.I_POWERDEAL_REDTV);
+             I_POWERDEAL_TIMETV = (TextView)view.findViewById(R.id.I_POWERDEAL_TIMETV);
+             I_POWERDEAL_MAINIV = (ImageView) view.findViewById(R.id.I_POWERDEAL_MAINIV);
+             I_POWERDEAL_TITLE = (TextView)view.findViewById(R.id.I_POWERDEAL_TITLE);
+             I_POWERDEAL_CONTENT = (TextView)view.findViewById(R.id.I_POWERDEAL_CONTENT);
+             I_POWERDEAL_EA = (TextView)view.findViewById(R.id.I_POWERDEAL_EA);
         }
     }
 
-    public PowerDealAdapter(Context context, ArrayList<String> historyList) {
+    public PowerDealAdapter(Context context, ArrayList<String> list) {
         this.context = context;
-        this.isModifying = isModifying;
+        this.list = list;
     }
 
     @Override
@@ -42,12 +53,12 @@ public class PowerDealAdapter extends RecyclerView.Adapter<PowerDealAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder,final int pos) {
+    public void onBindViewHolder(ViewHolder holder, final int pos) {
     }
 
     @Override
     public int getItemCount() {
-        if(null == list) {
+        if (null == list) {
             return 0;
         }
         return list.size();

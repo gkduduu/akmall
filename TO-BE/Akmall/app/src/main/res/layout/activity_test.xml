@@ -21,17 +21,16 @@
         android:text="음성인식"/>
 
     <Button
-        android:id="@+id/TEST_POWER"
-        android:background="@drawable/round_ffffff_op70"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="파워딜"/>
-
-    <Button
         android:id="@+id/TEST_SETTING"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="설정"/>
+
+    <Button
+        android:id="@+id/TEST_POWERDEAL"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="파워딝ㄱ"/>
 
     <VideoView
         android:id="@+id/TEST_VIDEO"

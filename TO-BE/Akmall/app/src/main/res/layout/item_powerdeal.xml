@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/I_POWERDEAL_MAINIV"
@@ -14,6 +14,7 @@
         android:layout_margin="15dp"
         android:background="@drawable/round_ffffff_op70">
         <TextView
+            android:id="@+id/I_POWERDEAL_TIMETV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="58dp"
@@ -35,6 +36,7 @@
         android:layout_margin="15dp"
         android:background="@drawable/round_e2005e">
         <TextView
+            android:id="@+id/I_POWERDEAL_REDTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="9sp"
@@ -60,6 +62,7 @@
         android:orientation="vertical"
         android:layout_below="@+id/I_POWERDEAL_MAINIV">
         <TextView
+            android:id="@+id/I_POWERDEAL_TITLE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
@@ -70,6 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/I_POWERDEAL_CONTENT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -85,6 +89,7 @@
                 android:textSize="11sp"
                 android:text="구매중"/>
             <TextView
+                android:id="@+id/I_POWERDEAL_EA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
