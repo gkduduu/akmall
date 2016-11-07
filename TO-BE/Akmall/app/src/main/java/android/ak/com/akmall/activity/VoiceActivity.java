@@ -4,6 +4,7 @@ import android.ak.com.akmall.R;
 import android.ak.com.akmall.utils.Const;
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.daum.mf.speech.api.SpeechRecognizeListener;
@@ -25,14 +26,23 @@ public class VoiceActivity extends Activity {
     @ViewById
     TextView VOICE_RESULT_TEXT;
 
+    @ViewById
+    ImageView VOICE_START_RECORDING;
+
     @Click(R.id.VOICE_START_RECORDING)
     void clickStart() {
+        VOICE_START_RECORDING.setImageResource(R.drawable.voice_on);
         client.startRecording(true);
     }
-    @Click(R.id.VOICE_STOP_RECORDING)
-    void clickStop() {
-        //client.cancelRecording(); 은 음성인식을 취소 ->서버 result가 없음
-        client.stopRecording();
+//    @Click(R.id.VOICE_STOP_RECORDING)
+//    void clickStop() {
+//        //client.cancelRecording(); 은 음성인식을 취소 ->서버 result가 없음
+//        client.stopRecording();
+//    }
+
+    @Click(R.id.VOICE_CLOSE)
+    void clickClose() {
+        finish();
     }
 
     @Override
@@ -87,6 +97,7 @@ public class VoiceActivity extends Activity {
 
             @Override
             public void onResults(Bundle bundle) {
+                VOICE_START_RECORDING.setImageResource(R.drawable.voice_off);
                 ArrayList<String> texts = bundle.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
                 ArrayList<Integer> confs = bundle.getIntegerArrayList(SpeechRecognizerClient.KEY_CONFIDENCE_VALUES);
                 StringBuffer strResult = new StringBuffer();

@@ -7,16 +7,53 @@
     android:orientation="vertical"
     tools:context="android.ak.com.akmall.activity.VoiceActivity">
 
-    <Button
-        android:id="@+id/VOICE_START_RECORDING"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="음성인식 시작"/>
-    <Button
-        android:id="@+id/VOICE_STOP_RECORDING"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/voice_title" />
+
+        <ImageView
+            android:id="@+id/VOICE_CLOSE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/btn_close" />
+    </RelativeLayout>
+    <View
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="음성인식 종료"/>
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/search_bg_line">
+        <ImageView
+            android:id="@+id/VOICE_START_RECORDING"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/voice_off"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:textColor="#333"
+        android:text="@string/voice_content"/>
 
     <TextView
         android:id="@+id/VOICE_RESULT_TEXT"

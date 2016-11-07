@@ -15,4 +15,10 @@
     <string name="setting_consult">문의하기</string>
     <string name="setting_number">1588-2055</string>
     <string name="setting_ptop">1:1 상담문의</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <!-- 음성검색 -->
+    <string name="voice_title">음성검색</string>
+    <string name="voice_content">검색어를 말해주세요</string>
 </resources>

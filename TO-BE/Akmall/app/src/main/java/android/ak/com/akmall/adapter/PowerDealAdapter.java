@@ -2,6 +2,7 @@ package android.ak.com.akmall.adapter;
 
 import android.ak.com.akmall.R;
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,21 @@ public class PowerDealAdapter extends RecyclerView.Adapter<PowerDealAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int pos) {
+    public void onBindViewHolder(final ViewHolder holder, final int pos) {
+        CountDownTimer timer;
+        timer = new CountDownTimer(36000000, 1000) {
+            @Override
+            public void onFinish() {
+            }
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000) % 60;
+                int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
+                int hour = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 60);
+                holder.I_POWERDEAL_TIMETV.setText(String.format("%02d", hour) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
+            }
+        };
+        timer.start();
     }
 
     @Override

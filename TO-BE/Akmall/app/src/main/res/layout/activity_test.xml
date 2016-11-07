@@ -32,6 +32,18 @@
         android:layout_height="50dp"
         android:text="파워딝ㄱ"/>
 
+    <Button
+        android:id="@+id/TEST_BEST"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="기획코너/베스트"/>
+
+    <Button
+        android:id="@+id/TEST_GRID"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="스토어/바둑판식"/>
+
     <VideoView
         android:id="@+id/TEST_VIDEO"
         android:layout_width="match_parent"

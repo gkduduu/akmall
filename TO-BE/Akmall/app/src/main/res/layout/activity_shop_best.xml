@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_shop_power_deal"
+    android:id="@+id/activity_shop_best"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fff"
-    tools:context="android.ak.com.akmall.activity.ShopPowerDealActivity">
+    tools:context="android.ak.com.akmall.activity.ShopBestActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/POWERDEAL_RV_LIST"
+        android:id="@+id/BEST_RV_LIST"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

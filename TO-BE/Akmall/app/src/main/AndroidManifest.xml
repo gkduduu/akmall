@@ -16,6 +16,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -36,8 +37,31 @@
         <activity android:name=".activity.VoiceActivity_" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.SettingActivity_" />
-        <activity android:name=".activity.ShopPowerDealActivity"></activity>
-        <activity android:name=".activity.ShopPowerDealActivity_"></activity>
+        <activity android:name=".activity.ShopPowerDealActivity" />
+        <activity android:name=".activity.ShopPowerDealActivity_" />
+        <activity android:name=".activity.ShopBestActivity" />
+        <activity android:name=".activity.ShopBestActivity_" />
+        <activity android:name=".activity.ShopGridActivity" />
+        <activity android:name=".activity.ShopGridActivity_" />
+
+        <receiver android:name=".utils.BigWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_big" />
+        </receiver>
+        <receiver android:name=".utils.SmallWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_small" />
+        </receiver>
     </application>
 
 </manifest>

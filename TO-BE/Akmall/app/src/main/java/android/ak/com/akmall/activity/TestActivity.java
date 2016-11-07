@@ -48,6 +48,18 @@ public class TestActivity extends Activity {
         startActivity(new Intent(this,ShopPowerDealActivity_.class));
     }
 
+    //베스트
+    @Click(R.id.TEST_BEST)
+    void clickBest() {
+        startActivity(new Intent(this,ShopBestActivity_.class));
+    }
+
+    //바둑판식
+    @Click(R.id.TEST_GRID)
+    void clickGrid() {
+        startActivity(new Intent(this,ShopGridActivity_.class));
+    }
+
     //설정
     @Click(R.id.TEST_SETTING)
     void clickSetting() {
