@@ -4,4 +4,4 @@
     android:minHeight="146dp"
     android:minWidth="294dp"
     android:updatePeriodMillis="1800000"
-    android:previewImage="@drawable/widget_logo"/>
+    android:previewImage="@drawable/preview_4_2"/>

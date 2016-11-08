@@ -26,7 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/btn_close" />
+            android:src="@drawable/btn_back" />
     </RelativeLayout>
     <View
         android:layout_width="match_parent"

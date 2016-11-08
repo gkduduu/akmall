@@ -43,6 +43,8 @@
         <activity android:name=".activity.ShopBestActivity_" />
         <activity android:name=".activity.ShopGridActivity" />
         <activity android:name=".activity.ShopGridActivity_" />
+        <activity android:name=".activity.ShopGallaryActivity"></activity>
+        <activity android:name=".activity.ShopGallaryActivity_"></activity>
 
         <receiver android:name=".utils.BigWidgetProvider">
             <intent-filter>

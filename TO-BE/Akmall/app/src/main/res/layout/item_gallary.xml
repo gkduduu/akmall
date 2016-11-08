@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="360dp">
+
+        <ImageView
+            android:id="@+id/I_GALLARY_MAINIV"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:background="#68a" />
+
+        <RelativeLayout
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/I_GALLARY_MENUIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/list_btn_menu" />
+
+            <ImageView
+                android:id="@+id/I_GALLARY_CLOSEIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/list_btn_close"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/I_GALLARY_SHAREIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/I_GALLARY_CLOSEIV"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/list_btn_share"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/I_GALLARY_LIKEIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/I_GALLARY_SHAREIV"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/list_btn_like"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/I_GALLARY_BAGIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/I_GALLARY_LIKEIV"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/list_btn_bag"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e5e5e5"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="46dp"
+            android:layout_height="17dp"
+            android:layout_marginRight="2dp"
+            android:background="#333">
+
+            <TextView
+                android:id="@+id/I_GALLARY_BRANCH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="AK 분당"
+                android:textColor="#fff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/I_GALLARY_PICKIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:src="@drawable/tag_pick" />
+
+        <ImageView
+            android:id="@+id/I_GALLARY_SELECTIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tag_selectshop" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/I_GALLARY_NAME"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="7dp"
+        android:maxLines="2"
+        android:text="[페이지플린] 프릴소매린넨 블라우스_p6b23408 뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/I_GALLARY_PERCENT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="#333"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/I_GALLARY_PERCENT2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="%"
+            android:textColor="#333"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/I_GALLARY_PRICE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10,000원"
+                android:textColor="#999"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/I_GALLARY_SALEPRICE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="100,000원"
+                android:textColor="#333"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e5e5e5"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <TextView
+            android:id="@+id/I_GALLARY_DELIVERY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="무료배송"
+            android:textSize="11sp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/I_GALLARY_DELIVERY"
+            android:background="#ddd"></View>
+
+        <TextView
+            android:id="@+id/I_GALLARY_SCORE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/view"
+            android:text="상품평(100점)"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:id="@+id/I_GALLARY_SIMILARIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/btn_link" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"></View>
+
+</LinearLayout>

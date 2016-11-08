@@ -166,7 +166,6 @@
             android:id="@+id/SETTING_TV_VERSION"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1.1.1"
             android:textColor="#666"
             android:textSize="13sp"
             android:layout_centerVertical="true"/>
