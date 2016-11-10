@@ -9,8 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import android.support.annotation.Nullable;
-
 /**
  * Created by gkduduu on 2016. 11. 02..
  */
@@ -18,15 +16,15 @@ public class URLManager {
     private static URLManager instance;
 
     /* URL */
-    public final static String SERVER_URL_DEBUG = "isrnd2.bccard.com";
+    public final static String SERVER_URL_DEBUG = "91.3.115.135";
     public final static int SERVER_PORT_DEBUG = 10443;
 
-    public final static String SERVER_URL_REAL = "m.bccard.com";
+    public final static String SERVER_URL_REAL = "";
     public final static int SERVER_PORT_REAL = 80;
 
 
     public static String getServerUrl() {
-        return "https://" + SERVER_URL_REAL;
+        return "http://" + SERVER_URL_DEBUG;
     }
 
     public static URLManager getInstance() {
@@ -34,6 +32,13 @@ public class URLManager {
             instance = new URLManager();
         }
         return instance;
+    }
+
+    //로그인
+    public static String getLoginURL() {
+        //http://91.3.115.135/login/CheckCustCertNoAjax.do
+//        "cust_cert_id" = 1457
+        return getServerUrl() + "/login/CheckCustCertNoAjax.do";
     }
 
     static public String getUrlPathOnly(String urlString) {

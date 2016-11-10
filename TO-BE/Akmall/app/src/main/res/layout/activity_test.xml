@@ -44,6 +44,12 @@
         android:layout_height="50dp"
         android:text="스토어/바둑판식"/>
 
+    <Button
+        android:id="@+id/TEST_SERVER"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="서버연동 테스트"/>
+
     <VideoView
         android:id="@+id/TEST_VIDEO"
         android:layout_width="match_parent"

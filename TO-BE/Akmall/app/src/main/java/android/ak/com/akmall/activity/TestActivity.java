@@ -6,9 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -65,6 +62,10 @@ public class TestActivity extends Activity {
     void clickSetting() {
         startActivity(new Intent(this,SettingActivity_.class));
     }
+
+    //서버연동 테스트
+    @Click(R.id.TEST_SERVER)
+    void clickServer(){startActivity(new Intent(this,IntroActivity_.class));}
 
     @AfterViews
     void afterView(){

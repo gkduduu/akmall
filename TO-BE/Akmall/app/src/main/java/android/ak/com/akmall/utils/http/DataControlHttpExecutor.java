@@ -4,6 +4,7 @@ import android.ak.com.akmall.utils.BaseUtils;
 import android.ak.com.akmall.utils.Feature;
 import android.content.ContentValues;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -72,26 +73,24 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         this._operationListener.onRequestOperation(null);
     }
 
-//    public DataControlHttpExecutor requestCertCertification(@Nullable final Context context, String pkcs, String sufJu, String preJu, String yn, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
-//        final String requestUrl = new StringBuilder(URLManager.getCertMangement())
-//                .append(URLManager.getCommonUrlParams(true))
-//                .append("&exec=app")
-//                .append("&PKCS7SignedData=" + pkcs)
-//                .append("&ssn1=" + sufJu)
-//                .append("&ssn2=" + preJu)
-//                .append("&certAndSearch=" + yn)
-//                .toString();
-//        this._operationListener = new RequestOperationListener() {
-//            @Override
-//            public void onRequestOperation(Object responseData) {
-//                _responseData = sendRecvByHTTP(AppManager.isDebug() != true, requestUrl, null, true, context);
-//            }
-//        };
-//        this._completionListener = completionListener;
-//        this._failureListener = failureListener;
-//
-//        return this;
-//    }
+    //로그인
+    public DataControlHttpExecutor requestLogin(@Nullable final Context context, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
+        final String requestUrl = new StringBuilder(URLManager.getLoginURL() + "?")
+                .append("cust_cert_id=1457")
+                .toString();
+
+        Log.i("jhy",requestUrl);
+        this._operationListener = new RequestOperationListener() {
+            @Override
+            public void onRequestOperation(Object responseData) {
+                _responseData = sendRecvByHTTP(false, requestUrl, false, context);
+            }
+        };
+        this._completionListener = completionListener;
+        this._failureListener = failureListener;
+
+        return this;
+    }
 
     /*
     Internal Operations
@@ -118,7 +117,6 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
             URL SSLurl = new URL(requestUrl);
             trustAllHosts();
 
-            isHttps = true;
             if (isHttps) {
                 _urlConnection = (HttpsURLConnection) SSLurl.openConnection();
                 ((HttpsURLConnection) _urlConnection).setHostnameVerifier(new HostnameVerifier() {
@@ -135,7 +133,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
             _urlConnection.setReadTimeout(30000);
 
             if (Feature.cookie == null) {
-                _urlConnection.setRequestProperty("Cookie", "isApp=true;");
+
             } else {
                 StringBuilder cookiesSB = new StringBuilder();
                 for (String aKey : Feature.cookie.keySet()) {
@@ -144,7 +142,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
                         cookiesSB.append(aKey).append("=").append(aValue).append("; ");
                     }
                 }
-                _urlConnection.setRequestProperty("Cookie", "isApp=true;" + String.valueOf(cookiesSB));
+                _urlConnection.setRequestProperty("Cookie",String.valueOf(cookiesSB));
             }
             _urlConnection.setDoInput(true);
             _urlConnection.setDoOutput(true);

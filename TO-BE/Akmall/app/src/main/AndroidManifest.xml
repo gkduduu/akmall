@@ -18,6 +18,15 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <!-- [START gcm_permission] -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- [END gcm_permission] -->
+
+    <permission android:name="android.ak.com.akmall.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="android.ak.com.akmall.permission.C2D_MESSAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -43,8 +52,10 @@
         <activity android:name=".activity.ShopBestActivity_" />
         <activity android:name=".activity.ShopGridActivity" />
         <activity android:name=".activity.ShopGridActivity_" />
-        <activity android:name=".activity.ShopGallaryActivity"></activity>
-        <activity android:name=".activity.ShopGallaryActivity_"></activity>
+        <activity android:name=".activity.ShopGallaryActivity" />
+        <activity android:name=".activity.ShopGallaryActivity_" />
+        <activity android:name=".activity.IntroActivity"></activity>
+        <activity android:name=".activity.IntroActivity_"></activity>
 
         <receiver android:name=".utils.BigWidgetProvider">
             <intent-filter>
@@ -64,6 +75,38 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_small" />
         </receiver>
+
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="android.ak.com.akmall.gcm" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".utils.gcm.MyGcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".utils.gcm.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".utils.gcm.RegistrationIntentService"
+            android:exported="false">
+        </service>
+        <!-- [END gcm_receiver] -->
+
+
     </application>
 
 </manifest>
