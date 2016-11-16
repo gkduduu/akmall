@@ -42,6 +42,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/WIDGET_BIG_HOME"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -69,6 +70,7 @@
             android:background="#d8d8d8"></RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/WIDGET_BIG_CHECK"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -96,6 +98,7 @@
             android:background="#d8d8d8"></RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/WIDGET_BIG_EVENT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -123,6 +126,7 @@
             android:background="#d8d8d8"></RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/WIDGET_BIG_BUCKET"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -150,6 +154,7 @@
             android:background="#d8d8d8"></RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/WIDGET_BIG_DELIVERY"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -201,6 +206,7 @@
                 android:textSize="13sp"
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

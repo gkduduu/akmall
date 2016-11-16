@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "22.0.0"
+    buildToolsVersion '25'
     defaultConfig {
         applicationId "android.ak.com.akmall"
         minSdkVersion 19
@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+    }
 }
 
 buildscript {
@@ -24,7 +27,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
@@ -62,6 +65,11 @@ dependencies {
 
     //asynkjop
     compile 'com.arasthel:asyncjob-library:1.0.3'
+
+    //jackson(json)
+    compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
 
     compile 'com.android.support:support-v4:22.4.0'
     compile 'com.android.support:appcompat-v7:22.+'
