@@ -50,7 +50,6 @@ public class IntroActivity extends Activity {
     public void getInstanceIdToken() {
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
-            Log.i("jhy","regist GCM");
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
         }

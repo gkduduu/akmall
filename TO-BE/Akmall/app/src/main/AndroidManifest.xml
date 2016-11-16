@@ -23,8 +23,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- [END gcm_permission] -->
 
-    <permission android:name="android.ak.com.akmall.permission.C2D_MESSAGE"
+    <permission
+        android:name="android.ak.com.akmall.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="android.ak.com.akmall.permission.C2D_MESSAGE" />
 
     <application
@@ -54,8 +56,8 @@
         <activity android:name=".activity.ShopGridActivity_" />
         <activity android:name=".activity.ShopGallaryActivity" />
         <activity android:name=".activity.ShopGallaryActivity_" />
-        <activity android:name=".activity.IntroActivity"></activity>
-        <activity android:name=".activity.IntroActivity_"></activity>
+        <activity android:name=".activity.IntroActivity" />
+        <activity android:name=".activity.IntroActivity_" />
 
         <receiver android:name=".utils.BigWidgetProvider">
             <intent-filter>
@@ -83,12 +85,14 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="android.ak.com.akmall.gcm" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".utils.gcm.MyGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -102,11 +106,10 @@
         </service>
         <service
             android:name=".utils.gcm.RegistrationIntentService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
         <!-- [END gcm_receiver] -->
 
-
+        <activity android:name=".activity.MainActivity"></activity>
     </application>
 
 </manifest>
