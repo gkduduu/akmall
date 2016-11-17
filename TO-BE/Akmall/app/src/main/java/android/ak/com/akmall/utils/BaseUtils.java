@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by gkdud on 2016-11-02.
  */
@@ -45,5 +47,25 @@ public class BaseUtils {
             str = "";
         }
         return str;
+    }
+
+    /**
+     * 콤마 찍어버리기~~
+     * @param won
+     * @return
+     */
+    public static String wonFormat(String won) {
+        if(won.equals("") || null == won) {
+            return "0";
+        }
+        DecimalFormat df = new DecimalFormat("#,###");
+        return df.format(Integer.parseInt(won));
+    }
+    public static String wonFormat(int won) {
+        if(won == 0) {
+            return "0";
+        }
+        DecimalFormat df = new DecimalFormat("#,###");
+        return df.format(won);
     }
 }

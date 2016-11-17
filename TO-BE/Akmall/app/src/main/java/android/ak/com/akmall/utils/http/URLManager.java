@@ -41,6 +41,12 @@ public class URLManager {
         return getServerUrl() + "/login/CheckCustCertNoAjax.do";
     }
 
+    //상품 베스트
+    public static String getGoodsBest() {
+        ///display/selectGoodsByBestAjax.do?ctgId=10&pageIdx=1&native=Y
+        return getServerUrl() + "/display/selectGoodsByBestAjax.do?ctgId=10&pageIdx=1&native=Y";
+    }
+
     static public String getUrlPathOnly(String urlString) {
         if (urlString.contains("?") == false) {
             return urlString;
