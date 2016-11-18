@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="45dp">
+    <RelativeLayout
+        android:id="@+id/I_MAIN_LAYOUT"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/border_no"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:id="@+id/I_MAIN_CATE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="에이케이옺ㅁ"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            />
+        <ImageView
+            android:id="@+id/I_MAIN_AK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:src="@drawable/logo"/>
+        <ImageView
+            android:id="@+id/I_MAIN_ARROW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class Parser {
 
+    //베스트 파
     public static BestResult parsingBestProduct(String response) {
         BestResult result = new BestResult();
         try {

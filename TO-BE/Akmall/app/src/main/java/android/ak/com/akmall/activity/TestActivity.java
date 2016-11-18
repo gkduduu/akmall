@@ -65,7 +65,7 @@ public class TestActivity extends Activity {
 
     //서버연동 테스트
     @Click(R.id.TEST_SERVER)
-    void clickServer(){startActivity(new Intent(this,IntroActivity_.class));}
+    void clickServer(){startActivity(new Intent(this,MainActivity_.class));}
 
     @AfterViews
     void afterView(){
