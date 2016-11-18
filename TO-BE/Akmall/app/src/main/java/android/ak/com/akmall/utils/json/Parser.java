@@ -1,10 +1,32 @@
 package android.ak.com.akmall.utils.json;
 
+import android.ak.com.akmall.utils.json.result.BestResult;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 /**
  * Created by gkduuu on 2016-11-15.
  * 서버 결과 파싱해줌
  */
 public class Parser {
+
+    public static BestResult parsingBestProduct(String response) {
+        BestResult result = new BestResult();
+        try {
+            JSONObject res = new JSONObject(response);
+            result = new ObjectMapper().readValue(res.getString("productList"),BestResult.class);
+        }catch(IOException e) {
+            e.getMessage();
+        }catch(JSONException e){
+            e.getMessage();
+        }
+        return result;
+    }
 
 //    public UseInfoDetailResult parsingUseInfoDetail(String data) {
 //        UseInfoDetailResult rs = new UseInfoDetailResult();

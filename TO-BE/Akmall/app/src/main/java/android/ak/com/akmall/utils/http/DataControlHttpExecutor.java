@@ -92,6 +92,24 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         return this;
     }
 
+    //상품 베스트 리스트
+    public DataControlHttpExecutor requestGoodsBest(@Nullable final Context context, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
+        final String requestUrl = new StringBuilder(URLManager.getGoodsBest() + "")
+                .toString();
+
+        Log.i("jhy",requestUrl);
+        this._operationListener = new RequestOperationListener() {
+            @Override
+            public void onRequestOperation(Object responseData) {
+                _responseData = sendRecvByHTTP(false, requestUrl, false, context);
+            }
+        };
+        this._completionListener = completionListener;
+        this._failureListener = failureListener;
+
+        return this;
+    }
+
     /*
     Internal Operations
      */

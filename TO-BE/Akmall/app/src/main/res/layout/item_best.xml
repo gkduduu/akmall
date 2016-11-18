@@ -97,6 +97,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:id="@+id/I_BEST_BRANCH_LAYOUT"
                     android:layout_width="46dp"
                     android:layout_height="17dp"
                     android:layout_marginRight="2dp"
@@ -195,25 +196,32 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="30dp"
+        android:paddingLeft="15dp">
 
-        <TextView
+        <LinearLayout
             android:id="@+id/I_BEST_DELIVERY"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="11sp"
-            android:layout_marginLeft="15dp"
-            android:text="무료배송" />
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="11sp"
+                android:text="무료배송" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="1dp"
-            android:layout_height="10dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/I_BEST_DELIVERY"
-            android:background="#ddd"></View>
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@+id/I_BEST_DELIVERY"
+                android:background="#ddd"></View>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/I_BEST_SCORE"
@@ -221,8 +229,7 @@
             android:layout_height="wrap_content"
             android:textSize="11sp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/view"
+            android:layout_toRightOf="@+id/I_BEST_DELIVERY"
             android:text="상품평(100점)" />
 
         <ImageView
