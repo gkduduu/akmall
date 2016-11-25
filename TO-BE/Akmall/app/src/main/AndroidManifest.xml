@@ -58,8 +58,15 @@
         <activity android:name=".activity.ShopGallaryActivity_" />
         <activity android:name=".activity.IntroActivity" />
         <activity android:name=".activity.IntroActivity_" />
-        <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".activity.MainActivity_"></activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity_" />
+        <activity
+            android:name=".activity.WebviewActivity"
+            android:theme="@style/Theme.Transparent" />
+        <activity
+            android:name=".activity.WebviewActivity_"
+            android:theme="@style/Theme.Transparent" />
+        <activity android:name=".activity.MoreActivity" android:theme="@style/Theme.Transparent"></activity>
 
         <receiver android:name=".utils.BigWidgetProvider">
             <intent-filter>
@@ -108,7 +115,7 @@
         </service>
         <service
             android:name=".utils.gcm.RegistrationIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
         <!-- [END gcm_receiver] -->
     </application>
 

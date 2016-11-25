@@ -25,6 +25,7 @@ android {
 buildscript {
     repositories {
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
@@ -52,9 +53,6 @@ apt {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     //안드로이드 어노테이션
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
@@ -83,5 +81,6 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     compile project(':daum-speech')
+
 }
 apply plugin: 'com.google.gms.google-services'

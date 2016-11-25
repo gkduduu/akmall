@@ -6,16 +6,22 @@ import android.ak.com.akmall.adapter.MainCategoryAdapter;
 import android.ak.com.akmall.fragment.WebviewFragment;
 import android.ak.com.akmall.fragment.WebviewFragment_;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -29,14 +35,31 @@ public class MainActivity extends FragmentActivity {
     MainCategoryAdapter adapter;
 
     @ViewById
+    DrawerLayout ACTIVITY_MAIN;
+    @ViewById
+    LinearLayout MAIN_SLIDEMENU;
+
+    @ViewById
     ViewPager MAIN_PAGER;
 
     SectionsPagerAdapter mSectionsPagerAdapter;
 
     ArrayList<String> a = new ArrayList<>();
 
+    @Click(R.id.test)
+    void vlic() {
+//        ACTIVITY_MAIN.openDrawer(MAIN_SLIDEMENU);
+        startActivity(new Intent(this,MoreActivity.class));
+    }
+
     @AfterViews
     void afterView() {
+        //슬라이드 메뉴
+        ACTIVITY_MAIN.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        ACTIVITY_MAIN.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+        ACTIVITY_MAIN.setFocusableInTouchMode(false);
+
+
         //하단 리스트뷰
         MAIN_TOP_CATEGORY.setHasFixedSize(true);
         LinearLayoutManager layoutManager
@@ -102,5 +125,16 @@ public class MainActivity extends FragmentActivity {
         public int getCount() {
             return 6;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if (ACTIVITY_MAIN.isDrawerOpen(MAIN_SLIDEMENU)) {
+                ACTIVITY_MAIN.closeDrawer(MAIN_SLIDEMENU);
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
