@@ -1,1 +1,1 @@
-include ':app', ':daum-speech', ':blur-behind'
+include ':app', ':daum-speech'

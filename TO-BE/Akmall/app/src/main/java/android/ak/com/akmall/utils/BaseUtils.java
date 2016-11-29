@@ -1,8 +1,10 @@
 package android.ak.com.akmall.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.DisplayMetrics;
 
 import java.text.DecimalFormat;
 
@@ -50,6 +52,20 @@ public class BaseUtils {
     }
 
     /**
+     * arg0 이 null 일 경우 "" 로 변환
+     *
+     * @param str
+     * @return
+     */
+    public static String nvl(String str, String replace) {
+
+        if (str == null) {
+            str = replace;
+        }
+        return str;
+    }
+
+    /**
      * 콤마 찍어버리기~~
      * @param won
      * @return
@@ -67,5 +83,31 @@ public class BaseUtils {
         }
         DecimalFormat df = new DecimalFormat("#,###");
         return df.format(won);
+    }
+
+    /**
+     * PX->DP
+     * @param dp
+     * @param context
+     * @return
+     */
+    public static float convertDpToPixel(float dp, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
+    /**
+     * DP -> PX
+     * @param px dp
+     * @param context
+     * @return
+     */
+    public static float convertPixelsToDp(float px, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return dp;
     }
 }

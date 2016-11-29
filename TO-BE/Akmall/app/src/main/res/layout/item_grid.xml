@@ -13,8 +13,7 @@
         <ImageView
             android:id="@+id/I_GRID_MAINIV"
             android:layout_width="157dp"
-            android:layout_height="157dp"
-            android:background="#4b30"/>
+            android:layout_height="157dp"/>
 
         <RelativeLayout
             android:layout_width="30dp"
@@ -67,6 +66,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/I_GRID_BRANCH_LAYOUT"
             android:layout_width="46dp"
             android:layout_height="17dp"
             android:layout_marginRight="2dp"
@@ -111,25 +111,6 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/I_GRID_PERCENT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10"
-            android:textColor="#333"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/I_GRID_PERCENT2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="%"
-            android:textColor="#333"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_gravity="center"
@@ -152,6 +133,29 @@
                 android:textStyle="bold"
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"></View>
+
+        <TextView
+            android:id="@+id/I_GRID_PERCENT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="#333"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/I_GRID_PERCENT2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="%"
+            android:textColor="#333"
+            android:textSize="13sp"
+            android:textStyle="bold" />
     </LinearLayout>
      <View
     android:layout_width="match_parent"
@@ -171,12 +175,13 @@
             android:text="무료배송" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/I_GRID_DELIVERY_BAR"
             android:layout_width="1dp"
             android:layout_height="10dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/I_GRID_DELIVERY"
+            android:layout_marginRight="5dp"
             android:background="#ddd"></View>
 
         <TextView
@@ -184,9 +189,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
             android:textSize="11sp"
-            android:layout_toRightOf="@+id/view"
+            android:layout_toRightOf="@+id/I_GRID_DELIVERY_BAR"
             android:text="상품평(100점)" />
     </RelativeLayout>
     

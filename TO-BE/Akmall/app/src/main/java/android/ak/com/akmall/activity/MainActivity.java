@@ -1,11 +1,8 @@
 package android.ak.com.akmall.activity;
 
 import android.ak.com.akmall.R;
-import android.ak.com.akmall.adapter.BestAdapter;
 import android.ak.com.akmall.adapter.MainCategoryAdapter;
-import android.ak.com.akmall.fragment.WebviewFragment;
 import android.ak.com.akmall.fragment.WebviewFragment_;
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +45,7 @@ public class MainActivity extends FragmentActivity {
     @Click(R.id.test)
     void vlic() {
 //        ACTIVITY_MAIN.openDrawer(MAIN_SLIDEMENU);
-        startActivity(new Intent(this,MoreActivity.class));
+        startActivity(new Intent(this,WebviewActivity_.class));
     }
 
     @AfterViews

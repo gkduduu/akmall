@@ -17,6 +17,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+//외부링크 웹뷰
 @EActivity(R.layout.activity_webview)
 public class WebviewActivity extends Activity {
 

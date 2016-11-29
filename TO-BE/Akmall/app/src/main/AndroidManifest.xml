@@ -50,8 +50,8 @@
         <activity android:name=".activity.SettingActivity_" />
         <activity android:name=".activity.ShopPowerDealActivity" />
         <activity android:name=".activity.ShopPowerDealActivity_" />
-        <activity android:name=".activity.ShopBestActivity" />
-        <activity android:name=".activity.ShopBestActivity_" />
+        <activity android:name=".activity.ShopContentActivity" />
+        <activity android:name=".activity.ShopContentActivity_" />
         <activity android:name=".activity.ShopGridActivity" />
         <activity android:name=".activity.ShopGridActivity_" />
         <activity android:name=".activity.ShopGallaryActivity" />
@@ -66,7 +66,10 @@
         <activity
             android:name=".activity.WebviewActivity_"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".activity.MoreActivity" android:theme="@style/Theme.Transparent"></activity>
+        <activity android:name=".activity.MoreActivity"></activity>
+        <activity android:name=".activity.MyWebviewActivity"></activity>
+        <activity android:name=".activity.MyWebviewActivity_"></activity>
+        <!--<activity android:name=".activity.MoreActivity_" android:theme="@style/Theme.Transparent"></activity>-->
 
         <receiver android:name=".utils.BigWidgetProvider">
             <intent-filter>

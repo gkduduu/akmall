@@ -2,7 +2,7 @@ package android.ak.com.akmall.adapter;
 
 import android.ak.com.akmall.R;
 import android.ak.com.akmall.utils.BaseUtils;
-import android.ak.com.akmall.utils.json.result.BestProductResult;
+import android.ak.com.akmall.utils.json.result.PageDatas;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class BestAdapter extends RecyclerView.Adapter<BestAdapter.ViewHolder> {
     Context context;
-    List<BestProductResult> list = new ArrayList<>();
+    List<PageDatas> list = new ArrayList<>();
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView I_BEST_MAINIV;
@@ -74,7 +74,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestAdapter.ViewHolder> {
         }
     }
 
-    public BestAdapter(Context context, List<BestProductResult> list) {
+    public BestAdapter(Context context, List<PageDatas> list) {
         this.context = context;
         this.list = list;
     }
@@ -90,7 +90,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int pos) {
-        BestProductResult result = list.get(pos);
+        PageDatas result = list.get(pos);
         //할인전 가격 가로줄귿기
         holder.I_BEST_PRICE.setPaintFlags(holder.I_BEST_PRICE.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         //메뉴버튼 클릭

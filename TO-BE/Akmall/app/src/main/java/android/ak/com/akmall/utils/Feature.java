@@ -20,4 +20,6 @@ public class Feature {
     }
 
     public static ContentValues cookie;
+
+    public static Boolean DEBUG_MODE = true;
 }

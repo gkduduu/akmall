@@ -16,7 +16,7 @@ public class URLManager {
     private static URLManager instance;
 
     /* URL */
-    public final static String SERVER_URL_DEBUG = "91.3.115.135";
+    public final static String SERVER_URL_DEBUG = "91.3.115.140";
     public final static int SERVER_PORT_DEBUG = 10443;
 
     public final static String SERVER_URL_REAL = "";

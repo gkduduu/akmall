@@ -48,7 +48,7 @@ public class TestActivity extends Activity {
     //베스트
     @Click(R.id.TEST_BEST)
     void clickBest() {
-        startActivity(new Intent(this,ShopBestActivity_.class));
+        startActivity(new Intent(this,ShopContentActivity_.class));
     }
 
     //바둑판식
