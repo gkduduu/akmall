@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="android.ak.com.akmall">
+    package="com.ak.android.akmall">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -24,10 +24,10 @@
     <!-- [END gcm_permission] -->
 
     <permission
-        android:name="android.ak.com.akmall.permission.C2D_MESSAGE"
+        android:name="com.ak.android.akmall.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="android.ak.com.akmall.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.ak.android.akmall.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -66,10 +66,12 @@
         <activity
             android:name=".activity.WebviewActivity_"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".activity.MoreActivity"></activity>
-        <activity android:name=".activity.MyWebviewActivity"></activity>
-        <activity android:name=".activity.MyWebviewActivity_"></activity>
-        <!--<activity android:name=".activity.MoreActivity_" android:theme="@style/Theme.Transparent"></activity>-->
+        <activity android:name=".activity.MoreActivity" />
+        <activity android:name=".activity.MyWebviewActivity" />
+        <activity android:name=".activity.MyWebviewActivity_" />
+        <activity android:name=".activity.MoreActivity_" />
+        <activity android:name=".activity.SplashActivity"></activity>
+        <activity android:name=".activity.SplashActivity_"></activity>
 
         <receiver android:name=".utils.BigWidgetProvider">
             <intent-filter>
@@ -91,35 +93,32 @@
         </receiver>
 
         <!-- [START gcm_receiver] -->
+        <!--<receiver-->
+            <!--android:name="com.google.android.gms.gcm.GcmReceiver"-->
+            <!--android:exported="true"-->
+            <!--android:permission="com.google.android.c2dm.permission.SEND">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
+
+                <!--<category android:name="android.ak.com.akmall.gcm" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
         <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:name=".utils.gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="android.ak.com.akmall.gcm" />
+                <category android:name="com.ak.android.akmall" />
+
             </intent-filter>
         </receiver>
-
+        <!-- [START gcm_listener_service] -->
         <service
-            android:name=".utils.gcm.MyGcmListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
+            android:name=".utils.gcm.GcmHandleIntentService">
         </service>
-        <service
-            android:name=".utils.gcm.MyInstanceIDListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".utils.gcm.RegistrationIntentService"
-            android:exported="false" />
-        <!-- [END gcm_receiver] -->
     </application>
 
 </manifest>

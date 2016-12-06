@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="android.ak.com.akmall.activity.VoiceActivity">
+    android:background="#fff">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,12 +32,18 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#ccc"/>
+
     <RelativeLayout
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/search_bg_line">
+        android:layout_marginTop="80dp">
+        <ImageView
+            android:id="@+id/VOICE_ANIMATION"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/anim_loading"/>
         <ImageView
             android:id="@+id/VOICE_START_RECORDING"
             android:layout_width="wrap_content"

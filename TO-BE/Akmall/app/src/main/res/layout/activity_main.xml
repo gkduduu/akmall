@@ -4,8 +4,7 @@
     android:id="@+id/ACTIVITY_MAIN"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context="android.ak.com.akmall.activity.MainActivity">
+    android:background="#fff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,17 +17,10 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/MAIN_TOP_CATEGORY"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginLeft="15dp"
-                android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/MAIN_PAGER"
+            <WebView
+                android:id="@+id/WEBVIEW"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"></android.support.v4.view.ViewPager>
+                android:layout_height="match_parent"></WebView>
 
             <Button
                 android:id="@+id/test"
@@ -47,9 +39,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
+        android:layout_marginRight="11dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginRight="11dp">
+        android:layout_marginBottom="51dp">
 
         <ImageView
             android:id="@+id/FLOATING_BACK"
@@ -80,13 +72,12 @@
         android:id="@+id/MAIN_SLIDEMENU"
         android:layout_width="280dp"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="#fa83ca">
+        android:layout_gravity="right">
 
         <include
             layout="@layout/slide_category"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 

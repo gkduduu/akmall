@@ -188,7 +188,7 @@
             android:textSize="11sp" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/I_GALLARY_DELIVERY_BAR"
             android:layout_width="1dp"
             android:layout_height="10dp"
             android:layout_centerVertical="true"
@@ -202,7 +202,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/view"
+            android:layout_toRightOf="@+id/I_GALLARY_DELIVERY_BAR"
             android:text="상품평(100점)"
             android:textSize="11sp" />
 

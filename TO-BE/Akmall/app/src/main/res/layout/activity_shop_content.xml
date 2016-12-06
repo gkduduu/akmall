@@ -1,49 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_shop_best"
+    android:id="@+id/ACTIVITY_CONTENT"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:orientation="vertical"
-    tools:context="android.ak.com.akmall.activity.ShopContentActivity">
+    android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/CONTENT_SV_SCROLL"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="51dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/CONTENT_SV_SCROLL"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="51dp">
 
-            <WebView
-                android:id="@+id/CONTENT_WV_WEBVIEW"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"></WebView>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/CONTENT_RV_LIST"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"></android.support.v7.widget.RecyclerView>
-        </LinearLayout>
-    </ScrollView>
+                <WebView
+                    android:id="@+id/CONTENT_WV_WEBVIEW"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></WebView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/CONTENT_RV_CATEGORY"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:background="#333"
-        android:visibility="gone"
-        android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/CONTENT_RV_LIST"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"></android.support.v7.widget.RecyclerView>
 
-    <include
-        layout="@layout/item_bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+                <include
+                    layout="@layout/item_footer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </ScrollView>
 
-</RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/CONTENT_RV_CATEGORY"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:background="#333"
+            android:orientation="horizontal"
+            android:visibility="gone"></android.support.v7.widget.RecyclerView>
+
+        <include
+            layout="@layout/item_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/CONTENT_SLIDEMENU"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="#fa83ca">
+
+        <WebView
+            android:id="@+id/CONTENT_SLIDE_WEBVIEW"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></WebView>
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>

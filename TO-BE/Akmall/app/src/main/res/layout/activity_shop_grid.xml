@@ -4,8 +4,7 @@
     android:id="@+id/activity_shop_grid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context="android.ak.com.akmall.activity.ShopGridActivity">
+    android:background="#fff">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/GRID_RV_LIST"

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion '25'
     defaultConfig {
-        applicationId "android.ak.com.akmall"
+        applicationId "com.ak.android.akmall"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode 69
@@ -80,4 +80,3 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':daum-speech')
 }
-apply plugin: 'com.google.gms.google-services'
