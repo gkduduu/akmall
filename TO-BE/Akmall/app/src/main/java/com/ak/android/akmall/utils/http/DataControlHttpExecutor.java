@@ -1,18 +1,12 @@
 package  com.ak.android.akmall.utils.http;
 
-import  com.ak.android.akmall.utils.BaseUtils;
-import  com.ak.android.akmall.utils.Const;
-import  com.ak.android.akmall.utils.Feature;
-import  com.ak.android.akmall.utils.JHYLogger;
-import  com.ak.android.akmall.utils.SharedPreferencesManager;
-import  com.ak.android.akmall.utils.gcm.GcmManager;
-import android.content.ContentValues;
 import android.content.Context;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
+
+import com.ak.android.akmall.utils.BaseUtils;
+import com.ak.android.akmall.utils.JHYLogger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,7 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -29,7 +22,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -127,6 +119,22 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         return this;
     }
 
+    //스플레시 이미지
+    public DataControlHttpExecutor requestWidget(@Nullable final Context context, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
+        final String requestUrl = new StringBuilder(URLManager.getWidget())
+                .toString();
+        this._operationListener = new RequestOperationListener() {
+            @Override
+            public void onRequestOperation(Object responseData) {
+                _responseData = sendRecvByHTTP(false, requestUrl, false, context);
+            }
+        };
+        this._completionListener = completionListener;
+        this._failureListener = failureListener;
+
+        return this;
+    }
+
     //파워링크 가져오기
     public DataControlHttpExecutor requestPowerLink(@Nullable final Context context, String url, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
         final String requestUrl = new StringBuilder(URLManager.getServerUrl() + url)
@@ -151,7 +159,6 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
                 .append("?")
                 .append("act=DeviceRegist&returnType=json&phonetype=2")
                 .append("&appid=" + appId)
-                .append("&deny_all=" + deny_all)
                 .append("&token=" + token)
                 .append("&oldtoken=" + oldToken)
                 .append("&version=" + version)
@@ -343,12 +350,15 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
 
             try {
                 StringBuilder cookiesSB = new StringBuilder();
-                if (null != CookieManager.getInstance().getCookie(URLManager.getServerUrl())) {
-                    for (String aKey : CookieManager.getInstance().getCookie(URLManager.getServerUrl()).split(";")) {
-                        cookiesSB.append(aKey.split("=")[0]).append("=").append(BaseUtils.nvl(aKey.split("=")[1])).append("; ");
-                    }
-                    _urlConnection.setRequestProperty("Cookie", String.valueOf(cookiesSB));
-                }
+                JHYLogger.d( CookieManager.getInstance().getCookie(URLManager.getServerUrl()));
+//                if (null != CookieManager.getInstance().getCookie(URLManager.getServerUrl())) {
+//                    for (String aKey : CookieManager.getInstance().getCookie(URLManager.getServerUrl()).split(";")) {
+//                        cookiesSB.append(aKey.split("=")[0]).append("=").append(BaseUtils.nvl(aKey.split("=")[1])).append("; ");
+//                    }
+//
+//                }
+                _urlConnection.setRequestProperty("Cookie", CookieManager.getInstance().getCookie(URLManager.getServerUrl()));
+
             }catch(Exception e) {
 
             }

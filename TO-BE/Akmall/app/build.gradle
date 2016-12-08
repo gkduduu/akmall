@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion '25'
     defaultConfig {
         applicationId "com.ak.android.akmall"
@@ -74,9 +74,10 @@ dependencies {
     compile 'se.emilsjolander:StickyScrollViewItems:1.1.0'
     compile 'com.android.support:support-v4:22.4.0'
     compile 'com.android.support:appcompat-v7:22.+'
-    compile 'com.android.support:recyclerview-v7:22.+'
+    compile 'com.android.support:recyclerview-v7:23.+'
     compile 'com.android.support:design:22.2.0'
-    compile 'com.google.android.gms:play-services:8.3.0'
+    compile 'com.google.android.gms:play-services-base:7.3.0'
+    compile 'com.google.android.gms:play-services-gcm:7.3.0'
     testCompile 'junit:junit:4.12'
     compile project(':daum-speech')
 }

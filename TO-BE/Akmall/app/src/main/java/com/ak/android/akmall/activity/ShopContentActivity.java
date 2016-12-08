@@ -1,32 +1,9 @@
 package com.ak.android.akmall.activity;
 
-import com.ak.android.akmall.R;
-import com.ak.android.akmall.adapter.BestAdapter;
-import com.ak.android.akmall.adapter.BigCategoryAdapter;
-import com.ak.android.akmall.adapter.GallaryAdapter;
-import com.ak.android.akmall.adapter.GridAdapter;
-import com.ak.android.akmall.fragment.SelectDialog;
-import com.ak.android.akmall.utils.BaseUtils;
-import com.ak.android.akmall.utils.Const;
-import com.ak.android.akmall.utils.DataHolder;
-import com.ak.android.akmall.utils.Feature;
-import com.ak.android.akmall.utils.FullDrawerLayout;
-import com.ak.android.akmall.utils.JHYLogger;
-import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
-import com.ak.android.akmall.utils.http.DataControlManager;
-import com.ak.android.akmall.utils.http.RequestCompletionListener;
-import com.ak.android.akmall.utils.http.RequestFailureListener;
-import com.ak.android.akmall.utils.http.URLManager;
-import com.ak.android.akmall.utils.json.Parser;
-import com.ak.android.akmall.utils.json.result.AddingResult;
-import com.ak.android.akmall.utils.json.result.BigCategoryResult;
-import com.ak.android.akmall.utils.json.result.ChangeParamResult;
-import com.ak.android.akmall.utils.json.result.CheckHeightResult;
-import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
-import com.ak.android.akmall.utils.json.result.PageDatas;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -39,11 +16,38 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
+import com.ak.android.akmall.R;
+import com.ak.android.akmall.adapter.BestAdapter;
+import com.ak.android.akmall.adapter.BigCategoryAdapter;
+import com.ak.android.akmall.adapter.GallaryAdapter;
+import com.ak.android.akmall.adapter.GridAdapter;
+import com.ak.android.akmall.adapter.PowerLinkAdapter;
+import com.ak.android.akmall.fragment.SelectDialog;
+import com.ak.android.akmall.utils.BaseUtils;
+import com.ak.android.akmall.utils.Const;
+import com.ak.android.akmall.utils.DataHolder;
+import com.ak.android.akmall.utils.Feature;
+import com.ak.android.akmall.utils.JHYLogger;
+import com.ak.android.akmall.utils.blurbehind.BlurBehind;
+import com.ak.android.akmall.utils.blurbehind.OnBlurCompleteListener;
+import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
+import com.ak.android.akmall.utils.http.DataControlManager;
+import com.ak.android.akmall.utils.http.RequestCompletionListener;
+import com.ak.android.akmall.utils.http.RequestFailureListener;
+import com.ak.android.akmall.utils.http.URLManager;
+import com.ak.android.akmall.utils.json.Parser;
+import com.ak.android.akmall.utils.json.result.AddingResult;
+import com.ak.android.akmall.utils.json.result.BigCategoryResult;
+import com.ak.android.akmall.utils.json.result.ChangeParamResult;
+import com.ak.android.akmall.utils.json.result.CheckHeightResult;
+import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
+import com.ak.android.akmall.utils.json.result.PageDatas;
+import com.ak.android.akmall.utils.json.result.PowerLinkResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -77,6 +81,11 @@ public class ShopContentActivity extends Activity {
     GallaryAdapter gallaryAdapter;
 
     @ViewById
+    LinearLayout SHOP_POWERLINK_LAYOUT;
+    @ViewById
+    RecyclerView SHOP_POWERLINK_RV;
+
+    @ViewById
     WebView CONTENT_WV_WEBVIEW;
 
     @ViewById
@@ -96,7 +105,7 @@ public class ShopContentActivity extends Activity {
 
     BigCategoryResult mBigCatgoryResult;
 
-    float listHeight = 0;
+//    float listHeight = 0;
 
     boolean isAdding = false;/*상품 추가하기위한 서버연동 진행중인지 여부*/
 
@@ -104,6 +113,34 @@ public class ShopContentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Feature.addAcitivty(this);
+    }
+
+    @Click(R.id.FLOATING_MORE)
+    void clickMore() {
+        BlurBehind.getInstance().execute(ShopContentActivity.this, new OnBlurCompleteListener() {
+                    @Override
+                    public void onBlurComplete() {
+                        Intent intent = new Intent(ShopContentActivity.this, MoreActivity_.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivityForResult(intent, Const.MORE_REQUEST);
+                    }
+                }
+        );
+    }
+
+    @Click(R.id.FLOATING_TOP)
+    void clickTop() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CONTENT_SV_SCROLL.scrollTo(0, 0);
+            }
+        }, 10);
+    }
+
+    @Click(R.id.FLOATING_BACK)
+    void clickback() {
+        finish();
     }
 
     @Click(R.id.MENU_CATEGORY)
@@ -119,6 +156,7 @@ public class ShopContentActivity extends Activity {
     @Click(R.id.MENU_HOME)
     void ClickMenuHome() {
         Feature.closeAllActivity();
+        Feature.currentMain.refreshWeb();
     }
 
     @Click(R.id.MENU_MYAK)
@@ -158,12 +196,19 @@ public class ShopContentActivity extends Activity {
         } else {
             goUrl = URLManager.getServerUrl() + goUrl;
         }
+
         //웹뷰에 각종 옵션세팅
 //        CONTENT_WV_WEBVIEW.setInitialScale(100);
         CONTENT_WV_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         CONTENT_WV_WEBVIEW.getSettings().setUseWideViewPort(true);
         CONTENT_WV_WEBVIEW.setWebContentsDebuggingEnabled(true);
-        CONTENT_WV_WEBVIEW.loadUrl(goUrl + "&isAkApp=Y");
+        JHYLogger.D(goUrl);
+        if (goUrl.contains("akplaza/DeptStore.do?")) {
+            //ak나우는 isakapp붙이면 안디ㅗㄴ데 ㅜㅜ
+            CONTENT_WV_WEBVIEW.loadUrl(goUrl);
+        } else {
+            CONTENT_WV_WEBVIEW.loadUrl(goUrl + "&isAkApp=Android");
+        }
         CONTENT_WV_WEBVIEW.setWebChromeClient(new ChromeClient());
         CONTENT_WV_WEBVIEW.setWebViewClient(new WebViewClientClass());
 
@@ -204,10 +249,8 @@ public class ShopContentActivity extends Activity {
                 int diff = (view.getBottom() - (CONTENT_SV_SCROLL.getHeight() + CONTENT_SV_SCROLL.getScrollY()));
                 if (diff == 0) {
                     //스크롤뷰 하단 도착, 페이지 목록 추가
-                    if(null == mBigCatgoryResult)return;
-                    if (mBigCatgoryResult.dp.equals("1")) {
-
-                    } else if (mBigCatgoryResult.dp.equals("2")) {
+                    if (null == mBigCatgoryResult) return;
+                    if (mBigCatgoryResult.dp.equals("2")) {
                         //그리드 형태
                         if (WHAT_PAGE.equals(Const.CONTENT_BIG_CATEGORY)) {
                             //best , new , recom
@@ -235,13 +278,13 @@ public class ShopContentActivity extends Activity {
                                             ));
                                     DataControlManager.getInstance().runScheduledCommandOnAsync();
                                 }
-                            } else if(currentWhat.equals("new")) {
+                            } else if (currentWhat.equals("new")) {
                                 if (Integer.parseInt(BaseUtils.nvl(mBigCatgoryResult.prodList.newProdList.totalcnt, "0")) > gridAdapter.getItemCount()) {
                                     //목록 추가
                                     isAdding = true;
                                     String idx = mBigCatgoryResult.prodList.newProdList.pageIdx;
                                     DataControlManager.getInstance().addSchedule(
-                                            new DataControlHttpExecutor().requestAddingContent(ShopContentActivity.this, "/display/selectGoodsByBestAjax.do?"
+                                            new DataControlHttpExecutor().requestAddingContent(ShopContentActivity.this, "/display/selectGoodsByNewAjax.do?"
                                                     , (Integer.parseInt(idx) + 1) + "", mBigCatgoryResult.param,
                                                     new RequestCompletionListener() {
                                                         @Override
@@ -261,28 +304,62 @@ public class ShopContentActivity extends Activity {
                                 }
                             }
                         }
+                    } else if (mBigCatgoryResult.dp.equals("3")) {
+                        //갤러리형태
+                        JHYLogger.D("바닥 도착");
+                        if (mBigCatgoryResult.prodList.totalcnt > gallaryAdapter.getItemCount()) {
+                            //목록 추가
+                            isAdding = true;
+                            int idx = mBigCatgoryResult.prodList.pageIdx;
+                            DataControlManager.getInstance().addSchedule(
+                                    new DataControlHttpExecutor().requestAddingContent(ShopContentActivity.this, "/display/PrdListAjax.do?"
+                                            , (idx + 1) + "", mBigCatgoryResult.param,
+                                            new RequestCompletionListener() {
+                                                @Override
+                                                public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
+                                                    JHYLogger.d(responseData.toString());
+                                                    AddingResult adResult = Parser.parsingAddingContent(responseData.toString());
+                                                    addingList(adResult);
+                                                }
+                                            },
+                                            new RequestFailureListener() {
+                                                @Override
+                                                public void onDataControlFailed(@Nullable Object responseData, @Nullable Object error) {
+                                                }
+                                            }
+                                    ));
+                            DataControlManager.getInstance().runScheduledCommandOnAsync();
+                        }
+                    } else if (mBigCatgoryResult.dp.equals("1")) {
+                        JHYLogger.D("바닥 도착");
+                        if (mBigCatgoryResult.prodList.totalcnt > bestAdapter.getItemCount()) {
+                            //목록 추가
+                            isAdding = true;
+                            int idx = mBigCatgoryResult.prodList.pageIdx;
+                            DataControlManager.getInstance().addSchedule(
+                                    new DataControlHttpExecutor().requestAddingContent(ShopContentActivity.this, "/display/PrdListAjax.do?"
+                                            , (idx + 1) + "", mBigCatgoryResult.param,
+                                            new RequestCompletionListener() {
+                                                @Override
+                                                public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
+                                                    JHYLogger.d(responseData.toString());
+                                                    AddingResult adResult = Parser.parsingAddingContent(responseData.toString());
+                                                    addingList(adResult);
+                                                }
+                                            },
+                                            new RequestFailureListener() {
+                                                @Override
+                                                public void onDataControlFailed(@Nullable Object responseData, @Nullable Object error) {
+                                                }
+                                            }
+                                    ));
+                            DataControlManager.getInstance().runScheduledCommandOnAsync();
+                        }
                     }
 
                 }
             }
         });
-//        //서버연동 테스트
-//        DataControlManager.getInstance().addSchedule(
-//                new DataControlHttpExecutor().requestGoodsBest(this,
-//                        new RequestCompletionListener() {
-//                            @Override
-//                            public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-//                                initView(Parser.parsingBestProduct(responseData.toString()));
-//                            }
-//                        },
-//                        new RequestFailureListener() {
-//                            @Override
-//                            public void onDataControlFailed(@Nullable Object responseData, @Nullable Object error) {
-//
-//                            }
-//                        }
-//                ));
-//        DataControlManager.getInstance().runScheduledCommandOnAsync();
     }
 
     //서버연동 후 뷰세팅
@@ -388,13 +465,13 @@ public class ShopContentActivity extends Activity {
                 CONTENT_RV_LIST.setAdapter(gridAdapter);
                 int size = result.prodList.bestProdList.pageDatas.size();
                 if (size % 2 == 0) {
-                    listHeight = BaseUtils.convertDpToPixel(size / 2 * 158 + (size * 2), this);
+//                    listHeight = BaseUtils.convertDpToPixel(size / 2 * 158 + (size * 2), this);
                 } else {
                     size = size + 1;
-                    listHeight = BaseUtils.convertDpToPixel(size / 2 * 158 + (size * 2), this);
+//                    listHeight = BaseUtils.convertDpToPixel(size / 2 * 158 + (size * 2), this);
                 }
-                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight * 2;
-                CONTENT_RV_LIST.requestLayout();
+//                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight * 2;
+//                CONTENT_RV_LIST.requestLayout();
             }
         } else {//중소카테고리
             if (result.dp.equals("1")) {
@@ -409,9 +486,9 @@ public class ShopContentActivity extends Activity {
                 bestAdapter = new BestAdapter(this, result.prodList.pageDatas, goDetailListener);
                 CONTENT_RV_LIST.setAdapter(bestAdapter);
                 int size = result.prodList.pageDatas.size();
-                listHeight = BaseUtils.convertDpToPixel(size * 158 + (size * 2), this);
-                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
-                CONTENT_RV_LIST.requestLayout();
+//                listHeight = BaseUtils.convertDpToPixel(size * 158 + (size * 2), this);
+//                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
+//                CONTENT_RV_LIST.requestLayout();
             } else if (result.dp.equals("2")) {
                 CONTENT_RV_LIST.setHasFixedSize(true);
                 CONTENT_RV_LIST.setLayoutManager(new GridLayoutManager(this, 2));
@@ -424,14 +501,14 @@ public class ShopContentActivity extends Activity {
                 gridAdapter = new GridAdapter(this, result.prodList.pageDatas, goDetailListener);
                 CONTENT_RV_LIST.setAdapter(gridAdapter);
                 int size = result.prodList.pageDatas.size();
-                if (size % 2 == 0) {
-                    listHeight = BaseUtils.convertDpToPixel(size * 158 / 2 + (size * 2), this);
-                } else {
-                    size = size + 1;
-                    listHeight = BaseUtils.convertDpToPixel(size * 158 / 2 + (size * 2), this);
-                }
-                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
-                CONTENT_RV_LIST.requestLayout();
+//                if (size % 2 == 0) {
+//                    listHeight = BaseUtils.convertDpToPixel(size * 158 / 2 + (size * 2), this);
+//                } else {
+//                    size = size + 1;
+//                    listHeight = BaseUtils.convertDpToPixel(size * 158 / 2 + (size * 2), this);
+//                }
+//                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
+//                CONTENT_RV_LIST.requestLayout();
             } else if (result.dp.equals("3")) {
                 CONTENT_RV_LIST.setHasFixedSize(true);
                 CONTENT_RV_LIST.setLayoutManager(new LinearLayoutManager(this));
@@ -444,14 +521,31 @@ public class ShopContentActivity extends Activity {
                 gallaryAdapter = new GallaryAdapter(this, result.prodList.pageDatas, goDetailListener);
                 CONTENT_RV_LIST.setAdapter(gallaryAdapter);
                 int size = result.prodList.pageDatas.size();
-                listHeight = BaseUtils.convertDpToPixel(size * 534 + (size * 2), this);
-                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
-                CONTENT_RV_LIST.requestLayout();
+//                listHeight = BaseUtils.convertDpToPixel(size * 534 + (size * 2), this);
+//                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
+//                CONTENT_RV_LIST.requestLayout();
             }
             if (WHAT_PAGE.equals(Const.CONTENT_BRAND_SHOP))
                 CONTENT_RV_LIST.setVisibility(View.GONE);
         }
         requestPowerLinkList(result.powerLink);
+    }
+
+    private void initPowerLink(List<PowerLinkResult> powerList) {
+        if (null == powerList || powerList.size() == 0) {
+            SHOP_POWERLINK_LAYOUT.setVisibility(View.GONE);
+            JHYLogger.D("업슴!!!!!");
+        } else {
+            JHYLogger.D("여기!!!!!");
+            SHOP_POWERLINK_LAYOUT.setVisibility(View.VISIBLE);
+            SHOP_POWERLINK_RV.setHasFixedSize(true);
+            SHOP_POWERLINK_RV.setLayoutManager(new LinearLayoutManager(this));
+            SHOP_POWERLINK_RV.setNestedScrollingEnabled(false);
+            SHOP_POWERLINK_RV.setAdapter(new PowerLinkAdapter(this, powerList));
+            float h = BaseUtils.convertDpToPixel(powerList.size() * 100, this);
+            SHOP_POWERLINK_RV.getLayoutParams().height = (int) h;
+            SHOP_POWERLINK_RV.requestLayout();
+        }
     }
 
     //상품 상세보기로 ㄱㄱ
@@ -486,6 +580,11 @@ public class ShopContentActivity extends Activity {
                 if (null != data) {
                     CONTENT_WV_WEBVIEW.loadUrl(data.getStringExtra("url") + "&isAkApp=Y");
                 }
+            }
+        } else if (requestCode == Const.MORE_REQUEST) {
+            if (resultCode == Const.MORE_RESULT) {
+                CONTENT_SLIDE_WEBVIEW.loadUrl(URLManager.getServerUrl() + Const.MENU_HISTORY);
+                ACTIVITY_CONTENT.openDrawer(CONTENT_SLIDEMENU);
             }
         }
     }
@@ -523,14 +622,14 @@ public class ShopContentActivity extends Activity {
             gridAdapter = new GridAdapter(this, data, goDetailListener);
             CONTENT_RV_LIST.setAdapter(gridAdapter);
             int size = data.size();
-            if (size % 2 == 0) {
-                listHeight = BaseUtils.convertDpToPixel((size / 2 * 158) + (size * 2), this);
-            } else {
-                size = size + 1;
-                listHeight = BaseUtils.convertDpToPixel(size / 2 * 158 + (size * 2), this);
-            }
-            CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight * 2;
-            CONTENT_RV_LIST.requestLayout();
+//            if (size % 2 == 0) {
+//                listHeight = BaseUtils.convertDpToPixel((size / 2 * 158) + (size * 2), this);
+//            } else {
+//                size = size + 1;
+//                listHeight = BaseUtils.convertDpToPixel(size / 2 * 158 + (size * 2), this);
+//            }
+//            CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight * 2;
+//            CONTENT_RV_LIST.requestLayout();
         }
     }
 
@@ -541,19 +640,48 @@ public class ShopContentActivity extends Activity {
             List<PageDatas> data = new ArrayList<>();
             if (currentWhat.equals("best")) {
                 mBigCatgoryResult.prodList.bestProdList.pageIdx = result.resultDatas.pageIdx;
-                 data = result.resultDatas.pageDatas;
+                data = result.resultDatas.pageDatas;
 
-            }else if (currentWhat.equals("new")) {
+            } else if (currentWhat.equals("new")) {
                 mBigCatgoryResult.prodList.newProdList.pageIdx = result.resultDatas.pageIdx;
                 data = result.resultDatas.pageDatas;
             }
-            CONTENT_RV_LIST.getLayoutParams().height = (int) (listHeight * 2 * Integer.parseInt(BaseUtils.nvl(result.resultDatas.pageIdx, "1")));
-            CONTENT_RV_LIST.requestLayout();
+//            CONTENT_RV_LIST.getLayoutParams().height = (int) (listHeight * 2 * Integer.parseInt(BaseUtils.nvl(result.resultDatas.pageIdx, "1")));
+//            CONTENT_RV_LIST.requestLayout();
             for (int i = 0; i < data.size(); i++) {
                 gridAdapter.add(data.get(i));
             }
             gridAdapter.notifyDataSetChanged();
             isAdding = false;
+        } else {
+            if (mBigCatgoryResult.dp.equals("1")) {
+                List<PageDatas> data = new ArrayList<>();
+                mBigCatgoryResult.prodList.pageIdx = Integer.parseInt(result.resultDatas.pageIdx);
+                data = result.resultDatas.pageDatas;
+                for (int i = 0; i < data.size(); i++) {
+                    bestAdapter.add(data.get(i));
+                }
+                bestAdapter.notifyDataSetChanged();
+                isAdding = false;
+            } else if (mBigCatgoryResult.dp.equals("2")) {
+                List<PageDatas> data = new ArrayList<>();
+                mBigCatgoryResult.prodList.pageIdx = Integer.parseInt(result.resultDatas.pageIdx);
+                data = result.resultDatas.pageDatas;
+                for (int i = 0; i < data.size(); i++) {
+                    gridAdapter.add(data.get(i));
+                }
+                gridAdapter.notifyDataSetChanged();
+                isAdding = false;
+            } else if (mBigCatgoryResult.dp.equals("3")) {
+                List<PageDatas> data = new ArrayList<>();
+                mBigCatgoryResult.prodList.pageIdx = Integer.parseInt(result.resultDatas.pageIdx);
+                data = result.resultDatas.pageDatas;
+                for (int i = 0; i < data.size(); i++) {
+                    gallaryAdapter.add(data.get(i));
+                }
+                gallaryAdapter.notifyDataSetChanged();
+                isAdding = false;
+            }
         }
     }
 
@@ -568,12 +696,12 @@ public class ShopContentActivity extends Activity {
                 return;
             }
             CONTENT_RV_LIST.setVisibility(View.VISIBLE);
-            bestAdapter = new BestAdapter(this,result.resultDatas.pageDatas, goDetailListener);
+            bestAdapter = new BestAdapter(this, result.resultDatas.pageDatas, goDetailListener);
             CONTENT_RV_LIST.setAdapter(bestAdapter);
             int size = result.resultDatas.pageDatas.size();
-            listHeight = BaseUtils.convertDpToPixel(size * 158 + (size * 2), this);
-            CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
-            CONTENT_RV_LIST.requestLayout();
+//            listHeight = BaseUtils.convertDpToPixel(size * 158 + (size * 2), this);
+//            CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
+//            CONTENT_RV_LIST.requestLayout();
         } else if (refreshDP.equals("2")) {
             CONTENT_RV_LIST.setHasFixedSize(true);
             CONTENT_RV_LIST.setLayoutManager(new GridLayoutManager(this, 2));
@@ -586,14 +714,14 @@ public class ShopContentActivity extends Activity {
             gridAdapter = new GridAdapter(this, result.resultDatas.pageDatas, goDetailListener);
             CONTENT_RV_LIST.setAdapter(gridAdapter);
             int size = result.resultDatas.pageDatas.size();
-            if (size % 2 == 0) {
-                listHeight = BaseUtils.convertDpToPixel(size * 158 / 2 + (size * 2), this);
-            } else {
-                size = size + 1;
-                listHeight = BaseUtils.convertDpToPixel(size * 158 / 2 + (size * 2), this);
-            }
-            CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
-            CONTENT_RV_LIST.requestLayout();
+//            if (size % 2 == 0) {
+//                listHeight = BaseUtils.convertDpToPixel(size * 158 / 2 + (size * 2), this);
+//            } else {
+//                size = size + 1;
+//                listHeight = BaseUtils.convertDpToPixel(size * 158 / 2 + (size * 2), this);
+//            }
+//            CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
+//            CONTENT_RV_LIST.requestLayout();
         } else if (refreshDP.equals("3")) {
             CONTENT_RV_LIST.setHasFixedSize(true);
             CONTENT_RV_LIST.setLayoutManager(new LinearLayoutManager(this));
@@ -606,33 +734,12 @@ public class ShopContentActivity extends Activity {
             gallaryAdapter = new GallaryAdapter(this, result.resultDatas.pageDatas, goDetailListener);
             CONTENT_RV_LIST.setAdapter(gallaryAdapter);
             int size = result.resultDatas.pageDatas.size();
-            listHeight = BaseUtils.convertDpToPixel(size * 534 + (size * 2), this);
-            CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
-            CONTENT_RV_LIST.requestLayout();
+//            listHeight = BaseUtils.convertDpToPixel(size * 534 + (size * 2), this);
+//            CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
+//            CONTENT_RV_LIST.requestLayout();
         }
     }
 
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        //카테고리 대 갔다가 옴
-//        if (requestCode == Const.CATEGORY_BIG_REQUEST) {
-//            if (resultCode == Const.CATEGORY_BIG_RESULT) {
-//                String url = data.getStringExtra("url");
-//                if (url.contains("http")) {
-//                    CONTENT_WV_WEBVIEW.loadUrl(data.getStringExtra("url") + "&isAkApp=Y");
-//                } else {
-//                    CONTENT_WV_WEBVIEW.loadUrl(URLManager.getServerUrl() + data.getStringExtra("url") + "&isAkApp=Y");
-//                }
-//                CONTENT_SV_SCROLL.post(new Runnable() {
-//                    public void run() {
-//                        CONTENT_SV_SCROLL.scrollTo(0, 0);
-//                    }
-//                });
-//            }
-//        }
-//    }
 
     private class ChromeClient extends WebChromeClient {
         @Override
@@ -661,6 +768,7 @@ public class ShopContentActivity extends Activity {
 
                 //스키마에 따른 분기처리!
                 if (decodeString.startsWith("akmall://prodList")) {
+                    currentWhat = "best";
                     //prodList : 상품 리스트
                     String json = decodeString.replace("akmall://prodList?", "");
                     BigCategoryResult result = Parser.parsingBigCategory(json);
@@ -738,7 +846,7 @@ public class ShopContentActivity extends Activity {
                             startActivity(new Intent(ShopContentActivity.this, WebviewActivity_.class).putExtra("url", link));
                         } else {
                             if (link.contains("/display/ShopFront.do") || link.contains("/display/CtgMClsf.do") || link.contains(" /display/CtgSClsf.do")) {
-                                view.loadUrl(URLManager.getServerUrl() + link);
+                                view.loadUrl(URLManager.getServerUrl() + link + "&isAkApp=Android");
                             } else {
                                 startActivity(new Intent(ShopContentActivity.this, MyWebviewActivity_.class).putExtra("url", link));
                             }
@@ -786,6 +894,7 @@ public class ShopContentActivity extends Activity {
                 } else if (decodeString.startsWith("akmall://callSelectPop")) {
                     new SelectDialog(ShopContentActivity.this, decodeString.replace("akmall://callSelectPop?", "")).show();
                 } else if (decodeString.startsWith("akmall://callLayerFilter")) {
+                    CONTENT_SLIDEMENU.bringToFront();
                     ACTIVITY_CONTENT.openDrawer(CONTENT_SLIDEMENU);
 //                    startActivityForResult(new Intent(ShopContentActivity.this, MyWebviewActivity_.class).putExtra("url", Const.MOVE_FILTER).putExtra("json", param).putExtra("cate", "filter"), Const.CATEGORY_BIG_REQUEST);
 //                    overridePendingTransition(R.anim.anim_messege_in, R.anim.anim_page_out_right);
@@ -805,12 +914,17 @@ public class ShopContentActivity extends Activity {
                 } else if (decodeString.startsWith("akmall://changeFilter")) {
                     OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://changeFilter?", ""));
                     view.loadUrl(URLManager.getServerUrl() + openReult.url + "&isAkApp=Y");
+                } else if (decodeString.startsWith("akmall://goBack")) {
+                    finish();
                 }
                 return true;
             } else if (url.split("\\?")[0].contains("/main/Main.do")) {
                 Feature.closeAllActivity();
+                Feature.currentMain.refreshWebMoveTab(url);
                 return true;
-            } else {
+            }else if(url.equals("about:blank")){
+                return false;
+            } else{
                 view.loadUrl(url);
                 startActivity(new Intent(ShopContentActivity.this, MyWebviewActivity_.class).putExtra("url", url));
                 return true;
@@ -880,11 +994,12 @@ public class ShopContentActivity extends Activity {
     //파워링크 가여좀
     private void requestPowerLinkList(String url) {
         DataControlManager.getInstance().addSchedule(
-                new DataControlHttpExecutor().requestPowerLink(ShopContentActivity.this,url,
+                new DataControlHttpExecutor().requestPowerLink(ShopContentActivity.this, url,
                         new RequestCompletionListener() {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 JHYLogger.d(responseData.toString());
+                                initPowerLink(Parser.parsingPowerLink(responseData.toString()));
                             }
                         },
                         new RequestFailureListener() {

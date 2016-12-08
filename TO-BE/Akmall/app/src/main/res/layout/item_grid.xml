@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="157dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="157dp"
+        android:layout_width="match_parent"
         android:layout_height="157dp">
 
         <ImageView
             android:id="@+id/I_GRID_MAINIV"
-            android:layout_width="157dp"
+            android:layout_width="match_parent"
             android:layout_height="157dp"/>
 
         <RelativeLayout
@@ -67,13 +67,15 @@
 
         <RelativeLayout
             android:id="@+id/I_GRID_BRANCH_LAYOUT"
-            android:layout_width="46dp"
+            android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginRight="2dp"
             android:background="#333">
 
             <TextView
                 android:id="@+id/I_GRID_BRANCH"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

@@ -38,7 +38,7 @@ public class WebviewActivity extends Activity {
         WEB_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         WEB_WEBVIEW.getSettings().setUseWideViewPort(true);
         WEB_WEBVIEW.getSettings().setAppCacheEnabled(false);
-        WEB_WEBVIEW.loadUrl("http://akmall.com");
+        WEB_WEBVIEW.loadUrl(getIntent().getStringExtra("url"));
         WEB_WEBVIEW.setWebViewClient(new WebViewClientClass());
         WEB_WEBVIEW.setOnTouchListener(new View.OnTouchListener() {
             @Override

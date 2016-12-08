@@ -1,41 +1,41 @@
 package com.ak.android.akmall.activity;
 
-import com.ak.android.akmall.R;
-import com.ak.android.akmall.utils.BaseUtils;
-import com.ak.android.akmall.utils.Const;
-import com.ak.android.akmall.utils.Feature;
-import com.ak.android.akmall.utils.JHYLogger;
-import com.ak.android.akmall.utils.SharedPreferencesManager;
-import com.ak.android.akmall.utils.gcm.GcmManager;
-import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
-import com.ak.android.akmall.utils.http.DataControlManager;
-import com.ak.android.akmall.utils.http.RequestCompletionListener;
-import com.ak.android.akmall.utils.http.RequestFailureListener;
-import com.ak.android.akmall.utils.json.Parser;
-import com.ak.android.akmall.utils.json.result.AddingResult;
-import com.ak.android.akmall.utils.json.result.PushSettingResult;
-import com.ak.android.akmall.utils.json.result.UserInfoResult;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.view.View;
+import android.webkit.CookieManager;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.ak.android.akmall.R;
+import com.ak.android.akmall.utils.BaseUtils;
+import com.ak.android.akmall.utils.Const;
+import com.ak.android.akmall.utils.Feature;
+import com.ak.android.akmall.utils.JHYLogger;
+import com.ak.android.akmall.utils.SharedPreferencesManager;
+import com.ak.android.akmall.utils.gcm2.GcmManager;
+import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
+import com.ak.android.akmall.utils.http.DataControlManager;
+import com.ak.android.akmall.utils.http.RequestCompletionListener;
+import com.ak.android.akmall.utils.http.RequestFailureListener;
+import com.ak.android.akmall.utils.http.URLManager;
+import com.ak.android.akmall.utils.json.Parser;
+import com.ak.android.akmall.utils.json.result.PushSettingResult;
+import com.ak.android.akmall.utils.json.result.UserInfoResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import java.net.CookieStore;
 
 @EActivity(R.layout.activity_setting)
 public class SettingActivity extends Activity {
@@ -75,10 +75,15 @@ public class SettingActivity extends Activity {
     //로그아웃
     @Click(R.id.SETTING_BT_LOGOUT)
     void clickLogout() {
-        if(Feature.isLogin) {
+        if (Feature.isLogin) {
             requestDoLogout();
-        }else {
-
+            finish();
+            Feature.closeAllActivity();
+            Feature.currentMain.refreshWeb();
+        } else {
+            Feature.closeAllActivity();
+            startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", "/login/Login.do?isAkApp=Android"));
+            finish();
         }
     }
 
@@ -88,10 +93,14 @@ public class SettingActivity extends Activity {
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:1588-2055"));
         startActivity(intent);
     }
+    //login/login.do
+    //
 
     //상담하기
     @Click(R.id.SETTING_BT_CONSULT)
     void clickConsult() {
+        startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", "/customer/OneToOneQna.do?isAkApp=Android"));
+        finish();
     }
 
     //알림금지 시간 앞
@@ -100,9 +109,9 @@ public class SettingActivity extends Activity {
         final CharSequence[] time = new CharSequence[24];
         for (int i = 0; i < 24; i++) {
             if (i < 9) {
-                time[i] = "0" + (i+1) + ":00";
+                time[i] = "0" + (i + 1) + ":00";
             } else {
-                time[i] = (i+1) + ":00";
+                time[i] = (i + 1) + ":00";
             }
         }
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
@@ -122,9 +131,9 @@ public class SettingActivity extends Activity {
         final CharSequence[] time = new CharSequence[24];
         for (int i = 0; i < 24; i++) {
             if (i < 9) {
-                time[i] = "0" + (i+1) + ":00";
+                time[i] = "0" + (i + 1) + ":00";
             } else {
-                time[i] = (i+1) + ":00";
+                time[i] = (i + 1) + ":00";
             }
         }
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
@@ -143,12 +152,12 @@ public class SettingActivity extends Activity {
     void clickAlarm1() {
         //쇼핑정보알림
         String yn = "";
-        if(SETTING_SW_ALARM_RECEIVE.isChecked()) {
+        if (SETTING_SW_ALARM_RECEIVE.isChecked()) {
             yn = "Y";
-        }else {
+        } else {
             yn = "N";
         }
-        requestSettingSetting("shopping_alarm_yn",yn);
+        requestSettingSetting("shopping_alarm_yn", yn);
         SharedPreferencesManager.setBoolean(this, Const.ALARM_RECEIVE, SETTING_SW_ALARM_RECEIVE.isChecked());
     }
 
@@ -157,21 +166,21 @@ public class SettingActivity extends Activity {
     void clickAlarm2() {
         //구매정보 알림
         String yn = "";
-        if(SETTING_SW_ALARM_RECEIVE2.isChecked()) {
+        if (SETTING_SW_ALARM_RECEIVE2.isChecked()) {
             yn = "Y";
-        }else {
+        } else {
             yn = "N";
         }
-        requestSettingSetting("buy_alarm_yn",yn);
+        requestSettingSetting("buy_alarm_yn", yn);
         SharedPreferencesManager.setBoolean(this, Const.ALARM_RECEIVE2, SETTING_SW_ALARM_RECEIVE2.isChecked());
     }
 
     //알림금지 시간설정
     @Click(R.id.SETTING_SW_ALARM_TIME)
     void clickAlarmTime() {
-        if(SETTING_SW_ALARM_TIME.isChecked()) {
+        if (SETTING_SW_ALARM_TIME.isChecked()) {
 
-        }else {
+        } else {
             requestDenyAlarmTime("00", "00");
         }
         SharedPreferencesManager.setBoolean(this, Const.ALARM_TIME_SETTING_, SETTING_SW_ALARM_TIME.isChecked());
@@ -181,25 +190,34 @@ public class SettingActivity extends Activity {
     @Click(R.id.SETTING_SW_ALARM_NOSOUND)
     void clickAlarm3() {
         String yn = "";
-        if(SETTING_SW_ALARM_NOSOUND.isChecked()) {
+        if (SETTING_SW_ALARM_NOSOUND.isChecked()) {
             yn = "Y";
-        }else {
+        } else {
             yn = "N";
         }
-        requestSettingSetting("nosound_yn",yn);
+        requestSettingSetting("nosound_yn", yn);
         SharedPreferencesManager.setBoolean(this, Const.ALARM_NO_SOUND, SETTING_SW_ALARM_NOSOUND.isChecked());
     }
 
     //자동로그인
     @Click(R.id.SETTING_SW_LOGIN_AUTO)
     void clickLoginAuto() {
-        SharedPreferencesManager.setBoolean(this, Const.LOGIN_AUTO, SETTING_SW_LOGIN_AUTO.isChecked());
+        if (SETTING_SW_LOGIN_AUTO.isChecked()) {
+            CookieManager.getInstance().setCookie(URLManager.getServerUrl(), "loginf=" + loginCookie.substring(0, 1) + "Y");
+        } else {
+            CookieManager.getInstance().setCookie(URLManager.getServerUrl(), "loginf=" + loginCookie.substring(0, 1) + "N");
+        }
     }
 
     //동영상 자동재샘
     @Click(R.id.SETTING_SW_BANNER_AUTO)
     void clickBannerAuto() {
         SharedPreferencesManager.setBoolean(this, Const.MOVIE_AUTO_PLAY, SETTING_SW_BANNER_AUTO.isChecked());
+        if (SETTING_SW_BANNER_AUTO.isChecked()) {
+            CookieManager.getInstance().setCookie(URLManager.getServerUrl(), "autoplay=Y");
+        } else {
+            CookieManager.getInstance().setCookie(URLManager.getServerUrl(), "autoplay=N");
+        }
     }
 
     //알람금지 저장
@@ -216,11 +234,31 @@ public class SettingActivity extends Activity {
         requestMain();
     }
 
+    String loginCookie = "NN";
+
     private void initView(PushSettingResult result, UserInfoResult userInfo) {
+        if (null != CookieManager.getInstance().getCookie(URLManager.getServerUrl())) {
+            for (String aKey : CookieManager.getInstance().getCookie(URLManager.getServerUrl()).split(";")) {
+                if (aKey.split("=")[0].equals(" loginf") || aKey.split("=")[0].equals("loginf")) {
+                    loginCookie = aKey.split("=")[1];
+                    if (aKey.split("=")[1].equals("YY") || aKey.split("=")[1].equals("NY")) {
+                        SETTING_SW_LOGIN_AUTO.setChecked(true);
+                    } else {
+                        SETTING_SW_LOGIN_AUTO.setChecked(false);
+                    }
+                    break;
+                }
+            }
+        }
 
         //알림금지시간설정
-        SETTING_TV_BEFORETIME.setText(BaseUtils.nvl(result.start_hh,"00") + ":00");
-        SETTING_TV_AFTERTIME.setText(BaseUtils.nvl(result.end_hh,"00") + ":00");
+        SETTING_TV_BEFORETIME.setText(BaseUtils.nvl(result.start_hh, "00") + ":00");
+        SETTING_TV_AFTERTIME.setText(BaseUtils.nvl(result.end_hh, "00") + ":00");
+
+
+        SETTING_SW_ALARM_NOSOUND.setChecked(result.NOSOUND_YN.equals("Y")?true:false);
+        SETTING_SW_ALARM_RECEIVE.setChecked(result.SHOPPING_ALARM_YN.equals("Y")?true:false);
+        SETTING_SW_ALARM_RECEIVE2.setChecked(result.BUY_ALARM_YN.equals("Y")?true:false);
 
         if (userInfo.custId.equals("")) {
             Feature.isLogin = false;
@@ -231,11 +269,10 @@ public class SettingActivity extends Activity {
         }
         SETTING_TV_ID.setText(userInfo.custId);
 
-        SETTING_SW_ALARM_RECEIVE.setChecked(SharedPreferencesManager.getBoolean(this, Const.ALARM_RECEIVE));
-        SETTING_SW_ALARM_RECEIVE2.setChecked(SharedPreferencesManager.getBoolean(this, Const.ALARM_RECEIVE2));
+//        SETTING_SW_ALARM_RECEIVE.setChecked(SharedPreferencesManager.getBoolean(this, Const.ALARM_RECEIVE));
+//        SETTING_SW_ALARM_RECEIVE2.setChecked(SharedPreferencesManager.getBoolean(this, Const.ALARM_RECEIVE2));
         SETTING_SW_ALARM_TIME.setChecked(SharedPreferencesManager.getBoolean(this, Const.ALARM_TIME_SETTING_));
-        SETTING_SW_ALARM_NOSOUND.setChecked(SharedPreferencesManager.getBoolean(this, Const.ALARM_NO_SOUND));
-        SETTING_SW_LOGIN_AUTO.setChecked(SharedPreferencesManager.getBoolean(this, Const.LOGIN_AUTO));
+//        SETTING_SW_ALARM_NOSOUND.setChecked(SharedPreferencesManager.getBoolean(this, Const.ALARM_NO_SOUND));
         SETTING_SW_BANNER_AUTO.setChecked(SharedPreferencesManager.getBoolean(this, Const.MOVIE_AUTO_PLAY));
 
         //버전정보
@@ -321,7 +358,7 @@ public class SettingActivity extends Activity {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 JHYLogger.d(responseData.toString());
-                                initView(Parser.parsingPushSetting(responseData.toString()),userInfo);
+                                initView(Parser.parsingPushSetting(responseData.toString()), userInfo);
                             }
                         },
                         new RequestFailureListener() {
@@ -341,7 +378,7 @@ public class SettingActivity extends Activity {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 JHYLogger.d(responseData.toString());
-                                startActivity(new Intent(SettingActivity.this,MainActivity_.class));
+                                startActivity(new Intent(SettingActivity.this, MainActivity_.class));
                             }
                         },
                         new RequestFailureListener() {

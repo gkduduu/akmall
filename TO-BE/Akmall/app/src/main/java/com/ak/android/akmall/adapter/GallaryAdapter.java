@@ -168,9 +168,8 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
         }
         holder.I_GALLARY_SCORE.setText("상품평(" + BaseUtils.nvl(result.comment_avg,"0") + ")");
 
-        //이미지
+//        //이미지
         Glide.with(context).load(BaseUtils.nvl(result.getImagePath).replace("@@@", "350"))
-                .centerCrop()
                 .into(holder.I_GALLARY_MAINIV);
 
         //무료배송 여부

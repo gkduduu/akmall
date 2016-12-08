@@ -99,12 +99,14 @@
 
                 <RelativeLayout
                     android:id="@+id/I_BEST_BRANCH_LAYOUT"
-                    android:layout_width="46dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginRight="2dp"
                     android:background="#333">
 
                     <TextView
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
                         android:id="@+id/I_BEST_BRANCH"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

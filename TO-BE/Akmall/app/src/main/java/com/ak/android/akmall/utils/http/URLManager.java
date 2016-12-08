@@ -16,12 +16,9 @@ public class URLManager {
     private static URLManager instance;
 
     /* URL */
-    public final static String SERVER_URL_DEBUG = "91.3.115.140";
-    public final static int SERVER_PORT_DEBUG = 10443;
-
-    public final static String SERVER_URL_REAL = "";
-    public final static int SERVER_PORT_REAL = 80;
-
+//    public final static String SERVER_URL_DEBUG = "91.3.115.140";
+//    public final static String SERVER_URL_DEBUG = "akm.akmall.com";
+    public final static String SERVER_URL_DEBUG = "testm.akmall.com";
 
     public static String getServerUrl() {
         return "http://" + SERVER_URL_DEBUG;
@@ -49,6 +46,11 @@ public class URLManager {
     //스플레시
     public static String getSplash() {
         return getServerUrl() + "/app/lib.do?act=appIntro&returnType=json";
+    }
+
+    //위젯
+    public static String getWidget() {
+        return getServerUrl() + "/widget/info.do";
     }
 
     //설정내 유저정보

@@ -22,12 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></WebView>
 
-            <Button
-                android:id="@+id/test"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="드로어 호출" />
-
         </LinearLayout>
 
         <include

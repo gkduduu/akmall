@@ -1,26 +1,24 @@
 package com.ak.android.akmall.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.widget.VideoView;
+
 import com.ak.android.akmall.R;
-import com.ak.android.akmall.utils.Const;
+import com.ak.android.akmall.utils.BigWidgetProvider;
 import com.ak.android.akmall.utils.JHYLogger;
-import com.ak.android.akmall.utils.SharedPreferencesManager;
-import com.ak.android.akmall.utils.gcm.GcmManager;
 import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
 import com.ak.android.akmall.utils.http.DataControlManager;
 import com.ak.android.akmall.utils.http.RequestCompletionListener;
 import com.ak.android.akmall.utils.http.RequestFailureListener;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.Settings;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.widget.MediaController;
-import android.widget.VideoView;
-
-import com.arasthel.asyncjob.AsyncJob;
+import com.ak.android.akmall.utils.json.Parser;
+import com.ak.android.akmall.utils.json.result.WidgetResult;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -81,58 +79,6 @@ public class TestActivity extends Activity {
 
     @AfterViews
     void afterView(){
-        Log.d("asdf", "asdfasdfdasf");
-        new AsyncJob.AsyncJobBuilder<Boolean>()
-                .doInBackground(new AsyncJob.AsyncAction<Boolean>() {
-                    @Override
-                    public Boolean doAsync() {
-                        // Do some background work
-                        GcmManager.register(TestActivity.this);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return true;
-                    }
-                })
-                .doWhenFinished(new AsyncJob.AsyncResultAction<Boolean>() {
-                    @Override
-                    public void onResult(Boolean result) {
-                        String appid = Settings.Secure.getString(TestActivity.this.getContentResolver(),
-                                Settings.Secure.ANDROID_ID);
-                        String deny_all = SharedPreferencesManager.getBoolean(TestActivity.this, Const.ALARM_RECEIVE) ? "no" : "yes";
-                        String oldToken = SharedPreferencesManager.getString(TestActivity.this,Const.GCM_PUSH_TOKEN);
-                        final String token = GcmManager.getRegistrationId(TestActivity.this);
-                        String registeredVersion = GcmManager.getRegisteredVersion(TestActivity.this);
-
-                        JHYLogger.d("appid  =  " + appid);
-                        JHYLogger.d("deny_all  =  " + deny_all);
-                        JHYLogger.d("oldToken  =  " + oldToken);
-                        JHYLogger.d("token  =  " + token);
-                        JHYLogger.d("registeredVersion  =  " + registeredVersion);
-
-                        DataControlManager.getInstance().addSchedule(
-                                new DataControlHttpExecutor().requestGCMRegister(TestActivity.this,appid,deny_all,registeredVersion,token,oldToken,
-                                        new RequestCompletionListener() {
-                                            @Override
-                                            public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                                JHYLogger.d(responseData.toString());
-                                                GcmManager.setRegisteredServer(TestActivity.this,true);
-                                                GcmManager.setRegistrationId(TestActivity.this,token);
-                                            }
-                                        },
-                                        new RequestFailureListener() {
-                                            @Override
-                                            public void onDataControlFailed(@Nullable Object responseData, @Nullable Object error) {
-                                            }
-                                        }
-                                ));
-                        DataControlManager.getInstance().runScheduledCommandOnAsync();
-                    }
-                }).create().start();
-
-
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
 
         //비디오뷰에 비디오 세팅
@@ -144,7 +90,6 @@ public class TestActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if(requestCode == 999) {
             //음성인식 결과
 
@@ -164,4 +109,11 @@ public class TestActivity extends Activity {
                     }).show();
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
 }

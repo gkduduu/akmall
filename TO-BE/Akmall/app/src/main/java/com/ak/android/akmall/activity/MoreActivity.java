@@ -62,6 +62,11 @@ public class MoreActivity extends Activity {
         startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url", Const.MENU_BAG));
         finish();
     }
+
+    @Click(R.id.MORE_BACKGROUND)
+    void closer() {
+        finish();
+    }
     @Click(R.id.MORE_HOME)
     void clickHide() {
         finish();

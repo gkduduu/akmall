@@ -7,14 +7,12 @@ package com.ak.android.akmall.utils;
 
 public class Const {
 
-    public final static String DAUM_API_KEY = "056d36313be683772dd4d3662952304b";/* 음성인식을 위한 API KEY (gkduduu@naver.com)*/
+    public final static String DAUM_API_KEY = "d7ab783d2fd4a8f22bfe3af11796d227";/* 음성인식을 위한 API KEY (gkduduu@naver.com)*/
 
     public final static String BOUNDARY = "hayoung2cute";
 
     public static final String GCM_SENDER_ID;
     public static final String SERVER_ADDR;
-    public static final String URL_BASE;
-    public static final String URL_LIB;
 
     static {
         if (!Feature.DEBUG_MODE) {
@@ -32,8 +30,6 @@ public class Const {
             SERVER_ADDR = "devm.akmall.com";
             //SERVER_ADDR = "91.3.115.209:8082";//실제 동작 url p65458 todo
         }
-        URL_BASE = "http://" + SERVER_ADDR;
-        URL_LIB = URL_BASE + "/app/lib.do?";
     }
 
     public final static String GCM_PUSH_TOKEN = "GCM_PUSH_TOKEN";
@@ -46,12 +42,14 @@ public class Const {
     public final static String MOVIE_AUTO_PLAY = "MOVIE_AUTO_PLAY";/*동영상 자동 플레이*/
     public final static String LOGIN_AUTO = "LOGIN_AUTO";/*자동로그인*/
 
+    public final static String AUTO_LOGIN_YN = "AUTO_LOGIN_YN";/*자동로그인 여부*/
+
     /* 하단메뉴 url*/
-    public final static String MENU_CATEGORY = "/common/menu.do?isAkApp=Y";/*카테고리*/
-    public final static String MENU_MYAK = "/mypage/MyPlaceMain.do?isAkApp=Y;";/*MY AK*/
-    public final static String MENU_BAG = "/order/ShoppingCart.do?isAkApp=Y";/*장바구니*/
+    public final static String MENU_CATEGORY = "/common/menu.do?isAkApp=Android";/*카테고리*/
+    public final static String MENU_MYAK = "/mypage/MyPlaceMain.do?isAkApp=Android;";/*MY AK*/
+    public final static String MENU_BAG = "/order/ShoppingCart.do?isAkApp=Android";/*장바구니*/
     public final static String MENU_HOME = "/main/Main.do";/*메인*/
-    public final static String MENU_SEARCH = "/search/SearchMain.do?isAkApp=Y";/*검색*/
+    public final static String MENU_SEARCH = "/search/SearchMain.do?isAkApp=Android";/*검색*/
 
     /*flaoting menu url*/
     public final static String MENU_PICK = "/mypage/SmartPickVoucherList.do"; /*pic*/
@@ -64,8 +62,15 @@ public class Const {
     public final static String BIG_CATEGORY = "/common/AppPage?forwardPage=CateLayer";/*대카테고리*/
     public final static String MOVE_FILTER = "/common/AppPage?forwardPage=FilterLayer";/*필터*/
 
+    /*widget*/
+    public final static String WIDGET_COUPON = "/mypage/DiscCoupon.do?isAkApp=Android";/*보유쿠폰*/
+    public final static String WIDGET_CHECK = "/event/RightVisit.do?isAkApp=Android";/*추럭체크*/
+    public final static String WIDGET_EVENT = "/event/EventMain.do?isAkApp=Android";/*이벤트*/
+    public final static String WIDGET_DELIVERY = "/mypage/OrderDeliInquiry.do?isAkApp=Android";/*주문배송조회*/
+    public final static String WIDGET_MY = " /mypage/MyPlaceMain.do?isAkApp=Android";/*나만의공간*/
+
     /*상품 메뉴 관련 url*/
-    public final static String ITME_SHARE = "/goods/pSnsShare.do?isAkApp=Y"; /*공유하기*/
+    public final static String ITME_SHARE = "/goods/pSnsShare.do?isAkApp=Android&native=Y"; /*공유하기*/
     public final static String ITME_HEART = "/common/AppPage?forwardPage=pWishInpt"; /*찜하기하기*/
 
     /*activityforresult 의 response 코드*/

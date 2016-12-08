@@ -3,6 +3,8 @@ package com.ak.android.akmall.utils;
 import android.app.Activity;
 import android.content.ContentValues;
 
+import com.ak.android.akmall.activity.MainActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,8 @@ public class Feature {
             }
         }
     }
+
+    public static MainActivity currentMain;
 
     public static ContentValues cookie;
 

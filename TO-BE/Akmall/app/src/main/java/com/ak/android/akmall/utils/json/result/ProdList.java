@@ -14,5 +14,7 @@ public class ProdList {
     public ProductResult bestProdList;
     public ProductResult newProdList;
     public ProductResult themeList;
+    public int pageIdx;
+    public int totalcnt;
     public List<PageDatas> pageDatas;
 }

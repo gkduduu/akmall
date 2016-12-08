@@ -3,9 +3,11 @@ package com.ak.android.akmall.utils.json;
 import com.ak.android.akmall.utils.Const;
 import com.ak.android.akmall.utils.json.result.AddingResult;
 import com.ak.android.akmall.utils.json.result.ChangeParamResult;
+import com.ak.android.akmall.utils.json.result.MainPopupResult;
 import com.ak.android.akmall.utils.json.result.MainResult;
 import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
 import com.ak.android.akmall.utils.json.result.PageDatas;
+import com.ak.android.akmall.utils.json.result.PowerLinkResult;
 import com.ak.android.akmall.utils.json.result.ProductResult;
 import com.ak.android.akmall.utils.json.result.BigCategoryResult;
 import com.ak.android.akmall.utils.json.result.CheckHeightResult;
@@ -13,6 +15,7 @@ import com.ak.android.akmall.utils.json.result.PushSettingResult;
 import com.ak.android.akmall.utils.json.result.SplashResult;
 import com.ak.android.akmall.utils.json.result.UserInfoResult;
 
+import com.ak.android.akmall.utils.json.result.WidgetResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 
@@ -179,6 +182,9 @@ public class Parser {
             JSONObject res = new JSONObject(response);
             result.end_hh = res.getJSONObject("resultDatas").getJSONArray("denytime").getJSONObject(0).getString("END_HH");
             result.start_hh = res.getJSONObject("resultDatas").getJSONArray("denytime").getJSONObject(0).getString("START_HH");
+            result.BUY_ALARM_YN = res.getJSONObject("resultDatas").getJSONArray("denytime").getJSONObject(0).getString("BUY_ALARM_YN");
+            result.SHOPPING_ALARM_YN = res.getJSONObject("resultDatas").getJSONArray("denytime").getJSONObject(0).getString("SHOPPING_ALARM_YN");
+            result.NOSOUND_YN = res.getJSONObject("resultDatas").getJSONArray("denytime").getJSONObject(0).getString("NOSOUND_YN");
         }  catch (JSONException e) {
             e.getMessage();
         }
@@ -211,6 +217,50 @@ public class Parser {
             }else {
                 result.link = "";
             }
+        }  catch (Exception e) {
+            e.getMessage();
+        }
+        return result;
+    }
+
+    //메인팝업
+    public static List<MainPopupResult> parsingMainPopupList(String response) {
+        List<MainPopupResult> result = new ArrayList<>();
+        try {
+            JSONArray res = new JSONArray(response);
+            for(int i =0;i<res.length();i++) {
+                MainPopupResult info = new ObjectMapper().readValue(res.getJSONObject(i).toString(), MainPopupResult.class);
+                result.add(info);
+            }
+        }  catch (Exception e) {
+            e.getMessage();
+        }
+        return result;
+    }
+
+    //파워링크 파싱
+    public static List<PowerLinkResult> parsingPowerLink(String response) {
+        List<PowerLinkResult> result = new ArrayList<>();
+        try {
+            JSONObject res = new JSONObject(response);
+            JSONArray array = res.getJSONObject("resultDatas").getJSONObject("response").getJSONArray("ads");
+            for(int i =0;i<array.length();i++) {
+                PowerLinkResult info = new ObjectMapper().readValue(array.getJSONObject(i).toString(), PowerLinkResult.class);
+                result.add(info);
+            }
+        }  catch (Exception e) {
+            e.getMessage();
+        }
+        return result;
+    }
+
+    //파워링크 파싱
+    public static WidgetResult parsingWidget(String response) {
+        WidgetResult result = new WidgetResult();
+        try {
+            JSONObject res = new JSONObject(response);
+            result.hasLogin = res.getString("hasLogin");
+            result.feed_msg = res.getJSONObject("myfeed").getString("feed_msg");
         }  catch (Exception e) {
             e.getMessage();
         }

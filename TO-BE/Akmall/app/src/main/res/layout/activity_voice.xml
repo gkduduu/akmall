@@ -65,6 +65,5 @@
         android:id="@+id/VOICE_RESULT_TEXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="result"/>
+        android:textSize="30sp"/>
 </LinearLayout>

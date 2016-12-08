@@ -163,7 +163,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
         //이미지
         Glide.with(context).load(BaseUtils.nvl(result.getImagePath).replace("@@@", "350"))
-                .centerCrop()
+//                .centerCrop()
                 .into(holder.I_GRID_MAINIV);
 
         //무료배송 여부

@@ -2,15 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     android:orientation="vertical">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white"
+    android:layout_weight="1">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_weight="1">
+        >
 
         <ImageView
             android:layout_width="wrap_content"
@@ -19,11 +22,13 @@
             android:src="@drawable/widget_logo" />
 
         <RelativeLayout
-            android:layout_width="172dp"
+            android:id="@+id/WIDGET_SMALL_SEARCH"
+            android:layout_width="130dp"
             android:layout_height="31dp"
+            android:layout_marginRight="50dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/round_fff_000">
+            android:background="@drawable/round_fff_op70">
             <!--<EditText-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content" />-->
@@ -35,18 +40,31 @@
                 android:layout_marginRight="16dp"
                 android:src="@drawable/widget_search" />
         </RelativeLayout>
+        <ImageView
+            android:id="@+id/WIDGET_SMALL_REFRESH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/btn_replay"/>
+
     </RelativeLayout>
+</RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"></RelativeLayout>
+        android:layout_height="1dp"
+        android:background="#d8d8d8"></RelativeLayout>
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#efefef"
+        android:background="@drawable/bg_gray"
         android:orientation="horizontal">
         <LinearLayout
+            android:id="@+id/WIDGET_SMALL_DELIVERY"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -69,6 +87,7 @@
             android:background="#d8d8d8"/>
 
         <LinearLayout
+            android:id="@+id/WIDGET_SMALL_CHECK"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -91,6 +110,7 @@
             android:background="#d8d8d8"/>
 
         <LinearLayout
+            android:id="@+id/WIDGET_SMALL_MY"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

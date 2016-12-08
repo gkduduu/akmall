@@ -2,6 +2,8 @@ package com.ak.android.akmall.activity;
 
 import com.ak.android.akmall.R;
 import com.ak.android.akmall.utils.Const;
+import com.ak.android.akmall.utils.JHYLogger;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -101,7 +103,7 @@ public class VoiceActivity extends Activity {
 
             @Override
             public void onError(int i, String s) {
-
+                JHYLogger.D(s);
             }
 
             @Override

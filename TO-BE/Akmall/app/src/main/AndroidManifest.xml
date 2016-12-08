@@ -28,54 +28,69 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.ak.android.akmall.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:largeHeap="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/akmall_ico"
         android:label="@string/app_name"
+        android:name=".utils.AKApplication"
+        android:hardwareAccelerated="true"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TestActivity" />
-        <activity android:name=".activity.TestActivity_">
+        <activity android:name=".activity.SplashActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SplashActivity_" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.VoiceActivity" />
-        <activity android:name=".activity.VoiceActivity_" />
-        <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.SettingActivity_" />
-        <activity android:name=".activity.ShopPowerDealActivity" />
-        <activity android:name=".activity.ShopPowerDealActivity_" />
-        <activity android:name=".activity.ShopContentActivity" />
-        <activity android:name=".activity.ShopContentActivity_" />
-        <activity android:name=".activity.ShopGridActivity" />
-        <activity android:name=".activity.ShopGridActivity_" />
-        <activity android:name=".activity.ShopGallaryActivity" />
-        <activity android:name=".activity.ShopGallaryActivity_" />
-        <activity android:name=".activity.IntroActivity" />
-        <activity android:name=".activity.IntroActivity_" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.MainActivity_" />
+        <activity android:name=".activity.VoiceActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.VoiceActivity_"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SettingActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SettingActivity_"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ShopPowerDealActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ShopPowerDealActivity_"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ShopContentActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ShopContentActivity_"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ShopGridActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.ShopGridActivity_" android:screenOrientation="portrait" />
+        <activity android:name=".activity.ShopGallaryActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.ShopGallaryActivity_" android:screenOrientation="portrait" />
+        <activity android:name=".activity.IntroActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.IntroActivity_" android:screenOrientation="portrait" />
+        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.MainActivity_"  android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.WebviewActivity"
+            android:name=".activity.WebviewActivity" android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
-            android:name=".activity.WebviewActivity_"
+            android:name=".activity.WebviewActivity_" android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".activity.MoreActivity" />
-        <activity android:name=".activity.MyWebviewActivity" />
-        <activity android:name=".activity.MyWebviewActivity_" />
-        <activity android:name=".activity.MoreActivity_" />
-        <activity android:name=".activity.SplashActivity"></activity>
-        <activity android:name=".activity.SplashActivity_"></activity>
+        <activity android:name=".activity.MoreActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyWebviewActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyWebviewActivity_" android:screenOrientation="portrait" />
+        <activity android:name=".activity.MoreActivity_" android:screenOrientation="portrait" />
+        <activity android:name=".activity.TestActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.TestActivity_"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AlarmDialogActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.PopupActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.PopupActivity_" android:screenOrientation="portrait" />
 
         <receiver android:name=".utils.BigWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.ak.android.akmall.utils.BigWidgetProvider.ACTION_WIDGET_HOME"/>
+                <action android:name="com.ak.android.akmall.utils.BigWidgetProvider.ACTION_WIDGET_DELIVERY"/>
+                <action android:name="com.ak.android.akmall.utils.BigWidgetProvider.ACTION_WIDGET_CHECK"/>
+                <action android:name="com.ak.android.akmall.utils.BigWidgetProvider.ACTION_WIDGET_BAG"/>
+                <action android:name="com.ak.android.akmall.utils.BigWidgetProvider.ACTION_WIDGET_EVENT"/>
+                <action android:name="com.ak.android.akmall.utils.BigWidgetProvider.ACTION_WIDGET_SEARCH"/>
+                <action android:name="com.ak.android.akmall.utils.BigWidgetProvider.ACTION_WIDGET_REFRESH"/>
+                <action android:name="com.ak.android.akmall.utils.BigWidgetProvider.ACTION_WIDGET_LOGIN"/>
             </intent-filter>
 
             <meta-data
@@ -85,6 +100,11 @@
         <receiver android:name=".utils.SmallWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.ak.android.akmall.utils.SmallWidgetProvider.ACTION_WIDGET_DELIVERY"/>
+                <action android:name="com.ak.android.akmall.utils.SmallWidgetProvider.ACTION_WIDGET_CHECK"/>
+                <action android:name="com.ak.android.akmall.utils.SmallWidgetProvider.ACTION_WIDGET_BAG"/>
+                <action android:name="com.ak.android.akmall.utils.SmallWidgetProvider.ACTION_WIDGET_REFRESH"/>
+                <action android:name="com.ak.android.akmall.utils.SmallWidgetProvider.ACTION_WIDGET_SEARCH"/>
             </intent-filter>
 
             <meta-data
@@ -93,32 +113,44 @@
         </receiver>
 
         <!-- [START gcm_receiver] -->
-        <!--<receiver-->
-            <!--android:name="com.google.android.gms.gcm.GcmReceiver"-->
-            <!--android:exported="true"-->
-            <!--android:permission="com.google.android.c2dm.permission.SEND">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
+        <!-- <receiver -->
+        <!-- android:name="com.google.android.gms.gcm.GcmReceiver" -->
+        <!-- android:exported="true" -->
+        <!-- android:permission="com.google.android.c2dm.permission.SEND"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.android.c2dm.intent.RECEIVE" /> -->
 
-                <!--<category android:name="android.ak.com.akmall.gcm" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
 
+        <!-- <category android:name="android.ak.com.akmall.gcm" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+
+
+        <!-- <receiver -->
+        <!-- android:name=".utils.gcm.GcmBroadcastReceiver" -->
+        <!-- android:permission="com.google.android.c2dm.permission.SEND"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.android.c2dm.intent.RECEIVE" /> -->
+        <!-- <action android:name="com.google.android.c2dm.intent.REGISTRATION" /> -->
+
+
+        <!-- <category android:name="com.ak.android.akmall" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- &lt;!&ndash; [START gcm_listener_service] &ndash;&gt; -->
+        <!-- <service android:name=".utils.gcm.GcmHandleIntentService" /> -->
         <receiver
-            android:name=".utils.gcm.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:name=".utils.gcm2.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
                 <category android:name="com.ak.android.akmall" />
-
             </intent-filter>
         </receiver>
-        <!-- [START gcm_listener_service] -->
-        <service
-            android:name=".utils.gcm.GcmHandleIntentService">
-        </service>
+
+        <service android:name=".utils.gcm2.GcmIntentService" />
+
     </application>
 
 </manifest>

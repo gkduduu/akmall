@@ -71,13 +71,6 @@ public class OutsideUriHandler {
         	//p65458 20150727 isp mobile app download url add
             if (!isStarted) {
             	/*
-	        	new AlertDialog.Builder(context).setIcon(null).setTitle("ISP mobile 설치 화면으로 이동합니다.")
-				.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int whichButton) {
-	
-					}
-				}).create();
 	        	*/
 	        	isStarted = AkMallFacade.startExternalActivity(context, URL_ISP_MOBILE_APP_DOWN);
 	        	

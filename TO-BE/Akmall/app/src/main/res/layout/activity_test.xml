@@ -47,7 +47,7 @@
         android:id="@+id/TEST_SERVER"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="서버연동 테스트"/>
+        android:text="앱 시작하기"/>
 
     <VideoView
         android:id="@+id/TEST_VIDEO"

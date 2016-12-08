@@ -33,6 +33,28 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"></android.support.v7.widget.RecyclerView>
 
+                <LinearLayout
+                    android:id="@+id/SHOP_POWERLINK_LAYOUT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#f4f4f4">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:textColor="#666"
+                        android:textStyle="bold"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="파워링크(AD)"/>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/SHOP_POWERLINK_RV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"/>
+                </LinearLayout>
+
                 <include
                     layout="@layout/item_footer"
                     android:layout_width="fill_parent"
@@ -42,7 +64,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/CONTENT_RV_CATEGORY"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="#333"
             android:orientation="horizontal"
@@ -67,5 +89,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"></WebView>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="11dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="51dp">
+
+        <ImageView
+            android:id="@+id/FLOATING_BACK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/btn_cback" />
+
+        <ImageView
+            android:id="@+id/FLOATING_TOP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/btn_top" />
+
+        <ImageView
+            android:id="@+id/FLOATING_MORE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/FLOATING_TOP"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="2dp"
+            android:src="@drawable/btn_more" />
+    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>
