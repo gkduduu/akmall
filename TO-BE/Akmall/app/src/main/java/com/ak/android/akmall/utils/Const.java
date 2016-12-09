@@ -7,7 +7,7 @@ package com.ak.android.akmall.utils;
 
 public class Const {
 
-    public final static String DAUM_API_KEY = "d7ab783d2fd4a8f22bfe3af11796d227";/* 음성인식을 위한 API KEY (gkduduu@naver.com)*/
+    public final static String DAUM_API_KEY = "bb1bed6cd8e5ee710bce771685729493";/* 음성인식을 위한 API KEY (gkduduu@naver.com)*/
 
     public final static String BOUNDARY = "hayoung2cute";
 

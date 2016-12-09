@@ -74,8 +74,8 @@
             android:name=".activity.WebviewActivity_" android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity android:name=".activity.MoreActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MyWebviewActivity" android:screenOrientation="portrait" />
-        <activity android:name=".activity.MyWebviewActivity_" android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyWebviewActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyWebviewActivity_" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" />
         <activity android:name=".activity.MoreActivity_" android:screenOrientation="portrait" />
         <activity android:name=".activity.TestActivity" android:screenOrientation="portrait" />
         <activity android:name=".activity.TestActivity_"  android:screenOrientation="portrait"/>
