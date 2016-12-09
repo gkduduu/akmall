@@ -34,17 +34,20 @@ public class Feature {
     }
 
     private static List<Activity> activityManageList = new ArrayList<>();
+
     public static void addAcitivty(Activity activity) {
         activityManageList.add(activity);
     }
+
     public static void removeAcitivty(Activity activity) {
         activityManageList.remove(activity);
     }
+
     public static void closeAllActivity() {
-        for(int i=0;i<activityManageList.size();i++) {
-            try{
+        for (int i = 0; i < activityManageList.size(); i++) {
+            try {
                 activityManageList.get(i).finish();
-            }catch(Exception e) {
+            } catch (Exception e) {
                 JHYLogger.e(e.getMessage());
             }
         }
