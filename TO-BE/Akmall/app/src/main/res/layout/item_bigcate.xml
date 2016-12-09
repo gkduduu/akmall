@@ -29,4 +29,9 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="15dp"
         android:src="@drawable/location_icon_arrow" />
+    <RelativeLayout
+        android:id="@+id/I_BIG_BIG"
+        android:layout_width="20dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content"></RelativeLayout>
 </LinearLayout>

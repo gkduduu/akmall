@@ -16,10 +16,12 @@ import com.ak.android.akmall.utils.http.URLManager;
 import com.ak.android.akmall.utils.json.Parser;
 import com.ak.android.akmall.utils.json.result.MainPopupResult;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -27,6 +29,8 @@ import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
@@ -103,6 +107,7 @@ public class MainActivity extends FragmentActivity {
         BaseUtils.updateWidget(this);
     }
 
+
     @Click(R.id.FLOATING_MORE)
     void clickMore() {
         BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
@@ -167,6 +172,8 @@ public class MainActivity extends FragmentActivity {
         WEBVIEW.setWebContentsDebuggingEnabled(true);
         WEBVIEW.loadUrl(URLManager.getServerUrl() + "/main/Main.do?isAkApp=Android");
         WEBVIEW.setWebViewClient(new WebViewClientClass());
+        WEBVIEW.setWebChromeClient(new ChromeClient());
+        WEBVIEW.getSettings().setSupportMultipleWindows(true);
 
         SLIDE_WEBVIEW.setInitialScale(100);
         SLIDE_WEBVIEW.getSettings().setJavaScriptEnabled(true);
@@ -178,6 +185,26 @@ public class MainActivity extends FragmentActivity {
         ACTIVITY_MAIN.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         ACTIVITY_MAIN.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         ACTIVITY_MAIN.setFocusableInTouchMode(false);
+    }
+
+    private class ChromeClient extends WebChromeClient {
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            return super.onJsAlert(view, url, message, result);
+        }
+
+        @Override
+        public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg) {
+
+            WebView.HitTestResult result = view.getHitTestResult();
+            String data = result.getExtra();
+            JHYLogger.D(data);
+            Context context = view.getContext();
+            Intent browserIntent = new Intent(MainActivity.this,WebviewActivity_.class ).putExtra("url",data);
+            context.startActivity(browserIntent);
+
+            return true;
+        }
     }
 
     private class WebViewClientClass extends WebViewClient {
@@ -214,14 +241,8 @@ public class MainActivity extends FragmentActivity {
 //            } else if (url.contains("akplaza/DeptStore.do?")) {
 //                startActivity(new Intent(MainActivity.this, ShopContentActivity_.class).putExtra("url", url));
             } else if (url.contains(URLManager.getServerUrl())) {
-                startActivityForResult(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", url.replace(URLManager.getServerUrl(), "")), Const.CLICK_GO_HOME_SO_CLOSE_REQUEST);
+                startActivityForResult(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url",url.replace(URLManager.getServerUrl(), "")), Const.CLICK_GO_HOME_SO_CLOSE_REQUEST);
             } else if (url.contains("recopick.com")) {
-                if (url != null && url.indexOf("___target=_blank") > -1) {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", Uri.parse(url)));
-                    return true;
-                }
                 startActivity(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", url));
                 return true;
             } else if (url.startsWith("http")) {

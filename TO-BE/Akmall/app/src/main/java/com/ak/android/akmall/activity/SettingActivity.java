@@ -78,6 +78,7 @@ public class SettingActivity extends Activity {
         if (Feature.isLogin) {
             requestDoLogout();
             finish();
+            CookieManager.getInstance().removeAllCookie();
             Feature.closeAllActivity();
             Feature.currentMain.refreshWeb();
         } else {
@@ -378,7 +379,6 @@ public class SettingActivity extends Activity {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 JHYLogger.d(responseData.toString());
-                                startActivity(new Intent(SettingActivity.this, MainActivity_.class));
                             }
                         },
                         new RequestFailureListener() {

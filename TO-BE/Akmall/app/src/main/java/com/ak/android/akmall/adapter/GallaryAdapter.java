@@ -147,7 +147,7 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(context, MyWebviewActivity_.class).
-                        putExtra("url", "/common/AppPage?forwardPage=RelatedGoodsList&" +
+                        putExtra("url", "/common/AppPage.do?forwardPage=RelatedGoodsList&" +
                                 "goods_id=" + result.goods_id));
             }
         });

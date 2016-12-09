@@ -40,6 +40,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".utils.KillerService"
+            android:stopWithTask="true" />
         <activity android:name=".activity.SplashActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.SplashActivity_" android:screenOrientation="portrait">
             <intent-filter>

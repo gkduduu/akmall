@@ -23,6 +23,7 @@
                 android:layout_weight="1"></WebView>
 
             <include
+                android:visibility="gone"
                 layout="@layout/item_bottom"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
@@ -30,6 +31,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/FLOATING_LAYOUT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

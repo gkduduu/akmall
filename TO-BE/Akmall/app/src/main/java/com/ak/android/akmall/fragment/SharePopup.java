@@ -93,7 +93,7 @@ public class SharePopup extends Dialog {
 
                 if (decodeString.startsWith("akmall://closePopup")) {
                     SharePopup.this.dismiss();
-                }else if(decodeString.startsWith("akmall://clipboard")) {
+                }else if(decodeString.contains("akmall://clipboard")) {
                     //클립보드 복사
                     String link = Parser.parsingTString(decodeString.replace("akmall://clipboard?",""));
                     ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(context.CLIPBOARD_SERVICE);

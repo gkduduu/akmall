@@ -1,9 +1,12 @@
 package com.ak.android.akmall.activity;
 
+import android.animation.Animator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,11 +17,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.webkit.CookieManager;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.ak.android.akmall.R;
@@ -74,6 +80,9 @@ public class ShopContentActivity extends Activity {
     static String WHAT_PAGE;
 
     @ViewById
+    RelativeLayout FLOATING_LAYOUT;
+
+    @ViewById
     RecyclerView CONTENT_RV_LIST;
     private RecyclerView.LayoutManager mLayoutManager;
     GridAdapter gridAdapter;
@@ -102,6 +111,9 @@ public class ShopContentActivity extends Activity {
     @ViewById
     RecyclerView CONTENT_RV_CATEGORY;
     BigCategoryAdapter categoryAdapter;
+
+    @ViewById
+    HorizontalScrollView CONTENT_SCROLL;
 
     BigCategoryResult mBigCatgoryResult;
 
@@ -142,6 +154,52 @@ public class ShopContentActivity extends Activity {
     void clickback() {
         finish();
     }
+
+
+    //푸터 로그인 버튼
+    @Click(R.id.FOOTER_TOP_ONE)
+    void clicktone() {
+        if (Feature.isLogin) {
+            requestDoLogout();
+            finish();
+            CookieManager.getInstance().removeAllCookie();
+            Feature.closeAllActivity();
+            Feature.currentMain.refreshWeb();
+        } else {
+            Feature.closeAllActivity();
+            startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", "/login/Login.do?isAkApp=Android"));
+            finish();
+        }
+    }
+
+    //푸터 2
+    @Click(R.id.FOOTER_TOP_TWO)
+    void clickttw() {
+    }
+
+    //푸터 3
+    @Click(R.id.FOOTER_TOP_THREE)
+    void clickTth() {
+    }
+
+    //푸터 밑1
+    @Click(R.id.FOOTER_BOT_ONE)
+    void clickBone() {
+        startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url","/info/UseStiplt.do"));
+    }
+
+    //푸터 밑2
+    @Click(R.id.FOOTER_BOT_TWO)
+    void clickBtw() {
+        startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url","/info/PrsnlTreat.do"));
+    }
+
+    //푸터 밑13
+    @Click(R.id.FOOTER_TOP_THREE)
+    void clickBth() {
+        startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url","http://ftc.go.kr/info/bizinfo/communicationView.jsp?apv_perm_no=2007378010630200807&area1=&area2=&currpage=1&searchKey=04&searchVal=1298542351&stdate=&enddate="));
+    }
+
 
     @Click(R.id.MENU_CATEGORY)
     void ClickMenuCate() {
@@ -184,6 +242,9 @@ public class ShopContentActivity extends Activity {
         }
     }
 
+    boolean isFloatingMenuShowing = false;
+    boolean isFloatingMenuAnimation = false;
+    int scrollviewHeight = -100;
 
     @AfterViews
     void afterView() {
@@ -211,6 +272,7 @@ public class ShopContentActivity extends Activity {
         }
         CONTENT_WV_WEBVIEW.setWebChromeClient(new ChromeClient());
         CONTENT_WV_WEBVIEW.setWebViewClient(new WebViewClientClass());
+        CONTENT_WV_WEBVIEW.getSettings().setSupportMultipleWindows(true);
 
         //필터 웨뷰에 각종 옵션세팅
         CONTENT_SLIDE_WEBVIEW.setInitialScale(100);
@@ -221,6 +283,7 @@ public class ShopContentActivity extends Activity {
         CONTENT_SLIDE_WEBVIEW.setWebChromeClient(new ChromeClient());
         CONTENT_SLIDE_WEBVIEW.setWebViewClient(new FilterWebViewClient());
 
+
         //슬라이드 메뉴
         ACTIVITY_CONTENT.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         ACTIVITY_CONTENT.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
@@ -230,7 +293,71 @@ public class ShopContentActivity extends Activity {
         CONTENT_SV_SCROLL.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
+//                boolean isFloatingMenuShowing = false;
+//                boolean isFloatingMenuAnimation = false;
+//                int scrollviewHeight = -100;
+                if (scrollviewHeight < 0) {
+                    scrollviewHeight = CONTENT_SV_SCROLL.getChildAt(0).getHeight() / 3;
+                }
                 int scrollY = CONTENT_SV_SCROLL.getScrollY(); // For ScrollView
+                if (scrollY > scrollviewHeight) {
+                    if (!isFloatingMenuAnimation) {
+                        if (!isFloatingMenuShowing) {
+                            isFloatingMenuAnimation = true;
+                            FLOATING_LAYOUT.animate().translationY(-BaseUtils.convertDpToPixel(50, ShopContentActivity.this)).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    isFloatingMenuAnimation = false;
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            });
+                            isFloatingMenuShowing = !isFloatingMenuShowing;
+                        }
+                    }
+                } else {
+                    if (!isFloatingMenuAnimation) {
+
+                        if (isFloatingMenuShowing) {
+                            isFloatingMenuAnimation = true;
+                            FLOATING_LAYOUT.animate().translationY(0).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    isFloatingMenuAnimation = false;
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            });
+                            isFloatingMenuShowing = !isFloatingMenuShowing;
+                        }
+                    }
+                }
                 //상단 카테고리 리스트
                 if (WHAT_PAGE.equals(Const.CONTENT_BRAND_SHOP)) {
                     //브랜드샵일때는 안보여줌
@@ -238,10 +365,18 @@ public class ShopContentActivity extends Activity {
                 } else {
                     float scorllDp = BaseUtils.convertPixelsToDp(scrollY, ShopContentActivity.this);
                     if (scorllDp > 45) {
-                        CONTENT_RV_CATEGORY.setVisibility(View.VISIBLE);
+                        CONTENT_SCROLL.setVisibility(View.VISIBLE);
                         CONTENT_RV_CATEGORY.bringToFront();
+                        if (!testFlag) {
+                            testFlag = true;
+                            CONTENT_WV_WEBVIEW.loadUrl("javascript:readPositionX()");
+                        }
                     } else {
-                        CONTENT_RV_CATEGORY.setVisibility(View.GONE);
+                        CONTENT_SCROLL.setVisibility(View.GONE);
+                        if (testFlag) {
+                            testFlag = false;
+                            CONTENT_WV_WEBVIEW.loadUrl("javascript:writePositionX('" + moveX + "')");
+                        }
                     }
                 }
                 if (isAdding) return;
@@ -362,6 +497,11 @@ public class ShopContentActivity extends Activity {
         });
     }
 
+    int moveX = 0;
+    int rightX = 0;
+
+    boolean testFlag = false;
+
     //서버연동 후 뷰세팅
     private void initView(final BigCategoryResult result) {
         mBigCatgoryResult = result;
@@ -445,6 +585,16 @@ public class ShopContentActivity extends Activity {
             }
         });
         CONTENT_RV_CATEGORY.setAdapter(categoryAdapter);
+
+
+        //스크롤시 움직인 좌표
+        CONTENT_SCROLL.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                moveX = (int) BaseUtils.convertPixelsToDp(CONTENT_SCROLL.getScrollX(), ShopContentActivity.this);
+
+            }
+        });
 
         //TODO:테스트코드 지워야 할수도이씅ㅁ
         if (null == result.dp) return;
@@ -534,9 +684,7 @@ public class ShopContentActivity extends Activity {
     private void initPowerLink(List<PowerLinkResult> powerList) {
         if (null == powerList || powerList.size() == 0) {
             SHOP_POWERLINK_LAYOUT.setVisibility(View.GONE);
-            JHYLogger.D("업슴!!!!!");
         } else {
-            JHYLogger.D("여기!!!!!");
             SHOP_POWERLINK_LAYOUT.setVisibility(View.VISIBLE);
             SHOP_POWERLINK_RV.setHasFixedSize(true);
             SHOP_POWERLINK_RV.setLayoutManager(new LinearLayoutManager(this));
@@ -746,6 +894,19 @@ public class ShopContentActivity extends Activity {
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
             return super.onJsAlert(view, url, message, result);
         }
+
+        @Override
+        public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg) {
+
+            WebView.HitTestResult result = view.getHitTestResult();
+            String data = result.getExtra();
+            JHYLogger.D(data);
+            Context context = view.getContext();
+            Intent browserIntent = new Intent(ShopContentActivity.this, WebviewActivity_.class).putExtra("url", data);
+            context.startActivity(browserIntent);
+
+            return true;
+        }
     }
 
     String refreshParam = "";
@@ -890,7 +1051,11 @@ public class ShopContentActivity extends Activity {
                         overridePendingTransition(R.anim.anim_messege_in, R.anim.anim_page_out_right);
                     }
                 } else if (decodeString.startsWith("akmall://goBack")) {
-                    view.goBack();
+                    if (CONTENT_WV_WEBVIEW.canGoBack()) {
+                        CONTENT_WV_WEBVIEW.goBack();
+                    } else {
+                        finish();
+                    }
                 } else if (decodeString.startsWith("akmall://callSelectPop")) {
                     new SelectDialog(ShopContentActivity.this, decodeString.replace("akmall://callSelectPop?", "")).show();
                 } else if (decodeString.startsWith("akmall://callLayerFilter")) {
@@ -916,15 +1081,34 @@ public class ShopContentActivity extends Activity {
                     view.loadUrl(URLManager.getServerUrl() + openReult.url + "&isAkApp=Y");
                 } else if (decodeString.startsWith("akmall://goBack")) {
                     finish();
+                } else if (decodeString.startsWith("akmall://readPositionX")) {
+                    try {
+                        final String value = new JSONObject(decodeString.replace("akmall://readPositionX?", "")).getString("x");
+                        CONTENT_SCROLL.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                int move = 0;
+                                if (value.contains(".")) {
+                                    move = Integer.parseInt(value.split("\\.")[0]);
+                                } else {
+                                    move = Integer.parseInt(value);
+                                }
+                                CONTENT_SCROLL.scrollTo((int) BaseUtils.convertDpToPixel(move, ShopContentActivity.this), 0);
+                            }
+                        });
+
+                    } catch (Exception e) {
+
+                    }
                 }
                 return true;
             } else if (url.split("\\?")[0].contains("/main/Main.do")) {
                 Feature.closeAllActivity();
                 Feature.currentMain.refreshWebMoveTab(url);
                 return true;
-            }else if(url.equals("about:blank")){
+            } else if (url.equals("about:blank")) {
                 return false;
-            } else{
+            } else {
                 view.loadUrl(url);
                 startActivity(new Intent(ShopContentActivity.this, MyWebviewActivity_.class).putExtra("url", url));
                 return true;
@@ -969,6 +1153,7 @@ public class ShopContentActivity extends Activity {
             }
             return true;
         }
+
     }
 
     //어뎁터에서 호출하는것 상품 장바구니에 담기
@@ -1021,6 +1206,25 @@ public class ShopContentActivity extends Activity {
 //            return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    //로그아웃
+    private void requestDoLogout() {
+        DataControlManager.getInstance().addSchedule(
+                new DataControlHttpExecutor().requestDoLogout(ShopContentActivity.this,
+                        new RequestCompletionListener() {
+                            @Override
+                            public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
+                                JHYLogger.d(responseData.toString());
+                            }
+                        },
+                        new RequestFailureListener() {
+                            @Override
+                            public void onDataControlFailed(@Nullable Object responseData, @Nullable Object error) {
+                            }
+                        }
+                ));
+        DataControlManager.getInstance().runScheduledCommandOnAsync();
     }
 
 }

@@ -1,32 +1,18 @@
 package com.ak.android.akmall.activity;
 
-import com.ak.android.akmall.R;
-import com.ak.android.akmall.utils.BaseUtils;
-import com.ak.android.akmall.utils.Const;
-import com.ak.android.akmall.utils.DataHolder;
-import com.ak.android.akmall.utils.Feature;
-import com.ak.android.akmall.utils.JHYLogger;
-import com.ak.android.akmall.utils.SharedPreferencesManager;
-import com.ak.android.akmall.utils.blurbehind.BlurBehind;
-import com.ak.android.akmall.utils.blurbehind.OnBlurCompleteListener;
-import com.ak.android.akmall.utils.http.URLManager;
-import com.ak.android.akmall.utils.json.Parser;
-import com.ak.android.akmall.utils.json.result.BigCategoryResult;
-import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
-
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import android.os.Message;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Base64;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,6 +25,19 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.ak.android.akmall.R;
+import com.ak.android.akmall.utils.BaseUtils;
+import com.ak.android.akmall.utils.Const;
+import com.ak.android.akmall.utils.DataHolder;
+import com.ak.android.akmall.utils.Feature;
+import com.ak.android.akmall.utils.JHYLogger;
+import com.ak.android.akmall.utils.blurbehind.BlurBehind;
+import com.ak.android.akmall.utils.blurbehind.OnBlurCompleteListener;
+import com.ak.android.akmall.utils.http.URLManager;
+import com.ak.android.akmall.utils.json.Parser;
+import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -191,7 +190,7 @@ public class MyWebviewActivity extends Activity {
         //웹뷰에 각종 옵션세팅
         WEB_WEBVIEW.clearCache(true);
         WEB_WEBVIEW.setInitialScale(100);
-        WEB_WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+//        WEB_WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         WEB_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         WEB_WEBVIEW.setWebContentsDebuggingEnabled(true);
         WEB_WEBVIEW.getSettings().setUseWideViewPort(true);
@@ -202,6 +201,7 @@ public class MyWebviewActivity extends Activity {
         WEB_WEBVIEW.requestFocus(View.FOCUS_DOWN | View.FOCUS_UP);
         WEB_WEBVIEW.getSettings().setLightTouchEnabled(true);
         WEB_WEBVIEW.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+        WEB_WEBVIEW.getSettings().setSupportMultipleWindows(true);
 
         SLIDE_WEBVIEW.setInitialScale(100);
         SLIDE_WEBVIEW.getSettings().setJavaScriptEnabled(true);
@@ -223,6 +223,7 @@ public class MyWebviewActivity extends Activity {
         if (requestCode == Const.VOICE_REQUEST) {
             if (resultCode == Const.VOICE_RESULT) {
                 String voiceResult = BaseUtils.nvl(data.getStringExtra("result"));
+                voiceResult = voiceResult.replace("+"," ");
                 JHYLogger.D(voiceResult);
                 try {
                     voiceResult = URLEncoder.encode(voiceResult, "UTF-8");
@@ -244,6 +245,19 @@ public class MyWebviewActivity extends Activity {
         @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
             return super.onJsAlert(view, url, message, result);
+        }
+
+        @Override
+        public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg) {
+
+            WebView.HitTestResult result = view.getHitTestResult();
+            String data = result.getExtra();
+            JHYLogger.D(data);
+            Context context = view.getContext();
+            Intent browserIntent = new Intent(MyWebviewActivity.this,WebviewActivity_.class ).putExtra("url",data);
+            context.startActivity(browserIntent);
+
+            return true;
         }
     }
 
@@ -281,10 +295,6 @@ public class MyWebviewActivity extends Activity {
                         //중카테고리
                         OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
                         goContentWebview(openReult.url);
-                    } else if (decodeString.contains("/display/BrandShopSClsf.do")) {
-                        //브랜드샵
-                        OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
-                        goContentWebview(openReult.url);
                     } else if (decodeString.contains("/display/CtgSClsf.do")) {
                         //소카테고리
                         OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
@@ -311,16 +321,23 @@ public class MyWebviewActivity extends Activity {
                     } else {
                         finish();
                     }
-                } else if (decodeString.startsWith("akmall://showGNB")) {
-                    MENU_LAYOUT.setVisibility(View.VISIBLE);
-                } else if (decodeString.startsWith("akmall://hideGNB")) {
-                    MENU_LAYOUT.setVisibility(View.GONE);
-                } else if (decodeString.startsWith("akmall://showFloat")) {
-                    FLOATING_LAYOUT.setVisibility(View.VISIBLE);
-                } else if (decodeString.startsWith("akmall://hideFloat")) {
-                    FLOATING_LAYOUT.setVisibility(View.GONE);
-                } else if (decodeString.contains("logState")) {
-                    BaseUtils.updateWidget(MyWebviewActivity.this);
+//                } else if (decodeString.startsWith("akmall://showGNB")) {
+//                    MENU_LAYOUT.setVisibility(View.VISIBLE);
+//                } else if (decodeString.startsWith("akmall://hideGNB")) {
+//                    MENU_LAYOUT.setVisibility(View.GONE);
+//                } else if (decodeString.startsWith("akmall://showFloat")) {
+//                    FLOATING_LAYOUT.setVisibility(View.VISIBLE);
+//                } else if (decodeString.startsWith("akmall://hideFloat")) {
+//                    FLOATING_LAYOUT.setVisibility(View.GONE);
+//                } else if (decodeString.contains("logState")) {
+//                    BaseUtils.updateWidget(MyWebviewActivity.this);
+                } else if (decodeString.startsWith("akmall://clipboard")) {
+                    //클립보드 복사
+                    String link = Parser.parsingTString(decodeString.replace("akmall://clipboard?", ""));
+                    ClipboardManager clipboardManager = (ClipboardManager) MyWebviewActivity.this.getSystemService(MyWebviewActivity.this.CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("label", link);
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(MyWebviewActivity.this, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             } else if (url.contains("/display/ShopFront.do")) {
@@ -331,17 +348,13 @@ public class MyWebviewActivity extends Activity {
                 //중카테고리
                 url = url.replace(URLManager.getServerUrl(), "");
                 goContentWebview(url);
-            } else if (url.contains("/display/BrandShopSClsf.do")) {
-                //중카테고리
-                url = url.replace(URLManager.getServerUrl(), "");
-                goContentWebview(url);
             } else if (url.contains("/display/BrandCtgMClsf.do") || url.contains("/display/BrandCtgSClsf.do")) {
                 //브랜드카테고리
                 url = url.replace(URLManager.getServerUrl(), "");
                 goContentWebview(url);
             }
 
-
+            //결제모듈 by asis
             if (url.startsWith("intent") || url.contains("cpy") || url.contains("hanaansim") || url.contains("market://") || url.contains("com.ahnlab.v3mobileplus")) {
                 boolean isStarted = true;
                 isStarted = BaseUtils.startv3mobileActivity(MyWebviewActivity.this, url);
@@ -371,7 +384,7 @@ public class MyWebviewActivity extends Activity {
                         R.string.abc_action_bar_home_description);
 
                 if (!isStarted) {
-                    isStarted = BaseUtils.startExternalActivity(MyWebviewActivity.this, URL_ISP_MOBILE_APP_DOWN,R.string.abc_action_bar_home_description);
+                    isStarted = BaseUtils.startExternalActivity(MyWebviewActivity.this, URL_ISP_MOBILE_APP_DOWN, R.string.abc_action_bar_home_description);
                 }
             } else if (url.startsWith("vguard") // vguardstart://, vguard@#$@#://...
                     || url.contains("droidxantivirus")
@@ -400,12 +413,9 @@ public class MyWebviewActivity extends Activity {
                 boolean isStarted = true;
                 isStarted = BaseUtils.startv3mobileActivity(MyWebviewActivity.this, url);
                 return true;
-            } else
-
-            {
+            } else {
                 view.loadUrl(url);
             }
-
             return true;
         }
 

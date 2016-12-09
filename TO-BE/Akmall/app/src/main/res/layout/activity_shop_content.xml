@@ -37,22 +37,24 @@
                     android:id="@+id/SHOP_POWERLINK_LAYOUT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#f4f4f4">
+                    android:background="#f4f4f4"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:textColor="#666"
-                        android:textStyle="bold"
-                        android:layout_marginTop="13dp"
                         android:layout_marginLeft="15dp"
-                        android:text="파워링크(AD)"/>
+                        android:layout_marginTop="13dp"
+                        android:text="파워링크(AD)"
+                        android:textColor="#666"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/SHOP_POWERLINK_RV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"/>
+                        android:layout_marginBottom="15dp" />
                 </LinearLayout>
 
                 <include
@@ -62,13 +64,53 @@
             </LinearLayout>
         </ScrollView>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/CONTENT_RV_CATEGORY"
+        <HorizontalScrollView
+            android:id="@+id/CONTENT_SCROLL"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:background="#333"
-            android:orientation="horizontal"
-            android:visibility="gone"></android.support.v7.widget.RecyclerView>
+            android:visibility="gone">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/CONTENT_RV_CATEGORY"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#333"
+                android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+        </HorizontalScrollView>
+
+        <RelativeLayout
+            android:id="@+id/FLOATING_LAYOUT"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="11dp">
+
+            <ImageView
+                android:id="@+id/FLOATING_BACK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/btn_cback" />
+
+            <ImageView
+                android:id="@+id/FLOATING_TOP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/btn_top" />
+
+            <ImageView
+                android:id="@+id/FLOATING_MORE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/FLOATING_TOP"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/btn_more" />
+        </RelativeLayout>
 
         <include
             layout="@layout/item_bottom"
@@ -90,36 +132,5 @@
             android:layout_height="match_parent"></WebView>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="11dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginBottom="51dp">
-
-        <ImageView
-            android:id="@+id/FLOATING_BACK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/btn_cback" />
-
-        <ImageView
-            android:id="@+id/FLOATING_TOP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/btn_top" />
-
-        <ImageView
-            android:id="@+id/FLOATING_MORE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/FLOATING_TOP"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="2dp"
-            android:src="@drawable/btn_more" />
-    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

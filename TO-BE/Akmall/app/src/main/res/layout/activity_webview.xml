@@ -10,10 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/bg_outlink">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/WEB_TITLE"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="#000"
+            android:gravity="center"
             android:textSize="16sp" />
         <ImageView
             android:id="@+id/WEB_CLOSE"

@@ -30,6 +30,7 @@ public class BigCategoryAdapter extends RecyclerView.Adapter<BigCategoryAdapter.
         TextView I_BIG_CATE;
         ImageView I_BIG_ARROW1;
         ImageView I_BIG_ARROW2;
+        RelativeLayout I_BIG_BIG;
 
         public ViewHolder(View view) {
             super(view);
@@ -37,6 +38,7 @@ public class BigCategoryAdapter extends RecyclerView.Adapter<BigCategoryAdapter.
             I_BIG_CATE = (TextView) view.findViewById(R.id.I_BIG_CATE);
             I_BIG_ARROW1 = (ImageView) view.findViewById(R.id.I_BIG_ARROW1);
             I_BIG_ARROW2 = (ImageView) view.findViewById(R.id.I_BIG_ARROW2);
+            I_BIG_BIG = (RelativeLayout) view.findViewById(R.id.I_BIG_BIG);
         }
     }
 
@@ -86,8 +88,10 @@ public class BigCategoryAdapter extends RecyclerView.Adapter<BigCategoryAdapter.
         }
         if (pos == list.size() - 1) {
             holder.I_BIG_ARROW2.setVisibility(View.GONE);
+            holder.I_BIG_BIG.setVisibility(View.VISIBLE);
         } else {
             holder.I_BIG_ARROW2.setVisibility(View.VISIBLE);
+            holder.I_BIG_BIG.setVisibility(View.GONE);
         }
     }
 

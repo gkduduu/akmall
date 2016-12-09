@@ -92,7 +92,6 @@ public class SplashActivity extends Activity {
                                     public void run() {
                                         startActivity(new Intent(SplashActivity.this, MainActivity_.class));
                                         String move = BaseUtils.nvl(getIntent().getStringExtra("move"));
-                                        JHYLogger.d(move + "$$$$$$$$$$$$$$");
                                         if (move.equals("check")) {
                                             startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_CHECK));
                                         } else if (move.equals("event")) {

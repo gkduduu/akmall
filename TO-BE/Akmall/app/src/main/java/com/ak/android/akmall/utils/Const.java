@@ -56,11 +56,11 @@ public class Const {
     public final static String MENU_VIP = "/event/VipRounge.do"; /*vip라운지*/
     public final static String MENU_COUPON = "/event/CouponZone.do";/*쿠폰존*/
     public final static String MENU_LIKE = "/mypage/MyBelongingGoods.do";/*라이크잇*/
-    public final static String MENU_HISTORY = "/common/AppPage?forwardPage=HistoryLayer";/*히스토리*/
+    public final static String MENU_HISTORY = "/common/AppPage.do?forwardPage=HistoryLayer";/*히스토리*/
 
     /*카테고리 관련 URL*/
-    public final static String BIG_CATEGORY = "/common/AppPage?forwardPage=CateLayer";/*대카테고리*/
-    public final static String MOVE_FILTER = "/common/AppPage?forwardPage=FilterLayer";/*필터*/
+    public final static String BIG_CATEGORY = "/common/AppPage.do?forwardPage=CateLayer";/*대카테고리*/
+    public final static String MOVE_FILTER = "/common/AppPage.do?forwardPage=FilterLayer";/*필터*/
 
     /*widget*/
     public final static String WIDGET_COUPON = "/mypage/DiscCoupon.do?isAkApp=Android";/*보유쿠폰*/
@@ -71,7 +71,7 @@ public class Const {
 
     /*상품 메뉴 관련 url*/
     public final static String ITME_SHARE = "/goods/pSnsShare.do?isAkApp=Android&native=Y"; /*공유하기*/
-    public final static String ITME_HEART = "/common/AppPage?forwardPage=pWishInpt"; /*찜하기하기*/
+    public final static String ITME_HEART = "/common/AppPage.do?forwardPage=pWishInpt"; /*찜하기하기*/
 
     /*activityforresult 의 response 코드*/
     public final static int CATEGORY_BIG_REQUEST = 7001; // 대카테고리 리퀘스트

@@ -14,6 +14,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/FOOTER_TOP_ONE"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -33,6 +34,7 @@
             android:layout_height="match_parent"></View>
 
         <LinearLayout
+            android:id="@+id/FOOTER_TOP_TWO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -52,6 +54,7 @@
             android:layout_height="match_parent"></View>
 
         <LinearLayout
+            android:id="@+id/FOOTER_TOP_THREE"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -103,6 +106,7 @@
         android:layout_height="17dp"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/FOOTER_BOT_ONE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -121,6 +125,7 @@
             android:layout_width="8dp"
             android:layout_height="match_parent"></View>
         <TextView
+            android:id="@+id/FOOTER_BOT_TWO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
@@ -141,6 +146,7 @@
             android:layout_width="8dp"
             android:layout_height="match_parent"></View>
         <TextView
+            android:id="@+id/FOOTER_BOT_THREE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

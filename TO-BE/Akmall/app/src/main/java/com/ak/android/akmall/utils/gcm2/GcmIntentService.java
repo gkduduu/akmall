@@ -51,6 +51,7 @@ public class GcmIntentService extends IntentService {
         super("GcmIntentService");
     }
 
+    //푸시받아서 처리하는 곳
     @Override
     protected void onHandleIntent(Intent intent) {
         JHYLogger.D("AKSDJHKJLASDHFKLASDHFJKASHDFKL");

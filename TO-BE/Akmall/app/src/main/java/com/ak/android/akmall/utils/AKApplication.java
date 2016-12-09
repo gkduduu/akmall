@@ -1,6 +1,7 @@
 package com.ak.android.akmall.utils;
 
 import android.app.Application;
+import android.webkit.CookieManager;
 
 import com.bumptech.glide.Glide;
 
@@ -22,4 +23,5 @@ public class AKApplication extends Application {
         super.onTrimMemory(level);
         Glide.get(this).trimMemory(level);
     }
+
 }
