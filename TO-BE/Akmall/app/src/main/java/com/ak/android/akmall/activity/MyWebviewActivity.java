@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +34,7 @@ import com.ak.android.akmall.utils.Const;
 import com.ak.android.akmall.utils.DataHolder;
 import com.ak.android.akmall.utils.Feature;
 import com.ak.android.akmall.utils.JHYLogger;
+import com.ak.android.akmall.utils.UriProvider;
 import com.ak.android.akmall.utils.blurbehind.BlurBehind;
 import com.ak.android.akmall.utils.blurbehind.OnBlurCompleteListener;
 import com.ak.android.akmall.utils.http.URLManager;
@@ -163,13 +165,33 @@ public class MyWebviewActivity extends Activity {
     @AfterViews
     void afterView() {
         WEB_WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        String url = "";
+
+        //isp 결제 후 return url을 받는 과정 from asis
+        Uri data = getIntent().getData();
+        if (data != null) {
+            if(!UriProvider.SCHEME_AKMALL.equals(data.getScheme())) {
+                String tmpURL = data.toString();
+                String lastURL = "";
+
+                if (tmpURL.startsWith("mtracker")) {
+                    lastURL = tmpURL.substring(tmpURL.indexOf("http"));
+                } else {
+                    lastURL = tmpURL;
+                }
+                url = lastURL;
+            }else {
+                url= data.getQueryParameter("returnUrl");
+            }
+        }
 
         String extraUrl = getIntent().getStringExtra("url");
-        String url = "";
-        if (extraUrl.contains(URLManager.getServerUrl()) || extraUrl.contains("recopick.com")) {
-            url = extraUrl;
-        } else {
-            url = URLManager.getServerUrl() + extraUrl;
+        if(url.equals("")) {
+            if (extraUrl.contains(URLManager.getServerUrl()) || extraUrl.contains("recopick.com")) {
+                url = extraUrl;
+            } else {
+                url = URLManager.getServerUrl() + extraUrl;
+            }
         }
         //카테고리일때 파라미터로 쓸 sjon
 

@@ -74,8 +74,51 @@
             android:name=".activity.WebviewActivity_" android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity android:name=".activity.MoreActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MyWebviewActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" />
-        <activity android:name=".activity.MyWebviewActivity_" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyWebviewActivity" android:windowSoftInputMode="adjustPan"  android:screenOrientation="portrait" >
+            </activity>
+        <activity android:name=".activity.MyWebviewActivity_" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <!--
+                 deleted  by Eddy  20151016
+		         <data android:scheme="mtracker"
+		               android:host="m.akmall.com"
+		               android:pathPrefix="/main" />
+                -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:pathPrefix="/main"
+                    android:scheme="akmall" />
+            </intent-filter>
+            <!-- add to mTracker intent-filter  20151019 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <data
+                    android:host="m.akmall.com"
+                    android:pathPrefix="/main"
+                    android:scheme="mtracker" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:pathPrefix="/main"
+                    android:scheme="akmall" />
+            </intent-filter>
+            <intent-filter>
+                <data
+                    android:host="m.akmall.com"
+                    android:scheme="myApp" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            </activity>
         <activity android:name=".activity.MoreActivity_" android:screenOrientation="portrait" />
         <activity android:name=".activity.TestActivity" android:screenOrientation="portrait" />
         <activity android:name=".activity.TestActivity_"  android:screenOrientation="portrait"/>

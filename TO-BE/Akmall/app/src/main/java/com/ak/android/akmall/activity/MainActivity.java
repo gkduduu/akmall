@@ -34,6 +34,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 
@@ -133,7 +134,7 @@ public class MainActivity extends FragmentActivity {
 
     @Click(R.id.FLOATING_BACK)
     void clickBack() {
-        if(WEBVIEW.canGoBack()) {
+        if (WEBVIEW.canGoBack()) {
             WEBVIEW.goBack();
         }
     }
@@ -166,6 +167,7 @@ public class MainActivity extends FragmentActivity {
 
     @AfterViews
     void afterView() {
+
         WEBVIEW.setInitialScale(100);
         WEBVIEW.getSettings().setJavaScriptEnabled(true);
         WEBVIEW.getSettings().setUseWideViewPort(true);
@@ -200,7 +202,7 @@ public class MainActivity extends FragmentActivity {
             String data = result.getExtra();
             JHYLogger.D(data);
             Context context = view.getContext();
-            Intent browserIntent = new Intent(MainActivity.this,WebviewActivity_.class ).putExtra("url",data);
+            Intent browserIntent = new Intent(MainActivity.this, WebviewActivity_.class).putExtra("url", data);
             context.startActivity(browserIntent);
 
             return true;
@@ -241,7 +243,7 @@ public class MainActivity extends FragmentActivity {
 //            } else if (url.contains("akplaza/DeptStore.do?")) {
 //                startActivity(new Intent(MainActivity.this, ShopContentActivity_.class).putExtra("url", url));
             } else if (url.contains(URLManager.getServerUrl())) {
-                startActivityForResult(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url",url.replace(URLManager.getServerUrl(), "")), Const.CLICK_GO_HOME_SO_CLOSE_REQUEST);
+                startActivityForResult(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", url.replace(URLManager.getServerUrl(), "")), Const.CLICK_GO_HOME_SO_CLOSE_REQUEST);
             } else if (url.contains("recopick.com")) {
                 startActivity(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", url));
                 return true;
@@ -279,8 +281,28 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    String debug = "";
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //볼륨 히든 옵션
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) debug += "a";
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            debug += "b";
+            if (Feature.DEBUG_MODE && debug.equals("aabbaab")) {
+                if (URLManager.SERVER_URL_DEBUG.equals("testm.akmall.com")) {
+                    URLManager.SERVER_URL_DEBUG = "91.3.115.140";
+                } else if(URLManager.SERVER_URL_DEBUG.equals("91.3.115.140")) {
+                    URLManager.SERVER_URL_DEBUG = "testm.akmall.com";
+                }
+                Toast.makeText(this, "재접속시 다음 url로 접속됩니다= " + URLManager.getServerUrl(), Toast.LENGTH_SHORT).show();
+                debug = "";
+            } else if (Feature.DEBUG_MODE && debug.equals("aab")) {
+                Toast.makeText(this, "현재 서버 url = " + URLManager.getServerUrl(), Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             if (ACTIVITY_MAIN.isDrawerOpen(MAIN_SLIDEMENU)) {
                 ACTIVITY_MAIN.closeDrawer(MAIN_SLIDEMENU);
