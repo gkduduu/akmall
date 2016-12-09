@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.ak.android.akmall.R;
 import com.ak.android.akmall.utils.BaseUtils;
@@ -21,6 +22,7 @@ import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
 import com.ak.android.akmall.utils.http.DataControlManager;
 import com.ak.android.akmall.utils.http.RequestCompletionListener;
 import com.ak.android.akmall.utils.http.RequestFailureListener;
+import com.ak.android.akmall.utils.http.URLManager;
 import com.ak.android.akmall.utils.json.Parser;
 import com.ak.android.akmall.utils.json.result.SplashResult;
 import com.ak.android.akmall.utils.json.result.WidgetResult;
@@ -50,6 +52,10 @@ public class SplashActivity extends Activity {
 
     @AfterViews
     void afterView() {
+        // 앱 실행시 디버그 모드면 Toast 띄움
+        if (URLManager.getServerUrl().contains("91.3.115")) {
+            Toast.makeText(this, "Debug Mode!", Toast.LENGTH_LONG).show();
+        }
         requestSplash();
     }
 

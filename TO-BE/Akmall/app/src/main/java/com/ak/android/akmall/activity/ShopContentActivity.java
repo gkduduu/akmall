@@ -195,7 +195,7 @@ public class ShopContentActivity extends Activity {
     }
 
     //푸터 밑13
-    @Click(R.id.FOOTER_TOP_THREE)
+    @Click(R.id.FOOTER_BOT_THREE)
     void clickBth() {
         startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url","http://ftc.go.kr/info/bizinfo/communicationView.jsp?apv_perm_no=2007378010630200807&area1=&area2=&currpage=1&searchKey=04&searchVal=1298542351&stdate=&enddate="));
     }
