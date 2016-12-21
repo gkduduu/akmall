@@ -12,6 +12,7 @@ import com.ak.android.akmall.utils.json.result.ProductResult;
 import com.ak.android.akmall.utils.json.result.BigCategoryResult;
 import com.ak.android.akmall.utils.json.result.CheckHeightResult;
 import com.ak.android.akmall.utils.json.result.PushSettingResult;
+import com.ak.android.akmall.utils.json.result.SMSResult;
 import com.ak.android.akmall.utils.json.result.SplashResult;
 import com.ak.android.akmall.utils.json.result.UserInfoResult;
 
@@ -140,6 +141,17 @@ public class Parser {
             e.getMessage();
         }
         return new OpenWebViewResult();
+    }
+
+    //sms 내용 가져오기
+    public static SMSResult parsingSMS(String response) {
+        try {
+            JSONObject res = new JSONObject(response);
+            return new ObjectMapper().readValue(res.toString(), SMSResult.class);
+        }  catch (Exception e) {
+            e.getMessage();
+        }
+        return new SMSResult();
     }
 
     //openwebview url 가져오기

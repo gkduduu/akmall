@@ -102,10 +102,11 @@
         android:id="@+id/I_GRID_NAME"
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="10dp"
         android:maxLines="2"
         android:text="[페이지플린] 프릴소매린넨 블라우스_p6b23408 뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉"
-        android:textSize="12sp" />
+        android:textSize="15sp"
+        android:textColor="#333"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -113,28 +114,47 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/align_relative01"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="30dp">
+            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/I_GRID_PRICE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10,000원"
                 android:textColor="#999"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/I_GRID_SALEPRICE"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100,000원"
-                android:textColor="#333"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/I_GRID_SALEPRICE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="100,000"
+                    android:textColor="#333"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="원"
+                    android:textColor="#333"
+                    android:textSize="14sp"
+                    android:layout_toRightOf="@+id/I_GRID_SALEPRICE"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -146,7 +166,7 @@
             android:layout_height="wrap_content"
             android:text="10"
             android:textColor="#333"
-            android:textSize="30sp"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
         <TextView
@@ -162,7 +182,7 @@
      <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="#e5e5e5"></View>
+    android:background="#eaeaea"></View>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -173,7 +193,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="11sp"
+            android:textColor="#666"
+            android:textSize="14sp"
             android:text="무료배송" />
 
         <View
@@ -191,7 +212,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="11sp"
+            android:textSize="14sp"
+            android:textColor="#666"
             android:layout_toRightOf="@+id/I_GRID_DELIVERY_BAR"
             android:text="상품평(100점)" />
     </RelativeLayout>

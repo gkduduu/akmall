@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -54,6 +55,7 @@ import com.ak.android.akmall.utils.json.result.CheckHeightResult;
 import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
 import com.ak.android.akmall.utils.json.result.PageDatas;
 import com.ak.android.akmall.utils.json.result.PowerLinkResult;
+import com.ak.android.akmall.utils.json.result.SMSResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -120,6 +122,7 @@ public class ShopContentActivity extends Activity {
 //    float listHeight = 0;
 
     boolean isAdding = false;/*상품 추가하기위한 서버연동 진행중인지 여부*/
+    private Context context = ShopContentActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -263,7 +266,8 @@ public class ShopContentActivity extends Activity {
         CONTENT_WV_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         CONTENT_WV_WEBVIEW.getSettings().setUseWideViewPort(true);
         CONTENT_WV_WEBVIEW.setWebContentsDebuggingEnabled(true);
-        JHYLogger.D(goUrl);
+        JHYLogger.D("ShopContentActivity() afterView >> " + goUrl);
+
         if (goUrl.contains("akplaza/DeptStore.do?")) {
             //ak나우는 isakapp붙이면 안디ㅗㄴ데 ㅜㅜ
             CONTENT_WV_WEBVIEW.loadUrl(goUrl);
@@ -273,9 +277,11 @@ public class ShopContentActivity extends Activity {
         CONTENT_WV_WEBVIEW.setWebChromeClient(new ChromeClient());
         CONTENT_WV_WEBVIEW.setWebViewClient(new WebViewClientClass());
         CONTENT_WV_WEBVIEW.getSettings().setSupportMultipleWindows(true);
+        CONTENT_WV_WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
+
 
         //필터 웨뷰에 각종 옵션세팅
-        CONTENT_SLIDE_WEBVIEW.setInitialScale(100);
+//        CONTENT_SLIDE_WEBVIEW.setInitialScale(300);
         CONTENT_SLIDE_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         CONTENT_SLIDE_WEBVIEW.getSettings().setUseWideViewPort(true);
         CONTENT_SLIDE_WEBVIEW.setWebContentsDebuggingEnabled(true);
@@ -284,9 +290,10 @@ public class ShopContentActivity extends Activity {
         CONTENT_SLIDE_WEBVIEW.setWebViewClient(new FilterWebViewClient());
 
 
+
         //슬라이드 메뉴
         ACTIVITY_CONTENT.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        ACTIVITY_CONTENT.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+//        ACTIVITY_CONTENT.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         ACTIVITY_CONTENT.setFocusableInTouchMode(false);
 
         //스크롤 리스너
@@ -916,16 +923,18 @@ public class ShopContentActivity extends Activity {
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            JHYLogger.D(url);
+            JHYLogger.D("ShopContentActivity >> "+url);
+
             if (url.startsWith("akmall://")) {
                 //URL DECODE
                 String decodeString = "";
                 try {
                     decodeString = URLDecoder.decode(url, "UTF-8");
+
                 } catch (UnsupportedEncodingException e) {
-                    JHYLogger.e(e.getMessage());
+                    JHYLogger.e("ShopContentActivity >> "+e.getMessage());
                 }
-                JHYLogger.D(decodeString);
+                JHYLogger.D("ShopContentActivity <<--- decodeString --->> "+decodeString);
 
                 //스키마에 따른 분기처리!
                 if (decodeString.startsWith("akmall://prodList")) {
@@ -933,14 +942,14 @@ public class ShopContentActivity extends Activity {
                     //prodList : 상품 리스트
                     String json = decodeString.replace("akmall://prodList?", "");
                     BigCategoryResult result = Parser.parsingBigCategory(json);
-                    JHYLogger.d(result.callbackJson);
+                    JHYLogger.d("ShopContentActivity >> "+result.callbackJson);
                     if (null != result.callbackJson) {
                         String param = "";
                         try {
                             param = URLEncoder.encode(result.callbackJson, "UTF-8");
                             param = Base64.encodeToString(param.getBytes(), 0);
                         } catch (Exception e) {
-                            JHYLogger.e(e.getMessage());
+                            JHYLogger.e("ShopContentActivity >> "+e.getMessage());
                         }
                         view.loadUrl("javascript:nativeCallBack('" + param + "')");
                     }
@@ -955,7 +964,7 @@ public class ShopContentActivity extends Activity {
                             act = URLEncoder.encode(param.act, "UTF-8");
                             act = Base64.encodeToString(act.getBytes(), 0);
                         } catch (Exception e) {
-                            JHYLogger.e(e.getMessage());
+                            JHYLogger.e("ShopContentActivity >> "+e.getMessage());
                         }
                         view.loadUrl("javascript:nativeCallBack('" + act + "')");
                     }
@@ -983,9 +992,14 @@ public class ShopContentActivity extends Activity {
                     //checkHeight : 웹뷰 크기 조정
                     String json = decodeString.replace("akmall://checkHeight?", "");
                     CheckHeightResult result = Parser.parsingCheckHeight(json);
+
                     int height = (int) BaseUtils.convertDpToPixel(Float.parseFloat(result.h), ShopContentActivity.this);
                     CONTENT_WV_WEBVIEW.getLayoutParams().height = height;
                     CONTENT_WV_WEBVIEW.requestLayout();
+                    CONTENT_WV_WEBVIEW.setFocusableInTouchMode(true);
+                    CONTENT_WV_WEBVIEW.setFocusable(true);
+                    CONTENT_WV_WEBVIEW.requestFocus(View.FOCUS_DOWN);
+
                 } else if (decodeString.startsWith("akmall://changeTab")) {
                     //탭 전환
                     String json = decodeString.replace("akmall://changeTab?", "");
@@ -994,25 +1008,43 @@ public class ShopContentActivity extends Activity {
                     CONTENT_WV_WEBVIEW.getLayoutParams().height = height;
                     CONTENT_WV_WEBVIEW.requestLayout();
                     changeTab(BaseUtils.nvl(result.split(Const.BOUNDARY)[0]));
+
                 } else if (decodeString.startsWith("akmall://openWebview")) {
                     //외부 웹 링크 연결
                     String json = decodeString.replace("akmall://openWebview?", "");
                     OpenWebViewResult result = Parser.parsingOpenWebview(json);
+
                     if (BaseUtils.nvl(result.tp).equals("C")) {
                         //필터 또 클릭일떄
                         ACTIVITY_CONTENT.openDrawer(CONTENT_SLIDEMENU);
+
                     } else {
                         String link = result.url;
+
                         if (link.startsWith("http") && !link.contains("akmall.com")) {
                             startActivity(new Intent(ShopContentActivity.this, WebviewActivity_.class).putExtra("url", link));
+
                         } else {
-                            if (link.contains("/display/ShopFront.do") || link.contains("/display/CtgMClsf.do") || link.contains(" /display/CtgSClsf.do")) {
+                            if (link.contains("/display/ShopFront.do") || link.contains("/display/CtgMClsf.do") || link.contains("/display/CtgSClsf.do")) {
                                 view.loadUrl(URLManager.getServerUrl() + link + "&isAkApp=Android");
                             } else {
                                 startActivity(new Intent(ShopContentActivity.this, MyWebviewActivity_.class).putExtra("url", link));
                             }
                         }
                     }
+                } else if(decodeString.startsWith("akmall://sms")) {
+                    //문자보내기
+                    SMSResult openReult = Parser.parsingSMS(decodeString.replace("akmall://sms?", ""));
+
+                    String txt = openReult.t;
+                    JHYLogger.d("sms body => " + txt);
+
+                    Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                    sendIntent.putExtra("sms_body", txt); // 보낼 문자
+                    sendIntent.putExtra("address", ""); // 받는사람 번호
+                    sendIntent.setType("vnd.android-dir/mms-sms");
+                    context.startActivity(sendIntent);
+
                 } else if (decodeString.startsWith("akmall://callJavascriptAll")) {
                     //콜자바스크립트
                     String json = decodeString.replace("akmall://callJavascriptAll?", "");
@@ -1038,14 +1070,14 @@ public class ShopContentActivity extends Activity {
                     } else if (value.equals("drawSamCate")) {
                         //소 카테고리 선택
                         String param = "";
-                        JHYLogger.D(param);
+                        JHYLogger.D("ShopContentActivity >> "+param);
                         param = DataHolder.putDataHolder(mBigCatgoryResult.ctgInfo);
                         startActivityForResult(new Intent(ShopContentActivity.this, MyWebviewActivity_.class).putExtra("url", Const.BIG_CATEGORY).putExtra("json", param).putExtra("cate", "small"), Const.CATEGORY_BIG_REQUEST);
                         overridePendingTransition(R.anim.anim_messege_in, R.anim.anim_page_out_right);
                     } else if (value.equals("drawSam2Cate")) {
                         //세 카테고리 선택
                         String param = "";
-                        JHYLogger.D(param);
+                        JHYLogger.D("ShopContentActivity >> "+param);
                         param = DataHolder.putDataHolder(mBigCatgoryResult.ctgInfo);
                         startActivityForResult(new Intent(ShopContentActivity.this, MyWebviewActivity_.class).putExtra("url", Const.BIG_CATEGORY).putExtra("json", param).putExtra("cate", "small2"), Const.CATEGORY_BIG_REQUEST);
                         overridePendingTransition(R.anim.anim_messege_in, R.anim.anim_page_out_right);
@@ -1058,12 +1090,15 @@ public class ShopContentActivity extends Activity {
                     }
                 } else if (decodeString.startsWith("akmall://callSelectPop")) {
                     new SelectDialog(ShopContentActivity.this, decodeString.replace("akmall://callSelectPop?", "")).show();
+
                 } else if (decodeString.startsWith("akmall://callLayerFilter")) {
-                    CONTENT_SLIDEMENU.bringToFront();
+//                    CONTENT_SLIDEMENU.bringToFront();
                     ACTIVITY_CONTENT.openDrawer(CONTENT_SLIDEMENU);
 //                    startActivityForResult(new Intent(ShopContentActivity.this, MyWebviewActivity_.class).putExtra("url", Const.MOVE_FILTER).putExtra("json", param).putExtra("cate", "filter"), Const.CATEGORY_BIG_REQUEST);
 //                    overridePendingTransition(R.anim.anim_messege_in, R.anim.anim_page_out_right);
+
                     CONTENT_SLIDE_WEBVIEW.loadUrl("javascript:drawFilter('" + decodeString.replace("akmall://callLayerFilter?", "") + "')");
+
                 } else if (decodeString.contains("showNative")) {
                     //scrolltop action일 경우 스크롤 최상단으로 올려줌
                     if (decodeString.contains("scrollTop")) {
@@ -1074,13 +1109,17 @@ public class ShopContentActivity extends Activity {
                         });
                     }
                     CONTENT_RV_LIST.setVisibility(View.VISIBLE);
+
                 } else if (decodeString.contains("hideNative")) {
                     CONTENT_RV_LIST.setVisibility(View.GONE);
+
                 } else if (decodeString.startsWith("akmall://changeFilter")) {
                     OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://changeFilter?", ""));
                     view.loadUrl(URLManager.getServerUrl() + openReult.url + "&isAkApp=Y");
+
                 } else if (decodeString.startsWith("akmall://goBack")) {
                     finish();
+
                 } else if (decodeString.startsWith("akmall://readPositionX")) {
                     try {
                         final String value = new JSONObject(decodeString.replace("akmall://readPositionX?", "")).getString("x");

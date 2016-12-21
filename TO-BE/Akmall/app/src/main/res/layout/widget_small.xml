@@ -3,88 +3,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_white"
-    android:layout_weight="1">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/widget_logo" />
+        android:layout_weight="1"
+        android:background="@drawable/bg_white">
 
         <RelativeLayout
-            android:id="@+id/WIDGET_SMALL_SEARCH"
-            android:layout_width="130dp"
-            android:layout_height="31dp"
-            android:layout_marginRight="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/round_fff_op70">
-            <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content" />-->
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/widget_logo" />
+
+            <RelativeLayout
+                android:id="@+id/WIDGET_SMALL_SEARCH"
+                android:layout_width="130dp"
+                android:layout_height="31dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/round_fff_op70">
+                <!--<EditText-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/widget_search" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/WIDGET_SMALL_REFRESH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/widget_search" />
-        </RelativeLayout>
-        <ImageView
-            android:id="@+id/WIDGET_SMALL_REFRESH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/btn_replay"/>
+                android:layout_marginRight="15dp"
+                android:src="@drawable/btn_replay" />
 
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#d8d8d8"></RelativeLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/bg_gray"
         android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/WIDGET_SMALL_DELIVERY"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/icon_car"/>
+                android:src="@drawable/icon_car" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="주문배송"
-                android:textSize="13sp"
-                android:textColor="#333"/>
+                android:textColor="#333"
+                android:textSize="13sp" />
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#d8d8d8"/>
+            android:background="#d8d8d8" />
 
         <LinearLayout
             android:id="@+id/WIDGET_SMALL_CHECK"
@@ -92,22 +98,25 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/icon_check"/>
+                android:src="@drawable/icon_check" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="출석체크"
-                android:textSize="13sp"
-                android:textColor="#333"/>
+                android:textColor="#333"
+                android:textSize="13sp" />
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#d8d8d8"/>
+            android:background="#d8d8d8" />
 
         <LinearLayout
             android:id="@+id/WIDGET_SMALL_MY"
@@ -115,17 +124,19 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/icon_my"/>
+                android:src="@drawable/icon_my" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="나만의 공간"
-                android:textSize="13sp"
-                android:textColor="#333"/>
+                android:textColor="#333"
+                android:textSize="13sp" />
         </LinearLayout>
 
     </LinearLayout>

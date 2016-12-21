@@ -13,6 +13,8 @@ public class Const {
 
     public static final String GCM_SENDER_ID;
     public static final String SERVER_ADDR;
+    public static final String URL_BASE;
+    public static final String URL_LIB;
 
     static {
         if (!Feature.DEBUG_MODE) {
@@ -30,6 +32,9 @@ public class Const {
             SERVER_ADDR = "devm.akmall.com";
             //SERVER_ADDR = "91.3.115.209:8082";//실제 동작 url p65458 todo
         }
+
+        URL_BASE = "http://" + SERVER_ADDR;
+        URL_LIB = URL_BASE + "/app/lib.do?";
     }
 
     public final static String GCM_PUSH_TOKEN = "GCM_PUSH_TOKEN";

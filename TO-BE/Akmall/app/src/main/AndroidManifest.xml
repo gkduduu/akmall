@@ -40,6 +40,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <service
             android:name=".utils.KillerService"
             android:stopWithTask="true" />
@@ -65,8 +66,8 @@
         <activity android:name=".activity.ShopGallaryActivity_" android:screenOrientation="portrait" />
         <activity android:name=".activity.IntroActivity" android:screenOrientation="portrait" />
         <activity android:name=".activity.IntroActivity_" android:screenOrientation="portrait" />
-        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".activity.MainActivity_"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait" android:hardwareAccelerated="true" />
+        <activity android:name=".activity.MainActivity_"  android:screenOrientation="portrait" android:hardwareAccelerated="true" />
         <activity
             android:name=".activity.WebviewActivity" android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />

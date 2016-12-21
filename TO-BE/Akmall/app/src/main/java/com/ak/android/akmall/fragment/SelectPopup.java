@@ -16,6 +16,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -70,12 +72,27 @@ public class SelectPopup extends Dialog {
         DIALOG_WEBVIEW.getSettings().setUseWideViewPort(true);
         DIALOG_WEBVIEW.loadUrl(URLManager.getServerUrl() + link);
         DIALOG_WEBVIEW.setWebViewClient(new WebViewClientClass());
+        DIALOG_WEBVIEW.requestFocus(View.FOCUS_DOWN);
+        DIALOG_WEBVIEW.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_UP:
+                        if (!v.hasFocus()) {
+                            v.requestFocus();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            JHYLogger.d(url);
+            JHYLogger.d("SelectPopup >> " + url);
             if (url.startsWith("akmall://")) {
                 //URL DECODE
                 String decodeString = "";
@@ -84,12 +101,15 @@ public class SelectPopup extends Dialog {
                 } catch (UnsupportedEncodingException e) {
                     JHYLogger.e(e.getMessage());
                 }
-                JHYLogger.D(decodeString);
+                JHYLogger.D("SelectPopup >> "+decodeString);
 
                 if (decodeString.startsWith("akmall://checkHeight")) {
                     CheckHeightResult result = Parser.parsingCheckHeight(decodeString.replace("akmall://checkHeight?", ""));
                     DIALOG_SHARE.getLayoutParams().height = (int) BaseUtils.convertDpToPixel(Float.parseFloat(BaseUtils.nvl(result.h, "0")), context);
                     DIALOG_SHARE.requestLayout();
+
+                } else if(decodeString.startsWith("akmall://closePopup")) {
+                    SelectPopup.this.cancel();
                 }
 
             } else {

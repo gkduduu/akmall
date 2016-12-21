@@ -3,7 +3,9 @@
 
     <!--사용자설정-->
     <string name="setting_title">사용자 설정</string>
+    <string name="setting_title2">설정</string>
     <string name="setting_login">로그인</string>
+    <string name="setting_login2">로그인 정보</string>
     <string name="setting_logout">로그아웃</string>
     <string name="setting_login_auto">자동로그인</string>
     <string name="setting_login_auto_detail">앱에서 항상 로그인 상태를 유지합니다.</string>
@@ -38,5 +40,8 @@
     <string name="footer_line6">개인정보처리(취급)방침</string>
     <string name="footer_line7">사업자정보확인</string>
     <string name="footer_line8">CopyrightⓒS&amp;D INC.</string>
+
+    <string name="devicereg"><![CDATA[act=DeviceRegist&phonetype=2&token=%1$s&appid=%2$s&deny_all=%3$s&oldtoken=%4$s&version=%5$s]]></string>
+    <string name="fail_regist_alarm">알림 등록에 실패하였습니다.</string>
 
 </resources>

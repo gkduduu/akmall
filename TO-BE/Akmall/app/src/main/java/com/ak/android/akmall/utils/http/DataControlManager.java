@@ -31,6 +31,7 @@ public class DataControlManager implements Executor, Observer {
     private final Queue _tasks = new ArrayDeque(0);
     private boolean _isPaused = false;
     private Runnable _active;
+
     private final Handler _handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

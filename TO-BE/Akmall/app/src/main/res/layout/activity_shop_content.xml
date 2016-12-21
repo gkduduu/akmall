@@ -25,7 +25,8 @@
                 <WebView
                     android:id="@+id/CONTENT_WV_WEBVIEW"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"></WebView>
+                    android:layout_height="1dp"
+                    android:state_focused="true" ></WebView>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/CONTENT_RV_LIST"
@@ -129,7 +130,8 @@
         <WebView
             android:id="@+id/CONTENT_SLIDE_WEBVIEW"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></WebView>
+            android:layout_height="match_parent"
+            android:state_focused="true" ></WebView>
     </LinearLayout>
 
 

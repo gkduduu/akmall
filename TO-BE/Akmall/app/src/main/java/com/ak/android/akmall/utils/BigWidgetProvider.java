@@ -166,7 +166,7 @@ public class BigWidgetProvider extends AppWidgetProvider {
     }
 
     private void updateWidget(final Context con, final AppWidgetManager appWidgetManager, final int[] appWidgetIds,final Intent it) {
-        JHYLogger.D("업데이트 위젯!!!!!!!!!!!!!!!!!!!!!!!!!")   ;
+        JHYLogger.D("업데이트 위젯!!!!!!!!!!!!!!!!!!!!!!!!!");
         DataControlManager.getInstance().addSchedule(
                     new DataControlHttpExecutor().requestWidget(con,
                             new RequestCompletionListener() {

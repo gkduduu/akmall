@@ -25,19 +25,19 @@
         </LinearLayout>
 
         <include
-            android:visibility="gone"
             layout="@layout/item_bottom"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </LinearLayout>
 
     <RelativeLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="11dp"
+        android:layout_marginBottom="51dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginBottom="51dp">
+        android:layout_marginRight="11dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/FLOATING_BACK"

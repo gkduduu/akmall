@@ -332,6 +332,7 @@ public class SettingActivity extends Activity {
     //알람 설정 변경
     private void requestSettingSetting(String what, String yn) {
         String token = GcmManager.getRegistrationId(this);
+
         DataControlManager.getInstance().addSchedule(
                 new DataControlHttpExecutor().requestSettingSetting(SettingActivity.this, what, yn, token,
                         new RequestCompletionListener() {

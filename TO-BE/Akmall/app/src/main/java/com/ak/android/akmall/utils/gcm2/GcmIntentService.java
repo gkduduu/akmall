@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.ak.android.akmall.R;
 import com.ak.android.akmall.activity.AlarmDialogActivity;
+import com.ak.android.akmall.activity.MainActivity_;
 import com.ak.android.akmall.activity.TestActivity_;
 import com.ak.android.akmall.utils.Feature;
 import com.ak.android.akmall.utils.JHYLogger;
@@ -54,8 +55,7 @@ public class GcmIntentService extends IntentService {
     //푸시받아서 처리하는 곳
     @Override
     protected void onHandleIntent(Intent intent) {
-        JHYLogger.D("AKSDJHKJLASDHFKLASDHFJKASHDFKL");
-        JHYLogger.D("push~~~!!!");
+        JHYLogger.D("onHandleIntent() >> 들어옴 !!");
         if (Feature.DEBUG_MODE) {
             Log.d(TAG, intent.getExtras().toString());
         }
@@ -67,6 +67,7 @@ public class GcmIntentService extends IntentService {
 
         if ("alarm".equals(type)) {
             showNormalAlarmPush(this, intent);
+
         } else if ("goods_review".equals(type)) {
             showGoodsReviewAlarmPush(this, intent);
         }
@@ -79,6 +80,7 @@ public class GcmIntentService extends IntentService {
      * @param intent  푸시로 받은 인텐트
      */
     private void showGoodsReviewAlarmPush(Context context, Intent intent) {
+        JHYLogger.d("showGoodsReviewAlarmPush() >> 들어옴 !!");
         // 자동 로그인 설정한 사람만 대상으로 한다.
         // 메시지의 규격은 alarm과 동일하므로 같은 방식으로 처리 한다.
         if (Feature.isAutoLogin) {
@@ -92,9 +94,17 @@ public class GcmIntentService extends IntentService {
      * @param intent  푸시로 받은 인텐트
      */
     private void showNormalAlarmPush(Context context, Intent intent) {
+        JHYLogger.d("showNormalAlarmPush() >> 들어옴 !!");
+
         String message = intent.getStringExtra("msg");
         String pid = intent.getStringExtra("pid");
         String imgUrl = intent.getStringExtra("imgUrl");
+        String deeplink = intent.getStringExtra("deeplink");
+
+        JHYLogger.d("showNormalAlarmPush() message = " + message);
+        JHYLogger.d("showNormalAlarmPush() pid = " + pid);
+        JHYLogger.d("showNormalAlarmPush() imgUrl = " + imgUrl);
+        JHYLogger.d("showNormalAlarmPush() deeplink = " + deeplink);
 
         // 이미지가 포함되어 있으면 미리 다운로드 함
         // 이후 동일한 glide로 로드하면 빠르게 로딩 가능
@@ -103,13 +113,14 @@ public class GcmIntentService extends IntentService {
         }
 
         // 알림 표시
-        showAlarmNotification(context, message, pid, imgUrl);
+        showAlarmNotification(context, message, pid, imgUrl, deeplink);
 
         // 다이얼로그 표시
         showAlarmDialog(context, message, pid, imgUrl);
     }
 
     private void doPreDownloadImage(Context context, String imgUrl) {
+        JHYLogger.D("doPreDownloadImage() >> 들어옴 !!");
         try {
             Glide
                     .with(context)
@@ -130,6 +141,7 @@ public class GcmIntentService extends IntentService {
      * @param pid     Push Id
      */
     private void showAlarmDialog(Context context, String message, String pid, String imgUrl) {
+        JHYLogger.D("showAlarmDialog() >> 들어옴 !!");
 
         //p65458 20150729 add 현재 앱이 foreground 상태일경우는 다이얼로그를 보여주고 아니면 토스트로 보여준
         ActivityManager activityapp = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -164,22 +176,31 @@ public class GcmIntentService extends IntentService {
      * @param message
      * @param pid
      */
-    private void showAlarmNotification(Context context, String message, String pid, String imgUrl) {
+    private void showAlarmNotification(Context context, String message, String pid, String imgUrl, String deeplink) {
+        JHYLogger.D("showAlarmNotification() >> 들어옴 !!");
+
         NotificationManager notiMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         int icon = R.drawable.list_ak_logo;
         CharSequence tickerText = message;
         CharSequence contentTitle = "AKmall";
         CharSequence contentText = message;
-        String pageUrl = URLManager.getServerUrl() + "/app/lib.do?" + "act=viewPushDetail&push_id=" + pid + "&isAkApp=Android";
+
+        String pageUrl="";
+        if(pid != null) {
+            pageUrl = URLManager.getServerUrl() + "/app/lib.do?" + "act=viewPushDetail&push_id=" + pid + "&isAkApp=Android";
+        } else {
+            pageUrl = deeplink;
+        }
+
         long when = System.currentTimeMillis();
 
         // 알림 링크 페이지로 이동하는 pending 인텐트 생성
-        Intent notiIntent = new Intent(context, TestActivity_.class);
+        Intent notiIntent = new Intent(context, MainActivity_.class);
         notiIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         notiIntent.setData(Uri.parse(pageUrl));
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notiIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notiIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Bitmap bigPicture = loadBitmap(context, imgUrl);
 
@@ -204,6 +225,8 @@ public class GcmIntentService extends IntentService {
 
 
     private void setNotificationSound(Context context, NotificationCompat.Builder builder) {
+        JHYLogger.D("setNotificationSound() >> 들어옴 !!");
+
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         switch (audioManager.getRingerMode()) {
             case AudioManager.RINGER_MODE_NORMAL:
@@ -218,6 +241,8 @@ public class GcmIntentService extends IntentService {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private Bitmap loadBitmap(Context context, String imgUrl) {
+        JHYLogger.D("loadBitmap() >> 들어옴 !!");
+
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
 
@@ -244,6 +269,7 @@ public class GcmIntentService extends IntentService {
             Log.e(TAG, "Failed image downlaod");
             return null;
         } catch (ExecutionException e) {
+            Log.e(TAG, "ExecutionException !!!!!!");
             return null;
         }
     }

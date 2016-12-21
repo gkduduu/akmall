@@ -16,9 +16,9 @@ public class URLManager {
     private static URLManager instance;
 
     /* URL */
-//    public final static String SERVER_URL_DEBUG = "91.3.115.140";
-//    public final static String SERVER_URL_DEBUG = "akm.akmall.com";
-    public static String SERVER_URL_DEBUG = "testm.akmall.com";
+    public static String SERVER_URL_DEBUG = "91.3.115.140";
+//    public static String SERVER_URL_DEBUG = "akm.akmall.com";
+//    public static String SERVER_URL_DEBUG = "testm.akmall.com";
 
     public static String getServerUrl() {
         return "http://" + SERVER_URL_DEBUG;
@@ -86,8 +86,7 @@ public class URLManager {
 
         if (urlString.contains("?") == false) {
             result = urlString;
-        }
-        else {
+        } else {
             result = urlString.substring(0, urlString.indexOf("?"));
         }
 

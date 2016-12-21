@@ -80,7 +80,7 @@ public class SharePopup extends Dialog {
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            JHYLogger.d(url);
+            JHYLogger.d("SharePopup>> " + url);
             if (url.startsWith("akmall://")) {
                 //URL DECODE
                 String decodeString = "";
@@ -105,7 +105,11 @@ public class SharePopup extends Dialog {
                     OpenWebViewResult result = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?",""));
                     String link = result.url;
                     context.startActivity(new Intent(context, WebviewActivity_.class).putExtra("url", link));
-                }else if(decodeString.startsWith("akmall://sms")) {
+                } else if (decodeString.startsWith("akmall://openBrowser")) {
+                    OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openBrowser?", ""));
+                    goOpenBrowser(openReult.url);
+
+                } else if(decodeString.startsWith("akmall://sms")) {
                     //문자보내기
                     String txt = Parser.parsingTString(decodeString.replace("akmall://sms?",""));
                     Intent sendIntent = new Intent(Intent.ACTION_VIEW);
@@ -146,4 +150,11 @@ public class SharePopup extends Dialog {
             super.onPageFinished(view, url);
         }
     }
+
+    // 오픈브라우저
+    private void goOpenBrowser(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        getContext().startActivity(intent);
+    }
+
 }

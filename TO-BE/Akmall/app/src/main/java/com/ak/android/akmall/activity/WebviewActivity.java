@@ -51,17 +51,18 @@ public class WebviewActivity extends Activity {
         WEB_WEBVIEW.getSettings().setAppCacheEnabled(false);
         WEB_WEBVIEW.loadUrl(getIntent().getStringExtra("url"));
         WEB_WEBVIEW.setWebViewClient(new WebViewClientClass());
-        WEB_WEBVIEW.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return (event.getAction() == MotionEvent.ACTION_MOVE);
-            }
-        });
+//        WEB_WEBVIEW.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return (event.getAction() == MotionEvent.ACTION_MOVE);
+//            }
+//        });
     }
 
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            JHYLogger.D("WebviewActivity >> "+url);
             String decodeString = "";
             try {
                 decodeString = URLDecoder.decode(url, "UTF-8");
@@ -78,6 +79,7 @@ public class WebviewActivity extends Activity {
                 }
                 return true;
             }
+
             view.loadUrl(url);
             return true;
         }

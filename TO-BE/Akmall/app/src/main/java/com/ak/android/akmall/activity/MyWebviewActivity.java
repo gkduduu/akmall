@@ -40,6 +40,7 @@ import com.ak.android.akmall.utils.blurbehind.OnBlurCompleteListener;
 import com.ak.android.akmall.utils.http.URLManager;
 import com.ak.android.akmall.utils.json.Parser;
 import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
+import com.ak.android.akmall.utils.json.result.SMSResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -70,6 +71,7 @@ public class MyWebviewActivity extends Activity {
     RelativeLayout FLOATING_LAYOUT;
 
     Dialog mDialog;
+    private Context context = MyWebviewActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,7 +191,12 @@ public class MyWebviewActivity extends Activity {
         if(url.equals("")) {
             if (extraUrl.contains(URLManager.getServerUrl()) || extraUrl.contains("recopick.com")) {
                 url = extraUrl;
-            } else {
+
+            } else if(extraUrl.contains(".com")) {
+                url = extraUrl;
+
+            } else  {
+                JHYLogger.d("MyWebviewActivity afterView() >> " + extraUrl);
                 url = URLManager.getServerUrl() + extraUrl;
             }
         }
@@ -211,7 +218,7 @@ public class MyWebviewActivity extends Activity {
 
         //웹뷰에 각종 옵션세팅
         WEB_WEBVIEW.clearCache(true);
-        WEB_WEBVIEW.setInitialScale(100);
+//        WEB_WEBVIEW.setInitialScale(300);
 //        WEB_WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         WEB_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         WEB_WEBVIEW.setWebContentsDebuggingEnabled(true);
@@ -224,8 +231,9 @@ public class MyWebviewActivity extends Activity {
         WEB_WEBVIEW.getSettings().setLightTouchEnabled(true);
         WEB_WEBVIEW.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
         WEB_WEBVIEW.getSettings().setSupportMultipleWindows(true);
+        WEB_WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
-        SLIDE_WEBVIEW.setInitialScale(100);
+//        SLIDE_WEBVIEW.setInitialScale(300);
         SLIDE_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         SLIDE_WEBVIEW.getSettings().setUseWideViewPort(true);
         SLIDE_WEBVIEW.setWebContentsDebuggingEnabled(true);
@@ -233,7 +241,7 @@ public class MyWebviewActivity extends Activity {
 
         //슬라이드 메뉴
         MY_SLIDELAYOUT.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        MY_SLIDELAYOUT.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+//        MY_SLIDELAYOUT.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         MY_SLIDELAYOUT.setFocusableInTouchMode(false);
 
         JHYLogger.d(json);
@@ -246,7 +254,7 @@ public class MyWebviewActivity extends Activity {
             if (resultCode == Const.VOICE_RESULT) {
                 String voiceResult = BaseUtils.nvl(data.getStringExtra("result"));
                 voiceResult = voiceResult.replace("+"," ");
-                JHYLogger.D(voiceResult);
+                JHYLogger.D("MyWebviewActivity() <<--- onActivityResult : voiceResult --->> "+voiceResult);
                 try {
                     voiceResult = URLEncoder.encode(voiceResult, "UTF-8");
                     voiceResult = Base64.encodeToString(voiceResult.getBytes(), 0);
@@ -290,11 +298,19 @@ public class MyWebviewActivity extends Activity {
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            JHYLogger.d(url);
+            JHYLogger.d("MyWebviewActivity >> " + url);
+
+            if(url.startsWith("newtab:")) {
+                url = url.replace("newtab:", "");
+                startActivity(new Intent(MyWebviewActivity.this, WebviewActivity_.class).putExtra("url", url));
+                return true;
+            }
+
             if (url.contains("/main/Main.do")) {
                 Feature.closeAllActivity();
                 Feature.currentMain.refreshWebMoveTab(url);
             }
+
             if (url.startsWith("akmall://")) {
                 //URL DECODE
                 String decodeString = "";
@@ -303,7 +319,7 @@ public class MyWebviewActivity extends Activity {
                 } catch (UnsupportedEncodingException e) {
                     JHYLogger.e(e.getMessage());
                 }
-                JHYLogger.D(decodeString);
+                JHYLogger.D("MyWebviewActivity() akmall --->> " + decodeString);
 
                 if (decodeString.startsWith("akmall://closePopup")) {
                     MyWebviewActivity.this.finish();
@@ -330,13 +346,40 @@ public class MyWebviewActivity extends Activity {
                         OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
                         goContentWebview(openReult.url);
                     }
-                } else if (decodeString.startsWith("akmall://voiceSearch")) {
+//                    else if (decodeString.contains("/display/BrandShopSClsf.do")) {
+//                        //추천브랜드
+//                        OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
+//                        goContentWebview(openReult.url);
+//                    }
+                }
+
+                else if (decodeString.startsWith("akmall://voiceSearch")) {
                     startActivityForResult(new Intent(MyWebviewActivity.this, VoiceActivity_.class), Const.VOICE_REQUEST);
+
                 } else if (decodeString.startsWith("akmall://setup")) {
                     startActivity(new Intent(MyWebviewActivity.this, SettingActivity_.class));
+
                 } else if (decodeString.startsWith("akmall://changeFilter")) {
                     OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://changeFilter?", ""));
                     goContentWebview(openReult.url);
+
+                } else if (decodeString.startsWith("akmall://openBrowser")) {
+                    OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openBrowser?", ""));
+                    goOpenBrowser(openReult.url);
+
+                }  else if(decodeString.startsWith("akmall://sms")) {
+                    //문자보내기
+                    SMSResult openReult = Parser.parsingSMS(decodeString.replace("akmall://sms?", ""));
+
+                    String txt = openReult.t;
+                    JHYLogger.d("sms body => " + txt);
+
+                    Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                    sendIntent.putExtra("sms_body", txt); // 보낼 문자
+                    sendIntent.putExtra("address", ""); // 받는사람 번호
+                    sendIntent.setType("vnd.android-dir/mms-sms");
+                    context.startActivity(sendIntent);
+
                 } else if (decodeString.startsWith("akmall://goBack")) {
                     if (WEB_WEBVIEW.canGoBack()) {
                         WEB_WEBVIEW.goBack();
@@ -384,8 +427,7 @@ public class MyWebviewActivity extends Activity {
             }
             //test
             if (url.startsWith("shinhancard-sr-ansimclick")) {
-                boolean isStarted = BaseUtils.startExternalActivity(MyWebviewActivity.this, url,
-                        R.string.abc_action_bar_home_description);
+                boolean isStarted = BaseUtils.startExternalActivity(MyWebviewActivity.this, url, R.string.abc_action_bar_home_description);
                 if (!isStarted) {
                     isStarted = BaseUtils.startExternalActivity(MyWebviewActivity.this, URL_SHINHANCARD_APP_DOWN, R.string.abc_action_bar_home_description);
                 }
@@ -401,6 +443,7 @@ public class MyWebviewActivity extends Activity {
             if (url.startsWith("intent://mvaccine")) { //20150508 minseok 신한 사이드로 추
                 boolean isStarted = BaseUtils.startv3mobileActivity(MyWebviewActivity.this, url);
                 return true;
+
             } else if (url.startsWith("ispmobile")) {
                 boolean isStarted = BaseUtils.startExternalActivity(MyWebviewActivity.this, url,
                         R.string.abc_action_bar_home_description);
@@ -422,22 +465,27 @@ public class MyWebviewActivity extends Activity {
                     || url.startsWith("lotteappcard")) {
 
                 if (!url.startsWith("vguardend")) {
-                    boolean isStarted = BaseUtils.startExternalActivity(MyWebviewActivity.this, url,
-                            R.string.abc_action_bar_home_description);
-
+                    boolean isStarted = BaseUtils.startExternalActivity(MyWebviewActivity.this, url, R.string.abc_action_bar_home_description);
                     return true;
+
                 } else {
                     return true;
                 }
-            } else if (url.startsWith("intent") || url.contains("cpy") || url.contains("hanaansim") || url.contains("market://") || url.contains("com.ahnlab.v3mobileplus") || url.contains("ahnlabv3mobileplus"))
+            } else if (url.startsWith("intent") ||
+                    url.contains("cpy") ||
+                    url.contains("hanaansim") ||
+                    url.contains("market://") ||
+                    url.contains("com.ahnlab.v3mobileplus") ||
+                    url.contains("ahnlabv3mobileplus")) {
 
-            {
                 boolean isStarted = true;
                 isStarted = BaseUtils.startv3mobileActivity(MyWebviewActivity.this, url);
                 return true;
+
             } else {
                 view.loadUrl(url);
             }
+
             return true;
         }
 
@@ -482,11 +530,22 @@ public class MyWebviewActivity extends Activity {
 
     }
 
-    //    //상품 리스트 페이지로 이동
+    // 오픈브라우저
+    private void goOpenBrowser(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+    }
+
+    //상품 리스트 페이지로 이동
     private void goContentWebview(String link) {
+        JHYLogger.d("goContentWebview() >> link = " + link);
+
         if (getIntent().getBooleanExtra("isReload", false)) {
+            JHYLogger.d("goContentWebview() if() >> ");
             setResult(Const.CATEGORY_BIG_RESULT, new Intent().putExtra("url", URLManager.getServerUrl() + link));
-        } else {
+
+        }  else {
+            JHYLogger.d("goContentWebview() else() >> ");
             startActivity(new Intent(MyWebviewActivity.this, ShopContentActivity_.class).putExtra("url", link));
         }
         finish();

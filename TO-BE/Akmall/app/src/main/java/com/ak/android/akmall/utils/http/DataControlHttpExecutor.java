@@ -123,6 +123,9 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
     public DataControlHttpExecutor requestWidget(@Nullable final Context context, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
         final String requestUrl = new StringBuilder(URLManager.getWidget())
                 .toString();
+
+        JHYLogger.d("requestWidget >> "+requestUrl);
+
         this._operationListener = new RequestOperationListener() {
             @Override
             public void onRequestOperation(Object responseData) {

@@ -1,8 +1,6 @@
 package com.ak.android.akmall.activity;
 
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,8 +12,8 @@ import android.widget.Toast;
 
 import com.ak.android.akmall.R;
 import com.ak.android.akmall.utils.BaseUtils;
-import com.ak.android.akmall.utils.BigWidgetProvider;
 import com.ak.android.akmall.utils.Const;
+import com.ak.android.akmall.utils.FinishCallback;
 import com.ak.android.akmall.utils.JHYLogger;
 import com.ak.android.akmall.utils.gcm2.GcmManager;
 import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
@@ -25,7 +23,6 @@ import com.ak.android.akmall.utils.http.RequestFailureListener;
 import com.ak.android.akmall.utils.http.URLManager;
 import com.ak.android.akmall.utils.json.Parser;
 import com.ak.android.akmall.utils.json.result.SplashResult;
-import com.ak.android.akmall.utils.json.result.WidgetResult;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import net.daum.mf.speech.api.SpeechRecognizerManager;
@@ -46,7 +43,6 @@ public class SplashActivity extends Activity {
 
     String SENDER_ID = Const.GCM_SENDER_ID;
     String regid;
-
     GoogleCloudMessaging gcm;
 
 
@@ -81,18 +77,32 @@ public class SplashActivity extends Activity {
         }
     }
 
+    private FinishCallback mRegisterGcmCallback = new FinishCallback() {
+        @Override
+        public void onFinish(boolean isSuccess) {
+            if (!isSuccess) {
+                Toast.makeText(SplashActivity.this, R.string.fail_regist_alarm, Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    };
+
+
     //서버에 푸시 등록
     private void registPushInfoInServer() {
         String appid = Settings.Secure.getString(SplashActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         String deny_all = "no";//이거안씀씨 ㅏㄹ7
         String registeredVersion = GcmManager.getAppVersion(SplashActivity.this) + "";
+
+        GcmManager.registerInBackground(SplashActivity.this, mRegisterGcmCallback);
+
         DataControlManager.getInstance().addSchedule(
                 new DataControlHttpExecutor().requestGCMRegister(SplashActivity.this, appid, deny_all, registeredVersion, regid, "",
                         new RequestCompletionListener() {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                JHYLogger.d(responseData.toString());
+                                JHYLogger.d("SplashActivity onDataControlCompleted()>>  "+responseData.toString());
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -167,7 +177,9 @@ public class SplashActivity extends Activity {
                     sendRegistrationIdToBackend();
 
                     // 등록 아이디를 저장해 등록 아이디를 매번 받지 않도록 한다.
-                    GcmManager.storeRegistrationId(context, regid);
+//                    GcmManager.storeRegistrationId(context, regid);
+                    GcmManager.setRegistrationId(context, regid);
+
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
                     // If there is an error, don't just keep trying to register.

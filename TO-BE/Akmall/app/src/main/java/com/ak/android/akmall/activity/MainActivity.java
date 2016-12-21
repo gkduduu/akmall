@@ -1,21 +1,5 @@
 package com.ak.android.akmall.activity;
 
-import com.ak.android.akmall.R;
-import com.ak.android.akmall.utils.BaseUtils;
-import com.ak.android.akmall.utils.Const;
-import com.ak.android.akmall.utils.Feature;
-import com.ak.android.akmall.utils.JHYLogger;
-import com.ak.android.akmall.utils.SharedPreferencesManager;
-import com.ak.android.akmall.utils.blurbehind.BlurBehind;
-import com.ak.android.akmall.utils.blurbehind.OnBlurCompleteListener;
-import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
-import com.ak.android.akmall.utils.http.DataControlManager;
-import com.ak.android.akmall.utils.http.RequestCompletionListener;
-import com.ak.android.akmall.utils.http.RequestFailureListener;
-import com.ak.android.akmall.utils.http.URLManager;
-import com.ak.android.akmall.utils.json.Parser;
-import com.ak.android.akmall.utils.json.result.MainPopupResult;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -36,14 +20,26 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ak.android.akmall.R;
+import com.ak.android.akmall.utils.BaseUtils;
+import com.ak.android.akmall.utils.Const;
+import com.ak.android.akmall.utils.Feature;
+import com.ak.android.akmall.utils.JHYLogger;
+import com.ak.android.akmall.utils.SharedPreferencesManager;
+import com.ak.android.akmall.utils.UriProvider;
+import com.ak.android.akmall.utils.blurbehind.BlurBehind;
+import com.ak.android.akmall.utils.blurbehind.OnBlurCompleteListener;
+import com.ak.android.akmall.utils.http.URLManager;
+import com.ak.android.akmall.utils.json.Parser;
+import com.ak.android.akmall.utils.json.result.MainPopupResult;
+import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
+
 import net.daum.mf.speech.api.SpeechRecognizerManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -66,6 +62,8 @@ public class MainActivity extends FragmentActivity {
     WebView WEBVIEW;
 
     ArrayList<String> a = new ArrayList<>();
+
+    private static boolean popupCheck = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,8 +104,9 @@ public class MainActivity extends FragmentActivity {
             CookieManager.getInstance().removeAllCookie();
         }
         BaseUtils.updateWidget(this);
-    }
 
+        popupCheck = true;
+    }
 
     @Click(R.id.FLOATING_MORE)
     void clickMore() {
@@ -167,17 +166,35 @@ public class MainActivity extends FragmentActivity {
 
     @AfterViews
     void afterView() {
+        String url = URLManager.getServerUrl() + "/main/Main.do?isAkApp=Android";
 
-        WEBVIEW.setInitialScale(100);
+        Uri data = getIntent().getData();
+        String lastURL = "";
+
+        if (data != null) {
+            if(!UriProvider.SCHEME_AKMALL.equals(data.getScheme())) {
+                String tmpURL = data.toString();
+
+                if (tmpURL.startsWith("mtracker")) {
+                    lastURL = tmpURL.substring(tmpURL.indexOf("http"));
+                } else {
+                    lastURL = tmpURL;
+                }
+            }
+        }
+
+//        WEBVIEW.setInitialScale(300);
         WEBVIEW.getSettings().setJavaScriptEnabled(true);
         WEBVIEW.getSettings().setUseWideViewPort(true);
         WEBVIEW.setWebContentsDebuggingEnabled(true);
-        WEBVIEW.loadUrl(URLManager.getServerUrl() + "/main/Main.do?isAkApp=Android");
+        WEBVIEW.loadUrl(url);
+
         WEBVIEW.setWebViewClient(new WebViewClientClass());
         WEBVIEW.setWebChromeClient(new ChromeClient());
         WEBVIEW.getSettings().setSupportMultipleWindows(true);
+        WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
-        SLIDE_WEBVIEW.setInitialScale(100);
+//        SLIDE_WEBVIEW.setInitialScale(300);
         SLIDE_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         SLIDE_WEBVIEW.getSettings().setUseWideViewPort(true);
         SLIDE_WEBVIEW.setWebContentsDebuggingEnabled(true);
@@ -187,6 +204,10 @@ public class MainActivity extends FragmentActivity {
         ACTIVITY_MAIN.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         ACTIVITY_MAIN.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         ACTIVITY_MAIN.setFocusableInTouchMode(false);
+
+        if(!lastURL.equals("")) {
+            startActivity(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", lastURL));
+        }
     }
 
     private class ChromeClient extends WebChromeClient {
@@ -212,7 +233,7 @@ public class MainActivity extends FragmentActivity {
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            JHYLogger.D(url);
+            JHYLogger.D("MainActivity >> "+url);
             if (url.contains("accounts.google.com")) {
                 //g analytics 관련 url 스킵
                 return true;
@@ -222,34 +243,54 @@ public class MainActivity extends FragmentActivity {
                 try {
                     decodeString = URLDecoder.decode(url, "UTF-8");
                 } catch (UnsupportedEncodingException e) {
-                    JHYLogger.e(e.getMessage());
+                    JHYLogger.e("MainActivity >> "+e.getMessage());
                 }
                 if (decodeString.contains("logState")) {
                     BaseUtils.updateWidget(MainActivity.this);
+
                 } else if (decodeString.contains("sendMainPopup")) {
                     List<MainPopupResult> popupList = Parser.parsingMainPopupList(decodeString.replace("akmall://sendMainPopup?", ""));
                     for (int i = popupList.size(); i > 0; i--) {
+
                         Calendar ca = Calendar.getInstance();
                         String today = ca.get(Calendar.YEAR) + "" + ca.get(Calendar.MONTH) + "" + ca.get(Calendar.DATE);
                         String id = "mainpopup" + popupList.get(i - 1).mobile_popup_id;
-                        JHYLogger.D(SharedPreferencesManager.getString(MainActivity.this, id) + " *** " + today);
-                        if (!SharedPreferencesManager.getString(MainActivity.this, id).equals(today)) {
-                            startActivity(new Intent(MainActivity.this, PopupActivity_.class).putExtra("data", popupList.get(i - 1)));
+                        JHYLogger.D("MainActivity >> "+SharedPreferencesManager.getString(MainActivity.this, id) + " *** " + today);
+
+                        if(popupCheck) {
+                            if (!SharedPreferencesManager.getString(MainActivity.this, id).equals(today)) {
+                                startActivity(new Intent(MainActivity.this, PopupActivity_.class).putExtra("data", popupList.get(i - 1)));
+                            }
+                            popupCheck = false;
                         }
                     }
+                } else if (decodeString.startsWith("akmall://openWebview")) {
+                    if (decodeString.contains("/event/EventDetail.do")) {
+                        String json = decodeString.replace("akmall://openWebview?", "");
+                        OpenWebViewResult result = Parser.parsingOpenWebview(json);
+
+                        String link = URLManager.getServerUrl() + result.url + "&isAkApp=Android";
+
+                        startActivity(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", link));
+                    }
                 }
-                JHYLogger.D(decodeString);
+                JHYLogger.D("MainActivity >> "+decodeString);
                 return true;
 //            } else if (url.contains("akplaza/DeptStore.do?")) {
 //                startActivity(new Intent(MainActivity.this, ShopContentActivity_.class).putExtra("url", url));
             } else if (url.contains(URLManager.getServerUrl())) {
                 startActivityForResult(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", url.replace(URLManager.getServerUrl(), "")), Const.CLICK_GO_HOME_SO_CLOSE_REQUEST);
+
             } else if (url.contains("recopick.com")) {
                 startActivity(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", url));
                 return true;
-            } else if (url.startsWith("http")) {
-                startActivity(new Intent(MainActivity.this, WebviewActivity_.class).putExtra("url", ""));
 
+            } else if (url.startsWith("http")) {
+                startActivity(new Intent(MainActivity.this, WebviewActivity_.class).putExtra("url", url));
+
+            } else if(url.startsWith("newtab")) {
+                startActivity(new Intent(MainActivity.this, WebviewActivity_.class).putExtra("url", url.replace("newtab:", "")));
+                return true;
             }
             return true;
         }
@@ -299,16 +340,14 @@ public class MainActivity extends FragmentActivity {
                 debug = "";
             } else if (Feature.DEBUG_MODE && debug.equals("aab")) {
                 Toast.makeText(this, "현재 서버 url = " + URLManager.getServerUrl(), Toast.LENGTH_SHORT).show();
-
             }
-
         }
+
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             if (ACTIVITY_MAIN.isDrawerOpen(MAIN_SLIDEMENU)) {
                 ACTIVITY_MAIN.closeDrawer(MAIN_SLIDEMENU);
                 return true;
             }
-//            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
