@@ -218,8 +218,7 @@ public class MyWebviewActivity extends Activity {
 
         //웹뷰에 각종 옵션세팅
         WEB_WEBVIEW.clearCache(true);
-//        WEB_WEBVIEW.setInitialScale(300);
-//        WEB_WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        WEB_WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         WEB_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         WEB_WEBVIEW.setWebContentsDebuggingEnabled(true);
         WEB_WEBVIEW.getSettings().setUseWideViewPort(true);
@@ -420,7 +419,7 @@ public class MyWebviewActivity extends Activity {
             }
 
             //결제모듈 by asis
-            if (url.startsWith("intent") || url.contains("cpy") || url.contains("hanaansim") || url.contains("market://") || url.contains("com.ahnlab.v3mobileplus")) {
+            if (url.startsWith("intent") || url.contains("cpy") || url.contains("hanaansim") || url.contains("market://") || url.contains("com.ahnlab.v3mobileplus") )  {
                 boolean isStarted = true;
                 isStarted = BaseUtils.startv3mobileActivity(MyWebviewActivity.this, url);
                 return true;

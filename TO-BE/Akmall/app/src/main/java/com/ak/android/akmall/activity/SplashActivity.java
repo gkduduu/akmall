@@ -1,8 +1,13 @@
 package com.ak.android.akmall.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.Settings;
@@ -23,6 +28,7 @@ import com.ak.android.akmall.utils.http.RequestFailureListener;
 import com.ak.android.akmall.utils.http.URLManager;
 import com.ak.android.akmall.utils.json.Parser;
 import com.ak.android.akmall.utils.json.result.SplashResult;
+import com.ak.android.akmall.utils.json.result.VersionCheckResult;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import net.daum.mf.speech.api.SpeechRecognizerManager;
@@ -52,6 +58,7 @@ public class SplashActivity extends Activity {
         if (URLManager.getServerUrl().contains("91.3.115")) {
             Toast.makeText(this, "Debug Mode!", Toast.LENGTH_LONG).show();
         }
+
         requestSplash();
     }
 
@@ -87,6 +94,8 @@ public class SplashActivity extends Activity {
         }
     };
 
+    private static final String CHECK_PACKAGE_NAME = "com.ak.android.akmall";
+
 
     //서버에 푸시 등록
     private void registPushInfoInServer() {
@@ -102,31 +111,73 @@ public class SplashActivity extends Activity {
                         new RequestCompletionListener() {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                JHYLogger.d("SplashActivity onDataControlCompleted()>>  "+responseData.toString());
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        startActivity(new Intent(SplashActivity.this, MainActivity_.class));
-                                        String move = BaseUtils.nvl(getIntent().getStringExtra("move"));
-                                        if (move.equals("check")) {
-                                            startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_CHECK));
-                                        } else if (move.equals("event")) {
-                                            startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_EVENT));
-                                        } else if (move.equals("bag")) {
-                                            startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.MENU_BAG));
-                                        } else if (move.equals("delivery")) {
-                                            startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_DELIVERY));
-                                        } else if (move.equals("login")) {
-                                            startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", "/login/Login.do?isAkApp=Android"));
-                                        } else if (move.equals("search")) {
-                                            startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SEARCH));
-                                        } else if (move.equals("my")) {
-                                            startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_MY));
 
+                                JHYLogger.d("SplashActivity onDataControlCompleted()>>  " + responseData.toString());
+
+                                if(versionCheckResult.MUST_YN.equals("Y")) {
+                                    PackageManager manager = getPackageManager();
+                                    PackageInfo pack = manager.getPackageInfo(CHECK_PACKAGE_NAME.toLowerCase(), PackageManager.GET_META_DATA);
+
+                                    String versionName = pack.versionName;
+//                                    JHYLogger.d("versionName => " + versionName);
+//                                    String[] tmp1 = versionName.split("."); String tmp2 = tmp1[0] + tmp1[1] + tmp1[2];
+//                                    String[] tmp3 = versionCheckResult.LASTEST_VERSION.split("."); String tmp4 = tmp3[0] + tmp3[1] + tmp3[2];
+//
+//                                    JHYLogger.d("tmp2 => " + tmp2);
+//                                    JHYLogger.d("tmp4 => " + tmp4);
+
+                                    if(!versionName.equals(versionCheckResult.LASTEST_VERSION)) {
+                                        if(versionCheckResult.BTN_TYPE.equals("C")) {
+                                            AlertDialog.Builder alert = new AlertDialog.Builder(SplashActivity.this);
+                                            alert.setPositiveButton("업데이트", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                    finish();
+                                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(versionCheckResult.LINK));
+                                                    startActivity(intent);
+                                                }
+                                            });
+                                            alert.setNegativeButton("다음에", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                    nextActivity();
+                                                }
+                                            });
+                                            alert.setTitle("AK PLAZA");
+                                            alert.setMessage("새 버전이 추가 되었습니다. 업데이트후 이용해주세요! 업데이트를 누르시면 스토어로 이동합니다. (현재 버전으로도 앱사용이 가능합니다.)");
+                                            alert.show();
+
+                                        } else {
+                                            AlertDialog.Builder alert = new AlertDialog.Builder(SplashActivity.this);
+                                            alert.setPositiveButton("업데이트", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                    finish();
+                                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(versionCheckResult.LINK));
+                                                    startActivity(intent);
+                                                }
+                                            });
+                                            alert.setNegativeButton("앱종료", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                    finish();
+                                                }
+                                            });
+                                            alert.setTitle("AK PLAZA");
+                                            alert.setMessage("원활한 서비스 이용을 위해 업데이트가 필요합니다.업데이트를 누르시면 스토어로 이동합니다.");
+                                            alert.show();
                                         }
-                                        finish();
+                                    } else {
+                                        nextActivity();
                                     }
-                                }, 2000);
+
+                                } else {
+                                    nextActivity();
+                                }
                             }
                         },
                         new RequestFailureListener() {
@@ -138,6 +189,32 @@ public class SplashActivity extends Activity {
         DataControlManager.getInstance().runScheduledCommandOnAsync();
     }
 
+    void nextActivity() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this, MainActivity_.class));
+                String move = BaseUtils.nvl(getIntent().getStringExtra("move"));
+                if (move.equals("check")) {
+                    startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_CHECK));
+                } else if (move.equals("event")) {
+                    startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_EVENT));
+                } else if (move.equals("bag")) {
+                    startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.MENU_BAG));
+                } else if (move.equals("delivery")) {
+                    startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_DELIVERY));
+                } else if (move.equals("login")) {
+                    startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", "/login/Login.do?isAkApp=Android"));
+                } else if (move.equals("search")) {
+                    startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SEARCH));
+                } else if (move.equals("my")) {
+                    startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_MY));
+                }
+                finish();
+            }
+        }, 2000);
+    }
+
     private void requestSplash() {
         DataControlManager.getInstance().addSchedule(
                 new DataControlHttpExecutor().requestSplash(SplashActivity.this,
@@ -145,7 +222,31 @@ public class SplashActivity extends Activity {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 JHYLogger.d(responseData.toString());
+
+                                requestVersionCheck();
                                 initView(Parser.parsingSplash(responseData.toString()));
+                            }
+                        },
+                        new RequestFailureListener() {
+                            @Override
+                            public void onDataControlFailed(@Nullable Object responseData, @Nullable Object error) {
+                            }
+                        }
+                ));
+        DataControlManager.getInstance().runScheduledCommandOnAsync();
+    }
+
+    private VersionCheckResult versionCheckResult;
+
+    private void requestVersionCheck() {
+        DataControlManager.getInstance().addSchedule(
+                new DataControlHttpExecutor().requestSettingVersionCheck(SplashActivity.this,
+                        new RequestCompletionListener() {
+                            @Override
+                            public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
+                                JHYLogger.d(responseData.toString());
+                                versionCheckResult = Parser.parsingVersionCheck(responseData.toString());
+//                                versionCheck = true;
                             }
                         },
                         new RequestFailureListener() {

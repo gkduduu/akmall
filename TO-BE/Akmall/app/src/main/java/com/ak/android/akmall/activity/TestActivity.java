@@ -2,23 +2,11 @@ package com.ak.android.akmall.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.VideoView;
 
 import com.ak.android.akmall.R;
-import com.ak.android.akmall.utils.BigWidgetProvider;
-import com.ak.android.akmall.utils.JHYLogger;
-import com.ak.android.akmall.utils.http.DataControlHttpExecutor;
-import com.ak.android.akmall.utils.http.DataControlManager;
-import com.ak.android.akmall.utils.http.RequestCompletionListener;
-import com.ak.android.akmall.utils.http.RequestFailureListener;
-import com.ak.android.akmall.utils.json.Parser;
-import com.ak.android.akmall.utils.json.result.WidgetResult;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 

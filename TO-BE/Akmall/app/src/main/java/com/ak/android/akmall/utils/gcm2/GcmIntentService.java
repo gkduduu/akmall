@@ -181,7 +181,7 @@ public class GcmIntentService extends IntentService {
 
         NotificationManager notiMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int icon = R.drawable.list_ak_logo;
+        int icon = R.drawable.akmall_ico;
         CharSequence tickerText = message;
         CharSequence contentTitle = "AKmall";
         CharSequence contentText = message;

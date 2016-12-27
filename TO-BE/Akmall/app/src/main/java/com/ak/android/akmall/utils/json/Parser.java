@@ -16,6 +16,7 @@ import com.ak.android.akmall.utils.json.result.SMSResult;
 import com.ak.android.akmall.utils.json.result.SplashResult;
 import com.ak.android.akmall.utils.json.result.UserInfoResult;
 
+import com.ak.android.akmall.utils.json.result.VersionCheckResult;
 import com.ak.android.akmall.utils.json.result.WidgetResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
@@ -228,6 +229,22 @@ public class Parser {
                 result = new ObjectMapper().readValue(res.getString("resultDatas"), SplashResult.class);
             }else {
                 result.link = "";
+            }
+        }  catch (Exception e) {
+            e.getMessage();
+        }
+        return result;
+    }
+
+    //버전체크
+    public static VersionCheckResult parsingVersionCheck(String response) {
+        VersionCheckResult result = new VersionCheckResult();
+        try {
+            JSONObject res = new JSONObject(response);
+            if(!res.isNull("resultDatas")) {
+                result = new ObjectMapper().readValue(res.getString("resultDatas"), VersionCheckResult.class);
+            }else {
+                result.LINK = "";
             }
         }  catch (Exception e) {
             e.getMessage();

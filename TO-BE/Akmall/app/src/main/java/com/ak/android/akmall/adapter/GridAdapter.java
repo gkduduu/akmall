@@ -38,7 +38,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView I_GRID_MAINIV;
         RelativeLayout I_GRID_BRANCH_LAYOUT;
-        RelativeLayout align_relative01;
+        LinearLayout align_relative01;
         TextView I_GRID_BRANCH;
         ImageView I_GRID_PICKIV;
         ImageView I_GRID_SELECTIV;
@@ -61,7 +61,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
             super(view);
             I_GRID_MAINIV = (ImageView) view.findViewById(R.id.I_GRID_MAINIV);
             I_GRID_BRANCH_LAYOUT = (RelativeLayout) view.findViewById(R.id.I_GRID_BRANCH_LAYOUT);
-            align_relative01 = (RelativeLayout)view.findViewById(R.id.align_relative01);
+            align_relative01 = (LinearLayout)view.findViewById(R.id.align_relative01);
 
             I_GRID_BRANCH = (TextView) view.findViewById(R.id.I_GRID_BRANCH);
             I_GRID_PICKIV = (ImageView) view.findViewById(R.id.I_GRID_PICKIV);

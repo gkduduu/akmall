@@ -107,6 +107,9 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
     public DataControlHttpExecutor requestSplash(@Nullable final Context context, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
         final String requestUrl = new StringBuilder(URLManager.getSplash())
                 .toString();
+
+        JHYLogger.d("스플레시 이미지 >> "+requestUrl);
+
         this._operationListener = new RequestOperationListener() {
             @Override
             public void onRequestOperation(Object responseData) {
@@ -119,7 +122,28 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         return this;
     }
 
-    //스플레시 이미지
+    // 버전체크
+    public DataControlHttpExecutor requestSettingVersionCheck(@Nullable final Context context, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
+        final String requestUrl = new StringBuilder(URLManager.getVersion())
+                .append("&returnType=json")
+                .append("&phonetype=2")
+                .toString();
+
+        JHYLogger.d("버전체크 >> "+requestUrl);
+
+        this._operationListener = new RequestOperationListener() {
+            @Override
+            public void onRequestOperation(Object responseData) {
+                _responseData = sendRecvByHTTP(false, requestUrl, false, context);
+            }
+        };
+        this._completionListener = completionListener;
+        this._failureListener = failureListener;
+
+        return this;
+    }
+
+    //위젯
     public DataControlHttpExecutor requestWidget(@Nullable final Context context, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
         final String requestUrl = new StringBuilder(URLManager.getWidget())
                 .toString();

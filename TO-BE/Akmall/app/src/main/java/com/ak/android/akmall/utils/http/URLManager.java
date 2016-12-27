@@ -16,9 +16,10 @@ public class URLManager {
     private static URLManager instance;
 
     /* URL */
-    public static String SERVER_URL_DEBUG = "91.3.115.140";
+//    public static String SERVER_URL_DEBUG = "91.3.115.151";
 //    public static String SERVER_URL_DEBUG = "akm.akmall.com";
 //    public static String SERVER_URL_DEBUG = "testm.akmall.com";
+        public static String SERVER_URL_DEBUG = "m2.akmall.com";
 
     public static String getServerUrl() {
         return "http://" + SERVER_URL_DEBUG;
@@ -46,6 +47,11 @@ public class URLManager {
     //스플레시
     public static String getSplash() {
         return getServerUrl() + "/app/lib.do?act=appIntro&returnType=json";
+    }
+
+    //버전체크
+    public static String getVersion() {
+        return getServerUrl() + "/app/lib.do?act=versionInfo";
     }
 
     //위젯

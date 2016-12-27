@@ -331,10 +331,11 @@ public class MainActivity extends FragmentActivity {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             debug += "b";
             if (Feature.DEBUG_MODE && debug.equals("aabbaab")) {
-                if (URLManager.SERVER_URL_DEBUG.equals("testm.akmall.com")) {
+                if (URLManager.SERVER_URL_DEBUG.equals("m2.akmall.com")) {
                     URLManager.SERVER_URL_DEBUG = "91.3.115.140";
+
                 } else if(URLManager.SERVER_URL_DEBUG.equals("91.3.115.140")) {
-                    URLManager.SERVER_URL_DEBUG = "testm.akmall.com";
+                    URLManager.SERVER_URL_DEBUG = "m2.akmall.com";
                 }
                 Toast.makeText(this, "재접속시 다음 url로 접속됩니다= " + URLManager.getServerUrl(), Toast.LENGTH_SHORT).show();
                 debug = "";
