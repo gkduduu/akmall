@@ -51,6 +51,12 @@ public class BestAdapter extends RecyclerView.Adapter<BestAdapter.ViewHolder> {
         ImageView I_BEST_LIKEIV;
         ImageView I_BEST_BAGIV;
 
+        LinearLayout layout_best_tag;
+        LinearLayout linear_best_sales;
+        LinearLayout linear_best_rental;
+
+        TextView txt_rental_sales, txt_rental_price, txt_rental_contract, txt_rental_sales_1;
+
         public ViewHolder(View view) {
             super(view);
             I_BEST_MAINIV = (ImageView) view.findViewById(R.id.I_BEST_MAINIV);
@@ -73,6 +79,15 @@ public class BestAdapter extends RecyclerView.Adapter<BestAdapter.ViewHolder> {
             I_BEST_SHAREIV = (ImageView) view.findViewById(R.id.I_BEST_SHAREIV);
             I_BEST_LIKEIV = (ImageView) view.findViewById(R.id.I_BEST_LIKEIV);
             I_BEST_BAGIV = (ImageView) view.findViewById(R.id.I_BEST_BAGIV);
+
+            layout_best_tag = (LinearLayout)view.findViewById(R.id.layout_best_tag);
+            linear_best_sales = (LinearLayout)view.findViewById(R.id.linear_best_sales);
+            linear_best_rental = (LinearLayout)view.findViewById(R.id.linear_best_rental);
+
+            txt_rental_sales = (TextView) view.findViewById(R.id.txt_rental_sales);
+            txt_rental_sales_1 = (TextView) view.findViewById(R.id.txt_rental_sales_1);
+            txt_rental_price = (TextView) view.findViewById(R.id.txt_rental_price);
+            txt_rental_contract = (TextView) view.findViewById(R.id.txt_rental_contract);
         }
     }
 
@@ -127,19 +142,51 @@ public class BestAdapter extends RecyclerView.Adapter<BestAdapter.ViewHolder> {
                 .centerCrop()
                 .into(holder.I_BEST_MAINIV);
 
-        //가격표시 - 할인률을 보고 할인인이 아닌지 판단
-        if(!BaseUtils.nvl(result.info.sale_rate).equals("0")||!BaseUtils.nvl(result.info.sale_rate).equals("")) {
-            //할인률
-            holder.I_BEST_PERCENT.setText(result.info.sale_rate);
-            //원래가격
-            holder.I_BEST_PRICE.setText(BaseUtils.wonFormat(result.info.sale_price) + "원");
-            holder.I_BEST_PERCENT2.setVisibility(View.VISIBLE);
-        }else {
-            //할인이 아니므로 가격만 표시
-            holder.I_BEST_PERCENT.setText("");
-            holder.I_BEST_PERCENT2.setVisibility(View.GONE);
-            holder.I_BEST_PRICE.setText("");
+
+
+        //렌탈
+        if(result.goods_kind_code.equals("010")) {
+            holder.linear_best_sales.setVisibility(View.GONE);
+            holder.linear_best_rental.setVisibility(View.VISIBLE);
+            holder.I_BEST_NAME.setVisibility(View.VISIBLE);
+            holder.txt_rental_sales.setVisibility(View.VISIBLE);
+            holder.txt_rental_sales_1.setVisibility(View.VISIBLE);
+
+            holder.txt_rental_sales.setText("할인가 "+BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)) +"원");
+            holder.I_BEST_NAME.setTextSize(12);
+            holder.txt_rental_price.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.rental_month_price)) +"원(/월)");
+            holder.txt_rental_contract.setText(result.rental_months + "개월");
+
+        } else if(result.goods_kind_code.equals("009")) {
+            holder.linear_best_sales.setVisibility(View.GONE);
+            holder.linear_best_rental.setVisibility(View.VISIBLE);
+            holder.I_BEST_NAME.setVisibility(View.GONE);
+            holder.txt_rental_sales.setVisibility(View.GONE);
+            holder.txt_rental_sales_1.setVisibility(View.GONE);
+
+            holder.txt_rental_price.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.rental_month_price)) + "원(/월)");
+            holder.txt_rental_contract.setText(result.rental_months + "개월");
+
+        } else {
+            holder.linear_best_sales.setVisibility(View.VISIBLE);
+            holder.linear_best_rental.setVisibility(View.GONE);
+            holder.I_BEST_NAME.setVisibility(View.VISIBLE);
+
+            //가격표시 - 할인률을 보고 할인인이 아닌지 판단
+            if(!BaseUtils.nvl(result.info.sale_rate).equals("0")||!BaseUtils.nvl(result.info.sale_rate).equals("")) {
+                //할인률
+                holder.I_BEST_PERCENT.setText(result.info.sale_rate);
+                //원래가격
+                holder.I_BEST_PRICE.setText(BaseUtils.wonFormat(result.info.sale_price) + "원");
+                holder.I_BEST_PERCENT2.setVisibility(View.VISIBLE);
+            }else {
+                //할인이 아니므로 가격만 표시
+                holder.I_BEST_PERCENT.setText("");
+                holder.I_BEST_PERCENT2.setVisibility(View.GONE);
+                holder.I_BEST_PRICE.setText("");
+            }
         }
+
         //할인가격
         holder.I_BEST_SALEPRICE.setText(BaseUtils.wonFormat(result.info.final_price)+"원");
 
@@ -166,6 +213,12 @@ public class BestAdapter extends RecyclerView.Adapter<BestAdapter.ViewHolder> {
             holder.I_BEST_BRANCH_LAYOUT.setVisibility(View.GONE);
             holder.I_BEST_SELECTIV.setVisibility(View.VISIBLE);
             holder.I_BEST_PICKIV.setVisibility(View.GONE);
+        }
+
+        if(holder.I_BEST_BRANCH_LAYOUT.getVisibility() == View.GONE
+                && holder.I_BEST_PICKIV.getVisibility() == View.GONE
+                && holder.I_BEST_SELECTIV.getVisibility() == View.GONE) {
+            holder.layout_best_tag.setVisibility(View.GONE);
         }
 
     }

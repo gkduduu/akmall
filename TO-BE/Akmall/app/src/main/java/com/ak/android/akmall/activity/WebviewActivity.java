@@ -41,10 +41,12 @@ public class WebviewActivity extends Activity {
 
     @AfterViews
     void afterView() {
+        JHYLogger.d("WebviewActivity url = >> "+getIntent().getStringExtra("url"));
+
         //웹뷰에 각종 옵션세팅
         WEB_WEBVIEW.clearCache(true);
         WEB_WEBVIEW.bringToFront();
-        WEB_WEBVIEW.setInitialScale(100);
+//        WEB_WEBVIEW.setInitialScale(100);
         WEB_WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         WEB_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         WEB_WEBVIEW.getSettings().setUseWideViewPort(true);

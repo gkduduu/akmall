@@ -39,6 +39,7 @@ public class BigWidgetProvider extends AppWidgetProvider {
     public static String ACTION_WIDGET_DELIVERY = "ACTION_WIDGET_DELIVERY";
     public static String ACTION_WIDGET_SEARCH = "ACTION_WIDGET_SEARCH";
     public static String ACTION_WIDGET_REFRESH = "ACTION_WIDGET_REFRESH";
+    public static String ACTION_WIDGET_ALARM = "ACTION_WIDGET_ALARM";
 
     public static String ACTION_WIDGET_LOGIN = "ACTION_WIDGET_LOGIN";
 
@@ -91,6 +92,8 @@ public class BigWidgetProvider extends AppWidgetProvider {
             context.startActivity(new Intent(context, SplashActivity_.class).putExtra("move", "login").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }else if(action.equals(ACTION_WIDGET_SEARCH)) {
             context.startActivity(new Intent(context, SplashActivity_.class).putExtra("move", "search").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }else if(action.equals(ACTION_WIDGET_ALARM)) {
+            context.startActivity(new Intent(context, SplashActivity_.class).putExtra("move", "alarm").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 
@@ -158,6 +161,11 @@ public class BigWidgetProvider extends AppWidgetProvider {
             //로그인 됨됨
             views.setViewVisibility(R.id.WIDGET_BIG_ALARM, View.VISIBLE);
             views.setViewVisibility(R.id.WIDGET_BIG_LOGIN, View.GONE);
+
+            Intent alarm = new Intent(con, BigWidgetProvider.class);
+            alarm.setAction(ACTION_WIDGET_ALARM);
+            PendingIntent pendingIntent9 = PendingIntent.getBroadcast(con, 0, alarm, 0);
+            views.setOnClickPendingIntent(R.id.WIDGET_BIG_TEXT, pendingIntent9);
        }
 
         for (int appWidgetId : appWidgetIds) {

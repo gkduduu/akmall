@@ -7,7 +7,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#e5e5e5"></View>
+        android:background="#eaeaea"></View>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:visibility="gone"
-                android:background="#e51c52">
+                android:background="#333">
 
                 <TextView
                     android:id="@+id/I_BEST_COUNT"
@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="01"
-                    android:textColor="#ffffff"
+                    android:textColor="#fff"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -44,12 +44,14 @@
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true">
+
                 <ImageView
                     android:id="@+id/I_BEST_MENUIV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/list_btn_menu"/>
+
                 <ImageView
                     android:id="@+id/I_BEST_CLOSEIV"
                     android:layout_width="wrap_content"
@@ -57,6 +59,7 @@
                     android:layout_marginTop="5dp"
                     android:visibility="gone"
                     android:src="@drawable/list_btn_close"/>
+
                 <ImageView
                     android:id="@+id/I_BEST_SHAREIV"
                     android:layout_below="@+id/I_BEST_CLOSEIV"
@@ -65,6 +68,7 @@
                     android:layout_marginTop="8dp"
                     android:visibility="gone"
                     android:src="@drawable/list_btn_share"/>
+
                 <ImageView
                     android:id="@+id/I_BEST_LIKEIV"
                     android:layout_below="@+id/I_BEST_SHAREIV"
@@ -73,6 +77,7 @@
                     android:layout_marginTop="8dp"
                     android:visibility="gone"
                     android:src="@drawable/list_btn_like"/>
+
                 <ImageView
                     android:id="@+id/I_BEST_BAGIV"
                     android:layout_below="@+id/I_BEST_LIKEIV"
@@ -81,6 +86,7 @@
                     android:layout_marginTop="8dp"
                     android:visibility="gone"
                     android:src="@drawable/list_btn_bag"/>
+
             </RelativeLayout>
         </RelativeLayout>
 
@@ -92,6 +98,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/layout_best_tag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -102,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginRight="2dp"
-                    android:background="#333">
+                    android:background="#333333">
 
                     <TextView
                         android:layout_marginRight="5dp"
@@ -128,6 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/tag_selectshop"/>
+
             </LinearLayout>
 
             <TextView
@@ -138,9 +146,11 @@
                 android:layout_marginTop="7dp"
                 android:maxLines="2"
                 android:text="[페이지플린] 프릴소매린넨 블라우스_p6b23408 뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉뿌잉"
-                android:textSize="12sp" />
+                android:textSize="14sp"
+                android:textColor="#333"/>
 
             <LinearLayout
+                android:id="@+id/linear_best_sales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
@@ -157,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100,000원"
-                        android:textColor="#333"
+                        android:textColor="#000"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginRight="6dp"
@@ -181,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
-                        android:textColor="#333"
+                        android:textColor="#000"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
@@ -191,19 +201,104 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:text="%"
-                        android:textColor="#333"
-                        android:textSize="13sp"
+                        android:textColor="#000"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_best_rental"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp">
+
+                    <TextView
+                        android:id="@+id/txt_rental_sales"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="할인가 54,500원"
+                        android:textColor="#333"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_rental_sales_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/txt_rental_sales"
+                        android:text="(최초 1회차 결제)"
+                        android:textColor="#333"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="렌탈료"
+                        android:textColor="#333"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_rental_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="렌탈료"
+                        android:textColor="#666"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="약정개월"
+                        android:textColor="#333"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_rental_contract"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="렌탈료"
+                        android:textColor="#666"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
         </LinearLayout>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#e5e5e5"></View>
+        android:layout_marginBottom="5dp"
+        android:background="#eaeaea"></View>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -220,7 +315,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="11sp"
+                android:textSize="12sp"
+                android:textColor="#666"
                 android:text="무료배송" />
 
             <View
@@ -238,11 +334,12 @@
             android:id="@+id/I_BEST_SCORE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
+            android:textSize="12sp"
+            android:textColor="#666"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/I_BEST_DELIVERY"
             android:text="상품평(100점)" />
-        
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="20dp"
@@ -265,8 +362,8 @@
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e5e5e5"></View>
+        android:layout_height="4dp"
+        android:background="#ebebeb"></View>
 
     <View
         android:layout_width="match_parent"

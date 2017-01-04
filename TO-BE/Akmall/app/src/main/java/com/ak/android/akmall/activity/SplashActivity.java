@@ -7,15 +7,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.ak.android.akmall.R;
+import com.ak.android.akmall.fragment.CustomDialog;
 import com.ak.android.akmall.utils.BaseUtils;
 import com.ak.android.akmall.utils.Const;
 import com.ak.android.akmall.utils.FinishCallback;
@@ -50,7 +53,8 @@ public class SplashActivity extends Activity {
     String SENDER_ID = Const.GCM_SENDER_ID;
     String regid;
     GoogleCloudMessaging gcm;
-
+    CustomDialog mCustomDialog;
+    private SplashResult splashResult;
 
     @AfterViews
     void afterView() {
@@ -59,7 +63,23 @@ public class SplashActivity extends Activity {
             Toast.makeText(this, "Debug Mode!", Toast.LENGTH_LONG).show();
         }
 
-        requestSplash();
+        if (!isNetWork()) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(SplashActivity.this);
+            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            alert.setTitle("AK MALL");
+            alert.setMessage("인터넷 연결을 확인하세요.");
+            alert.show();
+
+        } else {
+            requestSplash();
+        }
+
     }
 
     private void initView(SplashResult result) {
@@ -75,6 +95,8 @@ public class SplashActivity extends Activity {
         gcm = GoogleCloudMessaging.getInstance(this);
         regid = GcmManager.getRegistrationId(this);
 
+        dtime = Integer.parseInt(result.dtime);
+
         JHYLogger.d(regid);
 
         if (regid.isEmpty()) {
@@ -83,6 +105,16 @@ public class SplashActivity extends Activity {
             registPushInfoInServer();
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mCustomDialog != null) {
+            mCustomDialog.dismiss();
+            mCustomDialog = null;
+        }
+    }
+
 
     private FinishCallback mRegisterGcmCallback = new FinishCallback() {
         @Override
@@ -95,7 +127,6 @@ public class SplashActivity extends Activity {
     };
 
     private static final String CHECK_PACKAGE_NAME = "com.ak.android.akmall";
-
 
     //서버에 푸시 등록
     private void registPushInfoInServer() {
@@ -114,62 +145,40 @@ public class SplashActivity extends Activity {
 
                                 JHYLogger.d("SplashActivity onDataControlCompleted()>>  " + responseData.toString());
 
-                                if(versionCheckResult.MUST_YN.equals("Y")) {
+                                if (versionCheckResult.MUST_YN.equals("Y")) {
                                     PackageManager manager = getPackageManager();
                                     PackageInfo pack = manager.getPackageInfo(CHECK_PACKAGE_NAME.toLowerCase(), PackageManager.GET_META_DATA);
 
                                     String versionName = pack.versionName;
-//                                    JHYLogger.d("versionName => " + versionName);
-//                                    String[] tmp1 = versionName.split("."); String tmp2 = tmp1[0] + tmp1[1] + tmp1[2];
-//                                    String[] tmp3 = versionCheckResult.LASTEST_VERSION.split("."); String tmp4 = tmp3[0] + tmp3[1] + tmp3[2];
-//
-//                                    JHYLogger.d("tmp2 => " + tmp2);
-//                                    JHYLogger.d("tmp4 => " + tmp4);
 
-                                    if(!versionName.equals(versionCheckResult.LASTEST_VERSION)) {
-                                        if(versionCheckResult.BTN_TYPE.equals("C")) {
-                                            AlertDialog.Builder alert = new AlertDialog.Builder(SplashActivity.this);
-                                            alert.setPositiveButton("업데이트", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                    finish();
-                                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(versionCheckResult.LINK));
-                                                    startActivity(intent);
-                                                }
-                                            });
-                                            alert.setNegativeButton("다음에", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                    nextActivity();
-                                                }
-                                            });
-                                            alert.setTitle("AK PLAZA");
-                                            alert.setMessage("새 버전이 추가 되었습니다. 업데이트후 이용해주세요! 업데이트를 누르시면 스토어로 이동합니다. (현재 버전으로도 앱사용이 가능합니다.)");
-                                            alert.show();
+                                    String[] tmp = versionCheckResult.LASTEST_VERSION.split("");
+                                    String[] tmp1 = versionName.split("");
+
+                                    int serverVersion = Integer.parseInt(tmp[1] + tmp[3] + tmp[5]);
+                                    int appVersion = Integer.parseInt(tmp1[1] + tmp1[3] + tmp1[5]);
+
+                                    if (appVersion < serverVersion) {
+                                        if (versionCheckResult.BTN_TYPE.equals("C")) {
+                                            mCustomDialog = new CustomDialog(
+                                                    SplashActivity.this,
+                                                    "새 버전이 추가 되었습니다. 업데이트후 이용해주세요!",
+                                                    "업데이트를 누르시면 스토어로 이동합니다.\n(현재 버전으로도 앱사용이 가능합니다.)",
+                                                    updateClickListener,
+                                                    nextClickListener,
+                                                    versionCheckResult.BTN_TYPE);
+
+                                            mCustomDialog.show();
 
                                         } else {
-                                            AlertDialog.Builder alert = new AlertDialog.Builder(SplashActivity.this);
-                                            alert.setPositiveButton("업데이트", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                    finish();
-                                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(versionCheckResult.LINK));
-                                                    startActivity(intent);
-                                                }
-                                            });
-                                            alert.setNegativeButton("앱종료", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                    finish();
-                                                }
-                                            });
-                                            alert.setTitle("AK PLAZA");
-                                            alert.setMessage("원활한 서비스 이용을 위해 업데이트가 필요합니다.업데이트를 누르시면 스토어로 이동합니다.");
-                                            alert.show();
+                                            mCustomDialog = new CustomDialog(
+                                                    SplashActivity.this,
+                                                    "원활한 서비스 이용을 위해 업데이트가 필요합니다.",
+                                                    "업데이트를 누르시면 스토어로 이동합니다.",
+                                                    updateClickListener,
+                                                    finishClickListener,
+                                                    versionCheckResult.BTN_TYPE);
+
+                                            mCustomDialog.show();
                                         }
                                     } else {
                                         nextActivity();
@@ -178,6 +187,7 @@ public class SplashActivity extends Activity {
                                 } else {
                                     nextActivity();
                                 }
+
                             }
                         },
                         new RequestFailureListener() {
@@ -189,7 +199,33 @@ public class SplashActivity extends Activity {
         DataControlManager.getInstance().runScheduledCommandOnAsync();
     }
 
-    void nextActivity() {
+    private View.OnClickListener updateClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mCustomDialog.dismiss();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(versionCheckResult.LINK));
+            startActivity(intent);
+            finish();
+        }
+    };
+
+    private View.OnClickListener finishClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mCustomDialog.dismiss();
+            finish();
+        }
+    };
+
+    private View.OnClickListener nextClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mCustomDialog.dismiss();
+            nextActivity();
+        }
+    };
+
+    private void nextActivity() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -207,13 +243,31 @@ public class SplashActivity extends Activity {
                     startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", "/login/Login.do?isAkApp=Android"));
                 } else if (move.equals("search")) {
                     startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SEARCH));
+                } else if (move.equals("alarm")) {
+                    startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SHOPPINGALIM));
                 } else if (move.equals("my")) {
                     startActivity(new Intent(SplashActivity.this, MyWebviewActivity_.class).putExtra("url", Const.WIDGET_MY));
                 }
                 finish();
             }
-        }, 2000);
+        }, dtime * 1000);
     }
+
+    private Boolean isNetWork() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean isMobileAvailable = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable();
+        boolean isMobileConnect = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        boolean isWifiAvailable = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isAvailable();
+        boolean isWifiConnect = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+
+        if ((isWifiAvailable && isWifiConnect) || (isMobileAvailable && isMobileConnect)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private int dtime;
 
     private void requestSplash() {
         DataControlManager.getInstance().addSchedule(
@@ -223,8 +277,9 @@ public class SplashActivity extends Activity {
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 JHYLogger.d(responseData.toString());
 
+                                splashResult = Parser.parsingSplash(responseData.toString());
                                 requestVersionCheck();
-                                initView(Parser.parsingSplash(responseData.toString()));
+//                                initView(Parser.parsingSplash(responseData.toString()));
                             }
                         },
                         new RequestFailureListener() {
@@ -246,7 +301,8 @@ public class SplashActivity extends Activity {
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 JHYLogger.d(responseData.toString());
                                 versionCheckResult = Parser.parsingVersionCheck(responseData.toString());
-//                                versionCheck = true;
+
+                                initView(splashResult);
                             }
                         },
                         new RequestFailureListener() {

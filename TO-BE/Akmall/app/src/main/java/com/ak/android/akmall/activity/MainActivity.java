@@ -110,15 +110,16 @@ public class MainActivity extends FragmentActivity {
 
     @Click(R.id.FLOATING_MORE)
     void clickMore() {
-        BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
-                    @Override
-                    public void onBlurComplete() {
-                        Intent intent = new Intent(MainActivity.this, MoreActivity_.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivityForResult(intent, Const.MORE_REQUEST);
-                    }
-                }
-        );
+//        BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
+//                    @Override
+//                    public void onBlurComplete() {
+//                        Intent intent = new Intent(MainActivity.this, MoreActivity_.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                        startActivityForResult(intent, Const.MORE_REQUEST);
+//                    }
+//                }
+//        );
+//        slide_category.loadUrl(URLManager.getServerUrl() + Const.MENU_HISTORY);
     }
 
     @Click(R.id.FLOATING_TOP)
@@ -140,12 +141,12 @@ public class MainActivity extends FragmentActivity {
 
     @Click(R.id.MENU_CATEGORY)
     void ClickMenuCate() {
-        startActivityForResult(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_CATEGORY), Const.CATEGORY_BIG_REQUEST);
+        startActivityForResult(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SHOPPINGALIM), Const.CATEGORY_BIG_REQUEST);
     }
 
-    @Click(R.id.MENU_SEARCH)
+    @Click(R.id.MENU_LIKEIT)
     void ClickMenuSearch() {
-        startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SEARCH));
+        startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_LIKEIT));
     }
 
     @Click(R.id.MENU_HOME)
@@ -218,10 +219,10 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg) {
-
+            // _blank 처리
             WebView.HitTestResult result = view.getHitTestResult();
             String data = result.getExtra();
-            JHYLogger.D(data);
+            JHYLogger.D("_blank >> "+data);
             Context context = view.getContext();
             Intent browserIntent = new Intent(MainActivity.this, WebviewActivity_.class).putExtra("url", data);
             context.startActivity(browserIntent);
@@ -286,10 +287,22 @@ public class MainActivity extends FragmentActivity {
                 return true;
 
             } else if (url.startsWith("http")) {
-                startActivity(new Intent(MainActivity.this, WebviewActivity_.class).putExtra("url", url));
+                startActivity(new Intent(MainActivity.this, MyWebviewActivity_.class).putExtra("url", url));
+                return true;
 
-            } else if(url.startsWith("newtab")) {
-                startActivity(new Intent(MainActivity.this, WebviewActivity_.class).putExtra("url", url.replace("newtab:", "")));
+            } else if(url.startsWith("newtab")) {  //
+                String decodeString = "";
+                try {
+                    decodeString = URLDecoder.decode(url.replace("newtab:", ""), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    JHYLogger.e("MainActivity >> "+e.getMessage());
+                }
+
+                startActivity(new Intent(MainActivity.this, WebviewActivity_.class).putExtra("url", decodeString));
+                return true;
+
+            } else if(url.startsWith("newplay")) {
+                startActivity(new Intent(MainActivity.this, WebviewMovieActivity_.class).putExtra("url", url.replace("newplay:", "")));
                 return true;
             }
             return true;

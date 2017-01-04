@@ -2,8 +2,11 @@ package com.ak.android.akmall.activity;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -25,6 +29,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -35,6 +40,7 @@ import com.ak.android.akmall.adapter.GallaryAdapter;
 import com.ak.android.akmall.adapter.GridAdapter;
 import com.ak.android.akmall.adapter.PowerLinkAdapter;
 import com.ak.android.akmall.fragment.SelectDialog;
+import com.ak.android.akmall.fragment.SelectPopup;
 import com.ak.android.akmall.utils.BaseUtils;
 import com.ak.android.akmall.utils.Const;
 import com.ak.android.akmall.utils.DataHolder;
@@ -56,6 +62,7 @@ import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
 import com.ak.android.akmall.utils.json.result.PageDatas;
 import com.ak.android.akmall.utils.json.result.PowerLinkResult;
 import com.ak.android.akmall.utils.json.result.SMSResult;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -117,6 +124,9 @@ public class ShopContentActivity extends Activity {
     @ViewById
     HorizontalScrollView CONTENT_SCROLL;
 
+    @ViewById
+    View view_footer;
+
     BigCategoryResult mBigCatgoryResult;
 
 //    float listHeight = 0;
@@ -132,15 +142,19 @@ public class ShopContentActivity extends Activity {
 
     @Click(R.id.FLOATING_MORE)
     void clickMore() {
-        BlurBehind.getInstance().execute(ShopContentActivity.this, new OnBlurCompleteListener() {
-                    @Override
-                    public void onBlurComplete() {
-                        Intent intent = new Intent(ShopContentActivity.this, MoreActivity_.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivityForResult(intent, Const.MORE_REQUEST);
-                    }
-                }
-        );
+//        BlurBehind.getInstance().execute(ShopContentActivity.this, new OnBlurCompleteListener() {
+//                    @Override
+//                    public void onBlurComplete() {
+//                        Intent intent = new Intent(ShopContentActivity.this, MoreActivity_.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                        startActivityForResult(intent, Const.MORE_REQUEST);
+//                    }
+//                }
+//        );
+
+        JHYLogger.d("FLOATING_MORE >> " + URLManager.getServerUrl() + Const.MENU_HISTORY);
+        CONTENT_SLIDE_WEBVIEW.loadUrl(URLManager.getServerUrl() + Const.MENU_HISTORY);
+        ACTIVITY_CONTENT.openDrawer(CONTENT_SLIDEMENU);
     }
 
     @Click(R.id.FLOATING_TOP)
@@ -185,6 +199,13 @@ public class ShopContentActivity extends Activity {
     void clickTth() {
     }
 
+    //푸터 2
+    @Click(R.id.btn_plaza_down)
+    void clicktBPD() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.ak.android.akplaza"));
+        startActivity(intent);
+    }
+
     //푸터 밑1
     @Click(R.id.FOOTER_BOT_ONE)
     void clickBone() {
@@ -206,12 +227,12 @@ public class ShopContentActivity extends Activity {
 
     @Click(R.id.MENU_CATEGORY)
     void ClickMenuCate() {
-        startActivityForResult(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_CATEGORY), Const.CATEGORY_BIG_REQUEST);
+        startActivityForResult(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SHOPPINGALIM), Const.CATEGORY_BIG_REQUEST);
     }
 
-    @Click(R.id.MENU_SEARCH)
+    @Click(R.id.MENU_LIKEIT)
     void ClickMenuSearch() {
-        startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SEARCH));
+        startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_LIKEIT));
     }
 
     @Click(R.id.MENU_HOME)
@@ -279,7 +300,6 @@ public class ShopContentActivity extends Activity {
         CONTENT_WV_WEBVIEW.getSettings().setSupportMultipleWindows(true);
         CONTENT_WV_WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
-
         //필터 웨뷰에 각종 옵션세팅
 //        CONTENT_SLIDE_WEBVIEW.setInitialScale(300);
         CONTENT_SLIDE_WEBVIEW.getSettings().setJavaScriptEnabled(true);
@@ -288,8 +308,6 @@ public class ShopContentActivity extends Activity {
         CONTENT_SLIDE_WEBVIEW.loadUrl(URLManager.getServerUrl() + Const.MOVE_FILTER);
         CONTENT_SLIDE_WEBVIEW.setWebChromeClient(new ChromeClient());
         CONTENT_SLIDE_WEBVIEW.setWebViewClient(new FilterWebViewClient());
-
-
 
         //슬라이드 메뉴
         ACTIVITY_CONTENT.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -514,10 +532,10 @@ public class ShopContentActivity extends Activity {
         mBigCatgoryResult = result;
         //상단 카테고리 리스트
         CONTENT_RV_CATEGORY.setHasFixedSize(true);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         CONTENT_RV_CATEGORY.setLayoutManager(layoutManager);
         CONTENT_RV_CATEGORY.setNestedScrollingEnabled(false);
+
         categoryAdapter = new BigCategoryAdapter(this, result.ctgArray, Integer.parseInt(BaseUtils.nvl(mBigCatgoryResult.detailCtgSize, "0")),
                 Integer.parseInt(BaseUtils.nvl(mBigCatgoryResult.lastCtgSize, "0")), new View.OnClickListener() {
             @Override
@@ -631,7 +649,7 @@ public class ShopContentActivity extends Activity {
 //                CONTENT_RV_LIST.requestLayout();
             }
         } else {//중소카테고리
-            if (result.dp.equals("1")) {
+            if (result.dp.equals("1")) {  // 기본 형태
                 CONTENT_RV_LIST.setHasFixedSize(true);
                 CONTENT_RV_LIST.setLayoutManager(new LinearLayoutManager(this));
                 CONTENT_RV_LIST.setNestedScrollingEnabled(false);
@@ -646,7 +664,8 @@ public class ShopContentActivity extends Activity {
 //                listHeight = BaseUtils.convertDpToPixel(size * 158 + (size * 2), this);
 //                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
 //                CONTENT_RV_LIST.requestLayout();
-            } else if (result.dp.equals("2")) {
+
+            } else if (result.dp.equals("2")) {  // grid형태
                 CONTENT_RV_LIST.setHasFixedSize(true);
                 CONTENT_RV_LIST.setLayoutManager(new GridLayoutManager(this, 2));
                 CONTENT_RV_LIST.setNestedScrollingEnabled(false);
@@ -666,7 +685,8 @@ public class ShopContentActivity extends Activity {
 //                }
 //                CONTENT_RV_LIST.getLayoutParams().height = (int) listHeight;
 //                CONTENT_RV_LIST.requestLayout();
-            } else if (result.dp.equals("3")) {
+
+            } else if (result.dp.equals("3")) { // galley 형태
                 CONTENT_RV_LIST.setHasFixedSize(true);
                 CONTENT_RV_LIST.setLayoutManager(new LinearLayoutManager(this));
                 CONTENT_RV_LIST.setNestedScrollingEnabled(false);
@@ -1155,15 +1175,40 @@ public class ShopContentActivity extends Activity {
         }
 
         @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            SHOP_POWERLINK_LAYOUT.setVisibility(View.GONE);
+            view_footer.setVisibility(View.GONE);
+
+            if (null == mDialog) {
+                mDialog = new Dialog(ShopContentActivity.this, R.style.NewDialog);
+                mDialog.addContentView(
+                        new ProgressBar(ShopContentActivity.this),
+                        new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT));
+                mDialog.show();
+            }
+        }
+
+        @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+
+            if (null != mDialog && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+
+            SHOP_POWERLINK_LAYOUT.setVisibility(View.VISIBLE);
+            view_footer.setVisibility(View.VISIBLE);
         }
     }
+
+    private Dialog mDialog;
 
     //필터(drawer layout)에 사용되는 웹뷰 클라이언트
     private class FilterWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            JHYLogger.d("FilterWebViewClient >> "+url);
             if (url.startsWith("akmall://")) {
                 //URL DECODE
                 String decodeString = "";
@@ -1178,21 +1223,38 @@ public class ShopContentActivity extends Activity {
                     OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://changeFilter?", ""));
                     CONTENT_WV_WEBVIEW.loadUrl(URLManager.getServerUrl() + openReult.url + "&isAkApp=Y");
                     ACTIVITY_CONTENT.closeDrawer(CONTENT_SLIDEMENU);
+
                 } else if (decodeString.startsWith("akmall://openWebview")) {
                     OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
                     CONTENT_WV_WEBVIEW.loadUrl(URLManager.getServerUrl() + openReult.url + "&isAkApp=Y");
                     ACTIVITY_CONTENT.closeDrawer(CONTENT_SLIDEMENU);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            CONTENT_SV_SCROLL.scrollTo(0, 0);
+                        }
+                    }, 10);
+
                 } else if (decodeString.startsWith("akmall://closePopup")) {
                     ACTIVITY_CONTENT.closeDrawer(CONTENT_SLIDEMENU);
+
                 } else if (decodeString.startsWith("akmall://sendFilter")) {
                     //브랜드필터에서 필터변경
                     CONTENT_WV_WEBVIEW.loadUrl("javascript:sendFilter('" + decodeString.replace("akmall://sendFilter?", "") + "')");
                     ACTIVITY_CONTENT.closeDrawer(CONTENT_SLIDEMENU);
+
+                } else if (decodeString.startsWith("akmall://callWishPopup")) {
+                    new SelectPopup(context, Const.ITME_HEART + "&goods_id=" + decodeString.replace("akmall://callWishPopup?", "")).show();
                 }
+            } else {
+                CONTENT_WV_WEBVIEW.loadUrl(url);
+                ACTIVITY_CONTENT.closeDrawer(CONTENT_SLIDEMENU);
+                return true;
             }
+
             return true;
         }
-
     }
 
     //어뎁터에서 호출하는것 상품 장바구니에 담기

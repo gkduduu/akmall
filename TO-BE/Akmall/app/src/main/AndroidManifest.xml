@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
     <!-- 바코드 -->
     <uses-feature android:name="android.hardware.camera" />
 
@@ -74,6 +76,12 @@
         <activity
             android:name=".activity.WebviewActivity_" android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
+
+        <activity android:name=".activity.WebviewMovieActivity" android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" />
+        <activity android:name=".activity.WebviewMovieActivity_" android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" />
+
         <activity android:name=".activity.MoreActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.MyWebviewActivity" android:windowSoftInputMode="adjustPan"  android:screenOrientation="portrait" >
             </activity>

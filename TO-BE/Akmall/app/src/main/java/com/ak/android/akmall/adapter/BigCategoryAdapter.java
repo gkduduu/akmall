@@ -2,6 +2,7 @@ package com.ak.android.akmall.adapter;
 
 import com.ak.android.akmall.R;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,12 +68,11 @@ public class BigCategoryAdapter extends RecyclerView.Adapter<BigCategoryAdapter.
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                         int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_bigcate, parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bigcate, parent, false);
         v.setOnClickListener(listener);
         ViewHolder vh = new ViewHolder(v);
+
         return vh;
     }
 
@@ -93,6 +93,8 @@ public class BigCategoryAdapter extends RecyclerView.Adapter<BigCategoryAdapter.
             holder.I_BIG_ARROW2.setVisibility(View.VISIBLE);
             holder.I_BIG_BIG.setVisibility(View.GONE);
         }
+
+        holder.itemView.setVerticalScrollBarEnabled(false);
     }
 
     @Override

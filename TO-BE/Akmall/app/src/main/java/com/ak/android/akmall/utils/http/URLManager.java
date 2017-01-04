@@ -17,9 +17,10 @@ public class URLManager {
 
     /* URL */
 //    public static String SERVER_URL_DEBUG = "91.3.115.151";
-//    public static String SERVER_URL_DEBUG = "akm.akmall.com";
-//    public static String SERVER_URL_DEBUG = "testm.akmall.com";
-        public static String SERVER_URL_DEBUG = "m2.akmall.com";
+//    public static String SERVER_URL_DEBUG = "91.3.115.140";
+//    public static String SERVER_URL_DEBUG = "m2.akmall.com";
+//    public static String SERVER_URL_DEBUG = "192.168.201.23";
+    public static String SERVER_URL_DEBUG = "192.168.201.22";
 
     public static String getServerUrl() {
         return "http://" + SERVER_URL_DEBUG;

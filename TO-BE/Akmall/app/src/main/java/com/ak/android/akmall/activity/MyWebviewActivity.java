@@ -105,15 +105,17 @@ public class MyWebviewActivity extends Activity {
 
     @Click(R.id.FLOATING_MORE)
     void clickMore() {
-        BlurBehind.getInstance().execute(this, new OnBlurCompleteListener() {
-                    @Override
-                    public void onBlurComplete() {
-                        Intent intent = new Intent(MyWebviewActivity.this, MoreActivity_.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivityForResult(intent, Const.MORE_REQUEST);
-                    }
-                }
-        );
+//        BlurBehind.getInstance().execute(this, new OnBlurCompleteListener() {
+//                    @Override
+//                    public void onBlurComplete() {
+//                        Intent intent = new Intent(MyWebviewActivity.this, MoreActivity_.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                        startActivityForResult(intent, Const.MORE_REQUEST);
+//                    }
+//                }
+//        );
+//        startActivityForResult(new Intent(MyWebviewActivity.this, WebviewActivity_.class)
+//                .putExtra("url", URLManager.getServerUrl()+Const.MENU_HISTORY), Const.CATEGORY_BIG_REQUEST);
     }
 
     @Click(R.id.FLOATING_TOP)
@@ -137,12 +139,12 @@ public class MyWebviewActivity extends Activity {
 
     @Click(R.id.MENU_CATEGORY)
     void ClickMenuCate() {
-        startActivityForResult(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_CATEGORY), Const.CATEGORY_BIG_REQUEST);
+        startActivityForResult(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SHOPPINGALIM), Const.CATEGORY_BIG_REQUEST);
     }
 
-    @Click(R.id.MENU_SEARCH)
+    @Click(R.id.MENU_LIKEIT)
     void ClickMenuSearch() {
-        startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_SEARCH));
+        startActivity(new Intent(this, MyWebviewActivity_.class).putExtra("url", Const.MENU_LIKEIT));
     }
 
     @Click(R.id.MENU_HOME)
@@ -215,6 +217,8 @@ public class MyWebviewActivity extends Activity {
         } else {
             json = getIntent().getStringExtra("json");
         }
+
+        JHYLogger.d("MyWebiew 최종 url = "+url);
 
         //웹뷰에 각종 옵션세팅
         WEB_WEBVIEW.clearCache(true);

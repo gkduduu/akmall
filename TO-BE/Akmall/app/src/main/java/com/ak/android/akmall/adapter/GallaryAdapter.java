@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,8 +55,17 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
         ImageView I_GALLARY_SIMILARIV;
         View I_GALLARY_DELIVERY_BAR;
 
+        LinearLayout layout_galley_tag;
+        RelativeLayout I_GALLERY_BRANCH_LAYOUT;
+        LinearLayout linear_galley_sales;
+        LinearLayout linear_galley_rental;
+
+        TextView txt_rental_sales, txt_rental_price, txt_rental_contract, txt_rental_sales_1;
+
         public ViewHolder(View view) {
             super(view);
+            I_GALLERY_BRANCH_LAYOUT = (RelativeLayout) view.findViewById(R.id.I_GALLERY_BRANCH_LAYOUT);
+
             I_GALLARY_MAINIV = (ImageView) view.findViewById(R.id.I_GALLARY_MAINIV);
             I_GALLARY_BRANCH = (TextView) view.findViewById(R.id.I_GALLARY_BRANCH);
             I_GALLARY_PICKIV = (ImageView) view.findViewById(R.id.I_GALLARY_PICKIV);
@@ -75,6 +85,15 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
             I_GALLARY_LIKEIV = (ImageView) view.findViewById(R.id.I_GALLARY_LIKEIV);
             I_GALLARY_BAGIV = (ImageView) view.findViewById(R.id.I_GALLARY_BAGIV);
             I_GALLARY_SIMILARIV = (ImageView)view.findViewById(R.id.I_GALLARY_SIMILARIV);
+
+            layout_galley_tag = (LinearLayout)view.findViewById(R.id.layout_galley_tag);
+            linear_galley_sales = (LinearLayout)view.findViewById(R.id.linear_galley_sales);
+            linear_galley_rental = (LinearLayout)view.findViewById(R.id.linear_galley_rental);
+
+            txt_rental_sales = (TextView) view.findViewById(R.id.txt_rental_sales);
+            txt_rental_sales_1 = (TextView) view.findViewById(R.id.txt_rental_sales_1);
+            txt_rental_price = (TextView) view.findViewById(R.id.txt_rental_price);
+            txt_rental_contract = (TextView) view.findViewById(R.id.txt_rental_contract);
         }
     }
 
@@ -154,18 +173,49 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
 
         //상품명
         holder.I_GALLARY_NAME.setText(BaseUtils.nvl(result.goods_name));
-        //할인률 - 할인률이 0이면 원가만 표시
-        if (BaseUtils.nvl(result.info.sale_rate, "0").equals("0")) {
-            holder.I_GALLARY_PERCENT.setText("");
-            holder.I_GALLARY_PERCENT2.setText("");
-            holder.I_GALLARY_PRICE.setText("");
-            holder.I_GALLARY_SALEPRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)) + "원");
+
+        //렌탈
+        if(result.goods_kind_code.equals("010")) {
+            holder.linear_galley_sales.setVisibility(View.GONE);
+            holder.linear_galley_rental.setVisibility(View.VISIBLE);
+            holder.I_GALLARY_NAME.setVisibility(View.VISIBLE);
+            holder.txt_rental_sales.setVisibility(View.VISIBLE);
+            holder.txt_rental_sales_1.setVisibility(View.VISIBLE);
+
+            holder.txt_rental_sales.setText("할인가 "+BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)) +"원");
+            holder.I_GALLARY_NAME.setTextSize(12);
+            holder.txt_rental_price.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.rental_month_price)) +"원(/월)");
+            holder.txt_rental_contract.setText(result.rental_months + "개월");
+
+        } else if(result.goods_kind_code.equals("009")) {
+            holder.linear_galley_sales.setVisibility(View.GONE);
+            holder.linear_galley_rental.setVisibility(View.VISIBLE);
+            holder.I_GALLARY_NAME.setVisibility(View.GONE);
+            holder.txt_rental_sales.setVisibility(View.GONE);
+            holder.txt_rental_sales_1.setVisibility(View.GONE);
+
+            holder.txt_rental_price.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.rental_month_price)) +"원(/월)");
+            holder.txt_rental_contract.setText(result.rental_months + "개월");
+
         } else {
-            holder.I_GALLARY_PERCENT.setText(BaseUtils.nvl(result.info.sale_rate, "0"));
-            holder.I_GALLARY_PERCENT2.setText("%");
-            holder.I_GALLARY_PRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.sale_price)) + "원");
-            holder.I_GALLARY_SALEPRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)) + "원");
+            holder.linear_galley_sales.setVisibility(View.VISIBLE);
+            holder.linear_galley_rental.setVisibility(View.GONE);
+            holder.I_GALLARY_NAME.setVisibility(View.VISIBLE);
+
+            //할인률 - 할인률이 0이면 원가만 표시
+            if (BaseUtils.nvl(result.info.sale_rate, "0").equals("0")) {
+                holder.I_GALLARY_PERCENT.setText("");
+                holder.I_GALLARY_PERCENT2.setText("");
+                holder.I_GALLARY_PRICE.setText("");
+                holder.I_GALLARY_SALEPRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)) + "원");
+            } else {
+                holder.I_GALLARY_PERCENT.setText(BaseUtils.nvl(result.info.sale_rate, "0"));
+                holder.I_GALLARY_PERCENT2.setText("%");
+                holder.I_GALLARY_PRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.sale_price)) + "원");
+                holder.I_GALLARY_SALEPRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)) + "원");
+            }
         }
+
         holder.I_GALLARY_SCORE.setText("상품평(" + BaseUtils.nvl(result.comment_avg,"0") + ")");
 
 //        //이미지
@@ -183,18 +233,27 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
         //TODO : 추후 imagepath, isdetpventer, plazaname이 내려오는것에 대한 대응 필요
         //뺏지(지점이나 셀렉샵 픽 같은애들
         if (BaseUtils.nvl(result.launch_yn).equals("Y")) {
+            holder.I_GALLERY_BRANCH_LAYOUT.setVisibility(View.VISIBLE);
             holder.I_GALLARY_BRANCH.setText(BaseUtils.nvl(result.getPlazaName));
             holder.I_GALLARY_SELECTIV.setVisibility(View.GONE);
+
             if (BaseUtils.nvl(result.smart_pick_yn).equals("Y") || BaseUtils.nvl(result.smart_pick_yn).equals("P")) {
                 holder.I_GALLARY_PICKIV.setVisibility(View.VISIBLE);
             } else {
                 holder.I_GALLARY_PICKIV.setVisibility(View.GONE);
             }
         } else {
+            holder.I_GALLERY_BRANCH_LAYOUT.setVisibility(View.GONE);
             holder.I_GALLARY_SELECTIV.setVisibility(View.VISIBLE);
             holder.I_GALLARY_PICKIV.setVisibility(View.GONE);
         }
 
+
+        if(holder.I_GALLERY_BRANCH_LAYOUT.getVisibility() == View.GONE
+                && holder.I_GALLARY_PICKIV.getVisibility() == View.GONE
+                && holder.I_GALLARY_SELECTIV.getVisibility() == View.GONE) {
+            holder.layout_galley_tag.setVisibility(View.GONE);
+        }
     }
 
     public void clear() {

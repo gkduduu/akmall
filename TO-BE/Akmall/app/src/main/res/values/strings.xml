@@ -44,4 +44,8 @@
     <string name="devicereg"><![CDATA[act=DeviceRegist&phonetype=2&token=%1$s&appid=%2$s&deny_all=%3$s&oldtoken=%4$s&version=%5$s]]></string>
     <string name="fail_regist_alarm">알림 등록에 실패하였습니다.</string>
 
+    <string name="versioncheck_update">업데이트</string>
+    <string name="versioncheck_finish"><u>앱종료</u></string>
+    <string name="versioncheck_next"><u>다음에</u></string>
+
 </resources>

@@ -50,11 +50,16 @@ public class Const {
     public final static String AUTO_LOGIN_YN = "AUTO_LOGIN_YN";/*자동로그인 여부*/
 
     /* 하단메뉴 url*/
-    public final static String MENU_CATEGORY = "/common/menu.do?isAkApp=Android";/*카테고리*/
-    public final static String MENU_MYAK = "/mypage/MyPlaceMain.do?isAkApp=Android;";/*MY AK*/
-    public final static String MENU_BAG = "/order/ShoppingCart.do?isAkApp=Android";/*장바구니*/
-    public final static String MENU_HOME = "/main/Main.do";/*메인*/
+//    public final static String MENU_CATEGORY = "/common/menu.do?isAkApp=Android";/*카테고리*/
+//    public final static String MENU_MYAK = "/mypage/MyPlaceMain.do?isAkApp=Android;";/*MY AK*/
+//    public final static String MENU_BAG = "/order/ShoppingCart.do?isAkApp=Android";/*장바구니*/
+//    public final static String MENU_HOME = "/main/Main.do";/*메인*/
     public final static String MENU_SEARCH = "/search/SearchMain.do?isAkApp=Android";/*검색*/
+    public final static String MENU_SHOPPINGALIM = "/mypage/MyFeedList.do?isAkApp=Android";/*카테고리*/
+    public final static String MENU_MYAK = "/mypage/MyPlaceMain.do?isAkApp=Android;";/*MY AK*/
+    public final static String MENU_BAG = "/mypage/OrderDeliInquiry.do?isAkApp=Android";/*장바구니*/
+    public final static String MENU_HOME = "/main/Main.do";/*메인*/
+    public final static String MENU_LIKEIT = "/mypage/MyBelongingGoods.do?isAkApp=Android";/*검색*/
 
     /*flaoting menu url*/
     public final static String MENU_PICK = "/mypage/SmartPickVoucherList.do"; /*pic*/
@@ -69,10 +74,10 @@ public class Const {
 
     /*widget*/
     public final static String WIDGET_COUPON = "/mypage/DiscCoupon.do?isAkApp=Android";/*보유쿠폰*/
-    public final static String WIDGET_CHECK = "/event/RightVisit.do?isAkApp=Android";/*추럭체크*/
+    public final static String WIDGET_CHECK = "/event/RightVisit.do?isAkApp=Android";/*출석체크*/
     public final static String WIDGET_EVENT = "/event/EventMain.do?isAkApp=Android";/*이벤트*/
     public final static String WIDGET_DELIVERY = "/mypage/OrderDeliInquiry.do?isAkApp=Android";/*주문배송조회*/
-    public final static String WIDGET_MY = " /mypage/MyPlaceMain.do?isAkApp=Android";/*나만의공간*/
+    public final static String WIDGET_MY = "/mypage/MyPlaceMain.do?isAkApp=Android";/*나만의공간*/
 
     /*상품 메뉴 관련 url*/
     public final static String ITME_SHARE = "/goods/pSnsShare.do?isAkApp=Android&native=Y"; /*공유하기*/

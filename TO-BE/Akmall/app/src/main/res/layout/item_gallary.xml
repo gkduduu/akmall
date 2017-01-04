@@ -7,7 +7,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#c0c0c0"></View>
+        android:background="#eaeaea"></View>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,6 +20,8 @@
 
         <RelativeLayout
             android:layout_width="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true">
 
@@ -73,6 +75,7 @@
         android:background="#eaeaea"></View>
 
     <LinearLayout
+        android:id="@+id/layout_galley_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -80,6 +83,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/I_GALLERY_BRANCH_LAYOUT"
             android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginRight="2dp"
@@ -124,6 +128,7 @@
         android:textColor="#000"/>
 
     <LinearLayout
+        android:id="@+id/linear_galley_sales"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -192,6 +197,91 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linear_galley_rental"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="19dp">
+
+            <TextView
+                android:id="@+id/txt_rental_sales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="할인가 54,500원"
+                android:textColor="#333"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_rental_sales_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txt_rental_sales"
+                android:text="(최초 1회차 결제)"
+                android:textColor="#333"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="렌탈료"
+                android:textColor="#333"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_rental_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="렌탈료"
+                android:textColor="#666"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="약정개월"
+                android:textColor="#333"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_rental_contract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="렌탈료"
+                android:textColor="#666"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -232,14 +322,29 @@
             android:textSize="14sp"
             android:textColor="#666" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/I_GALLARY_SIMILARIV"
+            android:layout_marginRight="4dp"
+            android:text="연관상품"
+            android:textSize="14sp"
+            android:textColor="#999"/>
+
         <ImageView
             android:id="@+id/I_GALLARY_SIMILARIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="9dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/btn_link" />
+            android:src="@drawable/icon_link" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="#ebebeb"></View>
 
     <View
         android:layout_width="match_parent"

@@ -16,19 +16,17 @@
 #   public *;
 #}
 
--keep class net.daum.mf.speech.**
--keepclassmembers class net.daum.mf.speech.** { *; }
--keep enum net.daum.mf.speech.**
--keepclassmembers enum net.daum.mf.speech.** { *; }
--keep interface net.daum.mf.speech.**
--keepclassmembers interface net.daum.mf.speech.** { *; }
+-keep class net.daum.** {*;}
+-keep class com.dialoid.** {*;}
 
-#-keepattributes SourceFile,LineNumberTable
+-dontwarn org.w3c.dom.bootstrap.**
+-dontwarn android.app.**
 
--keep class com.ak.android.akmall.utils.http.** {
-   public *;
-}
+-keepnames class com.fasterxml.jackson.** { *; }
+-keepnames interface com.fasterxml.jackson.** { *; }
 
--keep class com.ak.android.akmall.utils.json.** {
-   public *;
-}
+-keepattributes SourceFile,LineNumberTable
+
+-keep class com.ak.android.akmall.utils.http.** { public *; }
+-keep class com.ak.android.akmall.utils.gcm2.** { public *; }
+-keepclassmembers class com.ak.android.akmall.utils.json.** { public *; }

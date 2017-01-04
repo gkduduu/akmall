@@ -78,9 +78,9 @@ public class VoiceActivity extends Activity {
     @AfterViews
     void afterView() {
         //음성인식 인스턴스생성
-        SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().
-                setApiKey(Const.DAUM_API_KEY).     // 발급받은 api key
-                setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
+        SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder()
+                .setApiKey(Const.DAUM_API_KEY)  // 발급받은 api key
+                .setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB);
 
         client = builder.build();
 
@@ -103,7 +103,7 @@ public class VoiceActivity extends Activity {
 
             @Override
             public void onError(int i, String s) {
-                JHYLogger.D(s);
+                JHYLogger.D("음성인식 오류 >> "+s);
             }
 
             @Override
@@ -118,6 +118,7 @@ public class VoiceActivity extends Activity {
                 ArrayList<String> texts = bundle.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
                 StringBuffer strResult = new StringBuffer();
                 strResult.append("Text ===> ");
+
                 for(int i = 0; i<texts.size();i++) {
                     strResult.append(texts.get(i));
                     strResult.append("  |  ");

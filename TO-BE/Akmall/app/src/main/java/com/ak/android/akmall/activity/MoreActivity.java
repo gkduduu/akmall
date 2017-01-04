@@ -43,7 +43,7 @@ public class MoreActivity extends Activity {
     }
     @Click(R.id.MORE_HISTORY)
     void clickHistory() {
-//        startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url", Const.MENU_CATEGORY));
+//        startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url", Const.MENU_SHOPPINGALIM));
         setResult(Const.MORE_RESULT);
         finish();
     }
@@ -54,7 +54,7 @@ public class MoreActivity extends Activity {
     }
     @Click(R.id.MORE_CATEGORY)
     void clickCategory() {
-        startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url", Const.MENU_CATEGORY));
+        startActivity(new Intent(this,MyWebviewActivity_.class).putExtra("url", Const.MENU_SHOPPINGALIM));
         finish();
     }
     @Click(R.id.MORE_BAG)

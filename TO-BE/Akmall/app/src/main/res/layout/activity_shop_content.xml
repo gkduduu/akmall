@@ -26,7 +26,7 @@
                     android:id="@+id/CONTENT_WV_WEBVIEW"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:state_focused="true" ></WebView>
+                    android:state_focused="true"></WebView>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/CONTENT_RV_LIST"
@@ -39,7 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#f4f4f4"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -59,9 +60,11 @@
                 </LinearLayout>
 
                 <include
+                    android:id="@+id/view_footer"
                     layout="@layout/item_footer"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
             </LinearLayout>
         </ScrollView>
 
@@ -69,15 +72,29 @@
             android:id="@+id/CONTENT_SCROLL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#333"
-            android:visibility="gone">
+            android:background="#ffffff"
+            android:visibility="gone"
+            android:scrollbars="none">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/CONTENT_RV_CATEGORY"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#333"
-                android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/CONTENT_RV_CATEGORY"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#fff"
+                    android:layout_marginBottom="1dp"
+                    android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#777777"></View>
+
+            </FrameLayout>
+
         </HorizontalScrollView>
 
         <RelativeLayout
@@ -110,7 +127,7 @@
                 android:layout_above="@id/FLOATING_TOP"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="2dp"
-                android:src="@drawable/btn_more" />
+                android:src="@drawable/btn_recent" />
         </RelativeLayout>
 
         <include
@@ -131,7 +148,7 @@
             android:id="@+id/CONTENT_SLIDE_WEBVIEW"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:state_focused="true" ></WebView>
+            android:state_focused="true"></WebView>
     </LinearLayout>
 
 

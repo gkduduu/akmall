@@ -2,43 +2,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/POWERAD_LAYOUT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
         android:background="#fff"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="16dp">
+
         <TextView
             android:id="@+id/POWERAD_TITLE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textStyle="bold"
             android:text="title"
-            android:textColor="#333"/>
+            android:textColor="#333"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/POWERAD_CONTENT"
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
+            android:layout_marginTop="4dp"
             android:text="content"
-            android:textColor="#666"/>
+            android:textColor="#666"
+            android:textSize="11sp" />
+
         <TextView
             android:id="@+id/POWERAD_LINK"
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
+            android:layout_marginTop="4dp"
             android:text="link"
-            android:textColor="#666"/>
+            android:textColor="#666"
+            android:textSize="11sp" />
     </LinearLayout>
 
 </RelativeLayout>

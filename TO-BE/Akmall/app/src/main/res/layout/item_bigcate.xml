@@ -2,36 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/I_BIG_LAYOUT"
     android:layout_width="wrap_content"
-    android:layout_height="45dp"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/I_BIG_CATE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="15dp"
-        android:textColor="#fff"
-        android:textSize="12.5sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/I_BIG_ARROW1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="5dp"
-        android:src="@drawable/location_icon_arrow2"/>
+        <TextView
+            android:id="@+id/I_BIG_CATE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:textColor="#333"
+            android:textSize="13sp" />
 
-    <ImageView
-        android:id="@+id/I_BIG_ARROW2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="15dp"
-        android:src="@drawable/location_icon_arrow" />
-    <RelativeLayout
-        android:id="@+id/I_BIG_BIG"
-        android:layout_width="20dp"
-        android:visibility="gone"
-        android:layout_height="wrap_content"></RelativeLayout>
+        <ImageView
+            android:id="@+id/I_BIG_ARROW1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/location_icon_arrow2" />
+
+        <ImageView
+            android:id="@+id/I_BIG_ARROW2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/location_icon_arrow" />
+
+        <RelativeLayout
+            android:id="@+id/I_BIG_BIG"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"></RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="#ccc"></View>
+
 </LinearLayout>

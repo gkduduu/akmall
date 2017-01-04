@@ -179,7 +179,8 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
     }
 
     //푸시등록
-    public DataControlHttpExecutor requestGCMRegister(@Nullable final Context context, String appId, String deny_all, String version, String token, String oldToken,
+    public DataControlHttpExecutor requestGCMRegister(@Nullable final Context context,
+                                                      String appId, String deny_all, String version, String token, String oldToken,
                                                       RequestCompletionListener completionListener, RequestFailureListener failureListener) {
 
         final String requestUrl = new StringBuilder(URLManager.getGCMRegist())
@@ -187,9 +188,10 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
                 .append("act=DeviceRegist&returnType=json&phonetype=2")
                 .append("&appid=" + appId)
                 .append("&token=" + token)
-                .append("&oldtoken=" + oldToken)
                 .append("&version=" + version)
                 .toString();
+
+        JHYLogger.d("푸시등록 >> " + requestUrl);
 
         this._operationListener = new RequestOperationListener() {
             @Override
