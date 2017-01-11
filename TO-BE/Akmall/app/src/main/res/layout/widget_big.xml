@@ -77,7 +77,7 @@
                     android:layout_marginTop="10dp"
                     android:text="홈"
                     android:textColor="#333"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -105,7 +105,7 @@
                     android:layout_marginTop="10dp"
                     android:text="출석체크"
                     android:textColor="#333"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -133,7 +133,7 @@
                     android:layout_marginTop="10dp"
                     android:text="이벤트"
                     android:textColor="#333"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -161,7 +161,7 @@
                     android:layout_marginTop="10dp"
                     android:text="장바구니"
                     android:textColor="#333"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -189,7 +189,7 @@
                     android:layout_marginTop="10dp"
                     android:text="주문배송"
                     android:textColor="#333"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -217,7 +217,7 @@
                 android:layout_centerInParent="true"
                 android:text="알림"
                 android:textColor="#fff"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -226,7 +226,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#333"
-            android:textSize="13sp" />
+            android:textSize="13dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -247,7 +247,7 @@
                 android:layout_centerInParent="true"
                 android:text="로그인"
                 android:textColor="#fff"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 

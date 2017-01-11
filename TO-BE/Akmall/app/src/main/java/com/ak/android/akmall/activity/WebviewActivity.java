@@ -44,6 +44,7 @@ public class WebviewActivity extends Activity {
         JHYLogger.d("WebviewActivity url = >> "+getIntent().getStringExtra("url"));
 
         //웹뷰에 각종 옵션세팅
+        WEB_WEBVIEW.getSettings().setTextZoom(100);
         WEB_WEBVIEW.clearCache(true);
         WEB_WEBVIEW.bringToFront();
 //        WEB_WEBVIEW.setInitialScale(100);
@@ -53,6 +54,10 @@ public class WebviewActivity extends Activity {
         WEB_WEBVIEW.getSettings().setAppCacheEnabled(false);
         WEB_WEBVIEW.loadUrl(getIntent().getStringExtra("url"));
         WEB_WEBVIEW.setWebViewClient(new WebViewClientClass());
+
+        WEB_WEBVIEW.getSettings().setBuiltInZoomControls(true);
+        WEB_WEBVIEW.getSettings().setSupportZoom(true);
+
 //        WEB_WEBVIEW.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent event) {

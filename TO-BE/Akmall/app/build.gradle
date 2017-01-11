@@ -5,10 +5,10 @@ android {
     buildToolsVersion '25'
     defaultConfig {
         applicationId "com.ak.android.akmall"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 69
-        versionName "3.0.0"
+        versionName "3.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

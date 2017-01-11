@@ -18,7 +18,7 @@
             android:layout_centerInParent="true"
             android:textColor="#000"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
         <ImageView
             android:id="@+id/WEB_CLOSE"
             android:layout_width="wrap_content"

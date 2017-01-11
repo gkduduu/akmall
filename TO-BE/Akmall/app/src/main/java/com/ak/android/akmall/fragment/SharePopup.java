@@ -2,6 +2,7 @@ package com.ak.android.akmall.fragment;
 
 import com.ak.android.akmall.R;
 import com.ak.android.akmall.activity.MyWebviewActivity;
+import com.ak.android.akmall.activity.MyWebviewActivity_;
 import com.ak.android.akmall.activity.ShopContentActivity;
 import com.ak.android.akmall.activity.WebviewActivity_;
 import com.ak.android.akmall.utils.BaseUtils;
@@ -70,7 +71,8 @@ public class SharePopup extends Dialog {
         DIALOG_SHARE.requestLayout();
 
         //웹뷰에 각종 옵션세팅
-        DIALOG_WEBVIEW.setInitialScale(100);
+//        DIALOG_WEBVIEW.setInitialScale(100);
+        DIALOG_WEBVIEW.getSettings().setTextZoom(100);
         DIALOG_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         DIALOG_WEBVIEW.getSettings().setUseWideViewPort(true);
         DIALOG_WEBVIEW.loadUrl(URLManager.getServerUrl() + Const.ITME_SHARE + "&goods_id=" + prodNo);
@@ -93,6 +95,7 @@ public class SharePopup extends Dialog {
 
                 if (decodeString.startsWith("akmall://closePopup")) {
                     SharePopup.this.dismiss();
+
                 }else if(decodeString.contains("akmall://clipboard")) {
                     //클립보드 복사
                     String link = Parser.parsingTString(decodeString.replace("akmall://clipboard?",""));
@@ -100,11 +103,13 @@ public class SharePopup extends Dialog {
                     ClipData clipData = ClipData.newPlainText("label", link);
                     clipboardManager.setPrimaryClip(clipData);
                     Toast.makeText(context, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
+
                 }else if(decodeString.startsWith("akmall://openWebview")) {
                     //새 웹뷰 실행
                     OpenWebViewResult result = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?",""));
                     String link = result.url;
                     context.startActivity(new Intent(context, WebviewActivity_.class).putExtra("url", link));
+
                 } else if (decodeString.startsWith("akmall://openBrowser")) {
                     OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openBrowser?", ""));
                     goOpenBrowser(openReult.url);
@@ -120,6 +125,14 @@ public class SharePopup extends Dialog {
                 }
 
                 return true;
+
+            } else if(url.startsWith("newtab")){
+                String link = url.replace("newtab:","");
+
+                JHYLogger.d("share link >> "+ link);
+                context.startActivity(new Intent(context, WebviewActivity_.class).putExtra("url", link));
+                return true;
+
             } else if (url.startsWith(INTENT_PROTOCOL_START)) {
                 //카카오 링크
                 final int customUrlStartIndex = INTENT_PROTOCOL_START.length();

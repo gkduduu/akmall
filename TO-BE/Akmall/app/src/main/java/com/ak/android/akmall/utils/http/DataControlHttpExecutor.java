@@ -1,7 +1,11 @@
 package  com.ak.android.akmall.utils.http;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.webkit.CookieManager;
 
@@ -75,6 +79,8 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         final String requestUrl = new StringBuilder(URLManager.getMain())
                 .toString();
 
+        JHYLogger.d("메인 >> "+requestUrl);
+
         this._operationListener = new RequestOperationListener() {
             @Override
             public void onRequestOperation(Object responseData) {
@@ -91,6 +97,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
     public DataControlHttpExecutor requestDoLogout(@Nullable final Context context, RequestCompletionListener completionListener, RequestFailureListener failureListener) {
         final String requestUrl = new StringBuilder(URLManager.getLogoutURL())
                 .toString();
+
         this._operationListener = new RequestOperationListener() {
             @Override
             public void onRequestOperation(Object responseData) {
@@ -108,7 +115,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         final String requestUrl = new StringBuilder(URLManager.getSplash())
                 .toString();
 
-        JHYLogger.d("스플레시 이미지 >> "+requestUrl);
+        JHYLogger.d("스플레시 >> "+requestUrl);
 
         this._operationListener = new RequestOperationListener() {
             @Override
@@ -241,7 +248,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
                 .append("&token=" + token)
                 .toString();
 
-        JHYLogger.D(requestUrl);
+        JHYLogger.D("설정 설정 >> "+requestUrl);
 
         this._operationListener = new RequestOperationListener() {
             @Override
@@ -265,6 +272,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
                 .append("act=getDenyList&returnType=json")
                 .append("&token=" + token)
                 .toString();
+        JHYLogger.D("설정정보 가져오기 >> "+requestUrl);
 
         this._operationListener = new RequestOperationListener() {
             @Override
@@ -286,7 +294,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
                 .append("&pageIdx=" + idx)
                 .append("&" + param)
                 .toString();
-        JHYLogger.D(requestUrl);
+        JHYLogger.D("상품 목록 추가 >> "+requestUrl);
 
         this._operationListener = new RequestOperationListener() {
             @Override
@@ -306,7 +314,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
                 .append("cust_cert_id=1457")
                 .toString();
 
-        Log.i("jhy", requestUrl);
+        JHYLogger.d("로그인 >> "+requestUrl);
         this._operationListener = new RequestOperationListener() {
             @Override
             public void onRequestOperation(Object responseData) {
@@ -324,7 +332,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         final String requestUrl = new StringBuilder(URLManager.getGoodsBest() + "")
                 .toString();
 
-        Log.i("jhy", requestUrl);
+        JHYLogger.d("상품 베스트 리스트 >> "+requestUrl);
         this._operationListener = new RequestOperationListener() {
             @Override
             public void onRequestOperation(Object responseData) {
@@ -344,7 +352,7 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         return sendRecvByHTTP(isHttps, requestUrl, true, context);
     }
 
-    private Object sendRecvByHTTP(boolean isHttps, String requestUrl, boolean isPost, Context context) {
+    private Object sendRecvByHTTP(final boolean isHttps, final String requestUrl, final boolean isPost, final Context context) {
         //네트워크 상태 체크
         try {
             if (!BaseUtils.networkCheck(context)) {
@@ -353,13 +361,16 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
         } catch (Exception e) {
             e.getMessage();
         }
+
+        String requesturl = requestUrl;
+
         try {
             if (isPost) {
-                _params = URLManager.getQueryArrayListFromUrlString(requestUrl);
-                requestUrl = URLManager.getUrlPathOnly(requestUrl);
+                _params = URLManager.getQueryArrayListFromUrlString(requesturl);
+                requesturl = URLManager.getUrlPathOnly(requesturl);
             }
 
-            URL SSLurl = new URL(requestUrl);
+            URL SSLurl = new URL(requesturl);
             trustAllHosts();
 
             if (isHttps) {
@@ -379,7 +390,16 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
 
             try {
                 StringBuilder cookiesSB = new StringBuilder();
-                JHYLogger.d( CookieManager.getInstance().getCookie(URLManager.getServerUrl()));
+                JHYLogger.d("<< 쿠키값 >> ");
+
+                if (null != CookieManager.getInstance().getCookie(URLManager.getServerUrl())) {
+                    for (String aKey : CookieManager.getInstance().getCookie(URLManager.getServerUrl()).split(";")) {
+                        JHYLogger.d("### >> "  +aKey);
+                    }
+                }
+
+
+
 //                if (null != CookieManager.getInstance().getCookie(URLManager.getServerUrl())) {
 //                    for (String aKey : CookieManager.getInstance().getCookie(URLManager.getServerUrl()).split(";")) {
 //                        cookiesSB.append(aKey.split("=")[0]).append("=").append(BaseUtils.nvl(aKey.split("=")[1])).append("; ");
@@ -437,19 +457,42 @@ public class DataControlHttpExecutor extends BaseExecutor implements Runnable {
                 InputStream is = _urlConnection.getInputStream();
 
                 String isString = getStringFromInputStream(is);
-                Log.i("jhy", isString.toString());
+//                Log.i("jhy 11 >> ", isString.toString());
                 is.close();
                 _urlConnection.disconnect();
                 return isString.toString();
             }
+
         } catch (UnknownHostException ue) {
             ue.printStackTrace();
             responseError();
+
         } catch (SocketTimeoutException e) {
-            return "<!DOCTYPE html><";
+            e.printStackTrace();
+            return "<SocketTimeoutException !!>";
+
         } catch (Exception e) {
             e.printStackTrace();
             responseError();
+
+//            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+//            alert.setPositiveButton("앱종료", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    dialog.dismiss();
+//                    ActivityCompat.finishAffinity((Activity) context);
+//                }
+//            });
+//            alert.setNegativeButton("재시도", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    dialog.dismiss();
+//                    sendRecvByHTTP(isHttps, requestUrl, isPost, context);
+//                }
+//            });
+//            alert.setTitle("AK PLAZA");
+//            alert.setMessage("통신이 원활하지 않습니다.");
+//            alert.show();
         }
         _urlConnection.disconnect();
         return "";

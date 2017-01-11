@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="title"
             android:textColor="#333"
-            android:textSize="11sp"
+            android:textSize="11dp"
             android:textStyle="bold" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_marginTop="4dp"
             android:text="content"
             android:textColor="#666"
-            android:textSize="11sp" />
+            android:textSize="11dp" />
 
         <TextView
             android:id="@+id/POWERAD_LINK"
@@ -42,7 +42,7 @@
             android:layout_marginTop="4dp"
             android:text="link"
             android:textColor="#666"
-            android:textSize="11sp" />
+            android:textSize="11dp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -32,7 +32,7 @@
                 android:layout_marginLeft="58dp"
                 android:text="88:88:88"
                 android:textColor="#333"
-                android:textSize="11sp"
+                android:textSize="11dp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -54,7 +54,7 @@
                 android:layout_centerInParent="true"
                 android:text="마감임박"
                 android:textColor="#fff"
-                android:textSize="11sp"
+                android:textSize="11dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -92,7 +92,7 @@
                     android:layout_marginTop="11dp"
                     android:text="상품명"
                     android:textColor="#333"
-                    android:textSize="16sp" />
+                    android:textSize="16dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="상품소개"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textColor="#000"
                         android:textStyle="bold" />
 
@@ -116,7 +116,7 @@
                         android:layout_centerVertical="true"
                         android:text="구매중"
                         android:textColor="#333"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
 
                     <TextView
                         android:id="@+id/I_POWERDEAL_EA"
@@ -125,7 +125,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/i_powerdeal_gumae"
                         android:text="003개"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         android:textColor="#333"
                         android:textStyle="bold" />
                 </RelativeLayout>

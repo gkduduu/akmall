@@ -37,19 +37,8 @@ public class VoiceActivity extends Activity {
     @ViewById
     ImageView VOICE_ANIMATION;
 
-    @Click(R.id.VOICE_START_RECORDING)
-    void clickStart() {
-        drawable = (AnimationDrawable) VOICE_ANIMATION.getBackground();
-        VOICE_ANIMATION.post(new Runnable() {
-            @Override
-            public void run() {
-                drawable = (AnimationDrawable) VOICE_ANIMATION.getBackground();
-                drawable.start();
-            }
-        });
-        VOICE_START_RECORDING.setImageResource(R.drawable.voice_on);
-        client.startRecording(true);
-    }
+//    @Click(R.id.VOICE_START_RECORDING)
+//
 //    @Click(R.id.VOICE_STOP_RECORDING)
 //    void clickStop() {
 //        //client.cancelRecording(); 은 음성인식을 취소 ->서버 result가 없음
@@ -142,5 +131,20 @@ public class VoiceActivity extends Activity {
 
             }
         });
+
+        clickStart();
+    }
+
+    void clickStart() {
+        drawable = (AnimationDrawable) VOICE_ANIMATION.getBackground();
+        VOICE_ANIMATION.post(new Runnable() {
+            @Override
+            public void run() {
+                drawable = (AnimationDrawable) VOICE_ANIMATION.getBackground();
+                drawable.start();
+            }
+        });
+        VOICE_START_RECORDING.setImageResource(R.drawable.voice_on);
+        client.startRecording(true);
     }
 }

@@ -27,9 +27,10 @@ public class WebviewFragment extends Fragment {
     @AfterViews
     void afterView() {
         //웹뷰에 각종 옵션세팅
+        WEBVIEW.getSettings().setTextZoom(100);
         WEBVIEW.clearCache(true);
         WEBVIEW.bringToFront();
-        WEBVIEW.setInitialScale(100);
+//        WEBVIEW.setInitialScale(100);
         WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         WEBVIEW.getSettings().setJavaScriptEnabled(true);
         WEBVIEW.getSettings().setUseWideViewPort(true);

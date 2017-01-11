@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -41,6 +43,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.File;
 import java.io.IOException;
 
 @Fullscreen
@@ -58,12 +61,41 @@ public class SplashActivity extends Activity {
 
     @AfterViews
     void afterView() {
-        // 앱 실행시 디버그 모드면 Toast 띄움
-        if (URLManager.getServerUrl().contains("91.3.115")) {
-            Toast.makeText(this, "Debug Mode!", Toast.LENGTH_LONG).show();
+        boolean isRootingFlag = false;
+
+        try {
+            Runtime.getRuntime().exec("su");
+            isRootingFlag = true;
+        } catch ( Exception e) {
+            // Exception 나면 루팅 false;
+            isRootingFlag = false;
         }
 
-        if (!isNetWork()) {
+        if(!isRootingFlag){
+            isRootingFlag = checkRootingFiles(createFiles(RootFilesPath));
+        }
+
+        if(!isRootingFlag) {
+            JHYLogger.d("<< 루팅 아님 >>");
+
+            if (!isNetWork()) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(SplashActivity.this);
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                alert.setTitle("AK MALL");
+                alert.setMessage("인터넷 연결을 확인하세요.");
+                alert.show();
+
+            } else {
+                requestSplash();
+            }
+
+        } else {
             AlertDialog.Builder alert = new AlertDialog.Builder(SplashActivity.this);
             alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
@@ -73,13 +105,9 @@ public class SplashActivity extends Activity {
                 }
             });
             alert.setTitle("AK MALL");
-            alert.setMessage("인터넷 연결을 확인하세요.");
+            alert.setMessage("고객님의 안전한 쇼핑을 위해 변경되지 않은 운영체제(순정상태)를 탑재한 단말기에 한해 서비스 이용이 가능합니다.");
             alert.show();
-
-        } else {
-            requestSplash();
         }
-
     }
 
     private void initView(SplashResult result) {
@@ -87,7 +115,9 @@ public class SplashActivity extends Activity {
 
         SPLASH_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         SPLASH_WEBVIEW.getSettings().setUseWideViewPort(true);
-        SPLASH_WEBVIEW.setWebContentsDebuggingEnabled(true);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            SPLASH_WEBVIEW.setWebContentsDebuggingEnabled(true);
+        }
         SPLASH_WEBVIEW.getSettings().setLoadWithOverviewMode(true);
         SPLASH_WEBVIEW.getSettings().setUseWideViewPort(true);
         SPLASH_WEBVIEW.loadUrl(result.link);
@@ -97,7 +127,7 @@ public class SplashActivity extends Activity {
 
         dtime = Integer.parseInt(result.dtime);
 
-        JHYLogger.d(regid);
+        JHYLogger.d("regid >> "+regid);
 
         if (regid.isEmpty()) {
             registerInBackground();
@@ -143,7 +173,7 @@ public class SplashActivity extends Activity {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
 
-                                JHYLogger.d("SplashActivity onDataControlCompleted()>>  " + responseData.toString());
+                                JHYLogger.d("<<-- Push Result -->>  " + responseData.toString());
 
                                 if (versionCheckResult.MUST_YN.equals("Y")) {
                                     PackageManager manager = getPackageManager();
@@ -275,7 +305,7 @@ public class SplashActivity extends Activity {
                         new RequestCompletionListener() {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                JHYLogger.d(responseData.toString());
+                                JHYLogger.d("requestSplash >> "+responseData.toString());
 
                                 splashResult = Parser.parsingSplash(responseData.toString());
                                 requestVersionCheck();
@@ -299,7 +329,7 @@ public class SplashActivity extends Activity {
                         new RequestCompletionListener() {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                JHYLogger.d(responseData.toString());
+                                JHYLogger.d("버전체크 >> "+responseData.toString());
                                 versionCheckResult = Parser.parsingVersionCheck(responseData.toString());
 
                                 initView(splashResult);
@@ -358,6 +388,47 @@ public class SplashActivity extends Activity {
 
     private void sendRegistrationIdToBackend() {
 
+    }
+
+    // 루팅 체크
+    private static final String ROOT_PATH = Environment.getExternalStorageDirectory() + "";
+    private static final String ROOTING_PATH_1 = "/system/bin/su";
+    private static final String ROOTING_PATH_2 = "/system/xbin/su";
+    private static final String ROOTING_PATH_3 = "/system/app/SuperUser.apk";
+    private static final String ROOTING_PATH_4 = "/data/data/com.noshufou.android.su";
+
+    private String[] RootFilesPath = new String[]{
+            ROOT_PATH + ROOTING_PATH_1 ,
+            ROOT_PATH + ROOTING_PATH_2 ,
+            ROOT_PATH + ROOTING_PATH_3 ,
+            ROOT_PATH + ROOTING_PATH_4
+    };
+
+    /**
+     * 루팅파일 의심 Path를 가진 파일들을 생성 한다.
+     */
+    private File[] createFiles(String[] sfiles){
+        File[] rootingFiles = new File[sfiles.length];
+        for(int i=0 ; i < sfiles.length; i++){
+            rootingFiles[i] = new File(sfiles[i]);
+        }
+        return rootingFiles;
+    }
+
+    /**
+     * 루팅파일 여부를 확인 한다.
+     */
+    private boolean checkRootingFiles(File... file){
+        boolean result = false;
+        for(File f : file){
+            if(f != null && f.exists() && f.isFile()){
+                result = true;
+                break;
+            }else{
+                result = false;
+            }
+        }
+        return result;
     }
 
 }

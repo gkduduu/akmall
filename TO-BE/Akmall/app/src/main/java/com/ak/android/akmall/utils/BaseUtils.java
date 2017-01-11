@@ -33,14 +33,12 @@ public class BaseUtils {
      */
     public static boolean networkCheck(Context context) throws Exception {
 
-        ConnectivityManager mng = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mng = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (mng == null)
             return false;
 
-        NetworkInfo mobile = mng
-                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo mobile = mng.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         NetworkInfo wifi = mng.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
         return (mobile.isConnected() || wifi.isConnected());
@@ -132,10 +130,14 @@ public class BaseUtils {
     public static boolean isAutoLogin() {
         if (null != CookieManager.getInstance().getCookie(URLManager.getServerUrl())) {
             for (String aKey : CookieManager.getInstance().getCookie(URLManager.getServerUrl()).split(";")) {
+                JHYLogger.d("쿠키 검사 >> "+aKey);
+
                 if (aKey.split("=")[0].equals(" loginf") || aKey.split("=")[0].equals("loginf")) {
                     if (aKey.split("=")[1].equals("YN") || aKey.split("=")[1].equals("NN")) {
+                        JHYLogger.d("<< isAutoLogin >> false");
                         return false;
                     } else {
+                        JHYLogger.d("<< isAutoLogin >> true");
                         return true;
                     }
                 }
@@ -143,6 +145,7 @@ public class BaseUtils {
         }
         return false;
     }
+
 
     public static void updateWidget(Context context) {
         AppWidgetManager mgr = AppWidgetManager.getInstance(context);

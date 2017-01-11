@@ -8,8 +8,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.webkit.CookieManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -205,8 +207,11 @@ public class SettingActivity extends Activity {
     void clickLoginAuto() {
         if (SETTING_SW_LOGIN_AUTO.isChecked()) {
             CookieManager.getInstance().setCookie(URLManager.getServerUrl(), "loginf=" + loginCookie.substring(0, 1) + "Y");
+            JHYLogger.d("로그인정보 = " + loginCookie.substring(0, 1) + "Y");
         } else {
+//            CookieManager.getInstance().removeAllCookie();
             CookieManager.getInstance().setCookie(URLManager.getServerUrl(), "loginf=" + loginCookie.substring(0, 1) + "N");
+            JHYLogger.d("로그인정보 = " + loginCookie.substring(0, 1) + "N");
         }
     }
 
@@ -232,16 +237,38 @@ public class SettingActivity extends Activity {
 
     @AfterViews
     void afterView() {
+
+//        SETTING_SW_LOGIN_AUTO.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if (b) {
+//                    CookieManager.getInstance().removeAllCookie();
+//                    CookieManager.getInstance().setCookie(URLManager.getServerUrl(), "loginf=" + loginCookie.substring(0, 1) + "Y");
+//                    JHYLogger.d("로그인 = " + loginCookie.substring(0, 1) + "Y");
+//
+//                } else {
+//                    CookieManager.getInstance().removeAllCookie();
+//                    CookieManager.getInstance().setCookie(URLManager.getServerUrl(), "loginf=" + loginCookie.substring(0, 1) + "N");
+//                    JHYLogger.d("로그인 = " + loginCookie.substring(0, 1) + "N");
+//                }
+//            }
+//        });
+
+        // ------------------------------------------------------------
+
         requestMain();
     }
 
-    String loginCookie = "NN";
+    private String loginCookie = "NN";
 
     private void initView(PushSettingResult result, UserInfoResult userInfo) {
         if (null != CookieManager.getInstance().getCookie(URLManager.getServerUrl())) {
             for (String aKey : CookieManager.getInstance().getCookie(URLManager.getServerUrl()).split(";")) {
                 if (aKey.split("=")[0].equals(" loginf") || aKey.split("=")[0].equals("loginf")) {
                     loginCookie = aKey.split("=")[1];
+
+                    JHYLogger.d("loginCookie = " + loginCookie);
+
                     if (aKey.split("=")[1].equals("YY") || aKey.split("=")[1].equals("NY")) {
                         SETTING_SW_LOGIN_AUTO.setChecked(true);
                     } else {
@@ -255,7 +282,6 @@ public class SettingActivity extends Activity {
         //알림금지시간설정
         SETTING_TV_BEFORETIME.setText(BaseUtils.nvl(result.start_hh, "00") + ":00");
         SETTING_TV_AFTERTIME.setText(BaseUtils.nvl(result.end_hh, "00") + ":00");
-
 
         SETTING_SW_ALARM_NOSOUND.setChecked(result.NOSOUND_YN.equals("Y")?true:false);
         SETTING_SW_ALARM_RECEIVE.setChecked(result.SHOPPING_ALARM_YN.equals("Y")?true:false);
@@ -293,7 +319,7 @@ public class SettingActivity extends Activity {
                         new RequestCompletionListener() {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                JHYLogger.d(responseData.toString());
+                                JHYLogger.d("로그인정보 >> "+responseData.toString());
                                 //{"resultMsg":"","resultCode":"0000","hasLogin":"Y",
                                 // "userInfo":{"custId":"lotus1121","custNo":72979126,"custName":"송부련"}}
                                 requestGetSettingConfig(Parser.parsingUserInfo(responseData.toString()));
@@ -317,7 +343,7 @@ public class SettingActivity extends Activity {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 Toast.makeText(SettingActivity.this, "알림 설정을 변경 하였습니다.", Toast.LENGTH_SHORT).show();
-                                JHYLogger.d(responseData.toString());
+                                JHYLogger.d("알림금지 시가 설정 >> "+responseData.toString());
                             }
                         },
                         new RequestFailureListener() {
@@ -339,7 +365,7 @@ public class SettingActivity extends Activity {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
                                 Toast.makeText(SettingActivity.this, "알림 설정을 변경 하였습니다.", Toast.LENGTH_SHORT).show();
-                                JHYLogger.d(responseData.toString());
+                                JHYLogger.d("알람 설정 변경 >> "+responseData.toString());
                             }
                         },
                         new RequestFailureListener() {
@@ -359,7 +385,7 @@ public class SettingActivity extends Activity {
                         new RequestCompletionListener() {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                JHYLogger.d(responseData.toString());
+                                JHYLogger.d("설정정보 가져오기 >> "+responseData.toString());
                                 initView(Parser.parsingPushSetting(responseData.toString()), userInfo);
                             }
                         },
@@ -379,7 +405,7 @@ public class SettingActivity extends Activity {
                         new RequestCompletionListener() {
                             @Override
                             public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                JHYLogger.d(responseData.toString());
+                                JHYLogger.d("로그아웃 >> "+responseData.toString());
                             }
                         },
                         new RequestFailureListener() {

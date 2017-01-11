@@ -180,7 +180,7 @@ public class BigWidgetProvider extends AppWidgetProvider {
                             new RequestCompletionListener() {
                                 @Override
                                 public void onDataControlCompleted(@Nullable Object responseData) throws Exception {
-                                    JHYLogger.d(responseData.toString());
+                                    JHYLogger.d("updateWidget >> "+responseData.toString());
                                     WidgetResult result = Parser.parsingWidget(responseData.toString());
                                     JHYLogger.D(result.feed_msg);
                                     JHYLogger.D(result.hasLogin);

@@ -19,11 +19,12 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/btn_footer_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="로그아웃"
+                android:text="로그인"
                 android:textColor="#fff"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
         </LinearLayout>
 
         <View
@@ -44,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="PC버전보기"
                 android:textColor="#fff"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
         </LinearLayout>
 
         <View
@@ -63,9 +64,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="App알림 설정안내"
+                android:text="고객센터"
                 android:textColor="#fff"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -78,8 +79,9 @@
         android:layout_marginLeft="15dp"
         android:background="@drawable/border_footer_btn"
         android:text="AK PLAZA 앱 다운하기"
-        android:textSize="12sp"
-        android:textColor="#fff"/>
+        android:textSize="12dp"
+        android:textColor="#fff"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_marginTop="18dp"
@@ -87,28 +89,28 @@
         android:layout_height="17dp"
         android:layout_gravity="center"
         android:text="@string/footer_line1"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textColor="#999"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_gravity="center"
         android:text="@string/footer_line2"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textColor="#999"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_gravity="center"
         android:text="@string/footer_line3"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textColor="#999"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_gravity="center"
         android:text="@string/footer_line4"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textColor="#999"/>
     
     <LinearLayout
@@ -121,7 +123,7 @@
             android:id="@+id/FOOTER_BOT_ONE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textColor="#666"
             android:text="@string/footer_line5"/>
 
@@ -137,7 +139,7 @@
             android:id="@+id/FOOTER_BOT_TWO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textColor="#666"
             android:textStyle="bold"
             android:text="@string/footer_line6"/>
@@ -154,7 +156,7 @@
             android:id="@+id/FOOTER_BOT_THREE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textColor="#666"
             android:gravity="center"
             android:text="@string/footer_line7"/>
@@ -168,7 +170,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="#999"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:text="@string/footer_line8"/>
 
 </LinearLayout>

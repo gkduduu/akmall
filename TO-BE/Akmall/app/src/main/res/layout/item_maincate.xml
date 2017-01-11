@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="에이케이옺ㅁ"
             android:layout_centerVertical="true"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
         <ImageView
             android:id="@+id/I_MAIN_AK"

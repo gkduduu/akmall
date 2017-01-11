@@ -1,6 +1,7 @@
 package com.ak.android.akmall.adapter;
 
 import com.ak.android.akmall.R;
+import com.ak.android.akmall.activity.MainActivity_;
 import com.ak.android.akmall.activity.MyWebviewActivity_;
 import com.ak.android.akmall.activity.ShopContentActivity;
 import com.ak.android.akmall.fragment.SelectPopup;
@@ -8,7 +9,10 @@ import com.ak.android.akmall.fragment.SharePopup;
 import com.ak.android.akmall.utils.BaseUtils;
 import com.ak.android.akmall.utils.Const;
 import com.ak.android.akmall.utils.json.result.PageDatas;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,8 +111,7 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,
                                          int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_gallary, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallary, parent, false);
         v.setOnClickListener(listener);
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -116,6 +120,14 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int pos) {
         final PageDatas result = list.get(pos);
+
+        //상품평 터치 막기
+        holder.I_GALLARY_SCORE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
         //할인전 가격 가로줄귿기
         holder.I_GALLARY_PRICE.setPaintFlags(holder.I_GALLARY_PRICE.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         //메뉴버튼 클릭
@@ -140,7 +152,21 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
         holder.I_GALLARY_LIKEIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SelectPopup(context, Const.ITME_HEART + "&goods_id=" + result.goods_id).show();
+                if(!MainActivity_.loginCheck) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alert.setTitle("AK MALL");
+                    alert.setMessage("로그인 후 이용해주세요.");
+                    alert.show();
+
+                } else {
+                    new SelectPopup(context, Const.ITME_HEART + "&goods_id=" + result.goods_id).show();
+                }
             }
         });
         //장바구니 담기
@@ -207,19 +233,20 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
                 holder.I_GALLARY_PERCENT.setText("");
                 holder.I_GALLARY_PERCENT2.setText("");
                 holder.I_GALLARY_PRICE.setText("");
-                holder.I_GALLARY_SALEPRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)) + "원");
+                holder.I_GALLARY_SALEPRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)));
             } else {
                 holder.I_GALLARY_PERCENT.setText(BaseUtils.nvl(result.info.sale_rate, "0"));
                 holder.I_GALLARY_PERCENT2.setText("%");
                 holder.I_GALLARY_PRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.sale_price)) + "원");
-                holder.I_GALLARY_SALEPRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)) + "원");
+                holder.I_GALLARY_SALEPRICE.setText(BaseUtils.wonFormat(BaseUtils.nvl(result.info.final_price)));
             }
         }
 
-        holder.I_GALLARY_SCORE.setText("상품평(" + BaseUtils.nvl(result.comment_avg,"0") + ")");
+        holder.I_GALLARY_SCORE.setText("상품평(" + BaseUtils.nvl(result.comment_cnt,"0") + ")");
 
 //        //이미지
         Glide.with(context).load(BaseUtils.nvl(result.getImagePath).replace("@@@", "350"))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(holder.I_GALLARY_MAINIV);
 
         //무료배송 여부

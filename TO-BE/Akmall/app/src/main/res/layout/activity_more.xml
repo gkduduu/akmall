@@ -74,7 +74,7 @@
                     android:layout_marginTop="2dp"
                     android:text="VIP라운지"
                     android:textColor="#fff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -103,7 +103,7 @@
                     android:layout_marginTop="2dp"
                     android:text="쿠폰존"
                     android:textColor="#fff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -139,7 +139,7 @@
                     android:layout_marginTop="2dp"
                     android:text="라이크잇"
                     android:textColor="#fff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -168,7 +168,7 @@
                     android:layout_marginTop="2dp"
                     android:text="히스토리"
                     android:textColor="#fff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -204,7 +204,7 @@
                     android:layout_marginTop="2dp"
                     android:text="통합검색"
                     android:textColor="#fff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -233,7 +233,7 @@
                     android:layout_marginTop="2dp"
                     android:text="카테고리"
                     android:textColor="#fff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -269,7 +269,7 @@
                     android:layout_marginTop="2dp"
                     android:text="장바구니"
                     android:textColor="#fff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -298,7 +298,7 @@
                     android:layout_marginTop="2dp"
                     android:text="AK 홈"
                     android:textColor="#fff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 

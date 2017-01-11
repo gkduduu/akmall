@@ -3,34 +3,21 @@ package com.ak.android.akmall.fragment;
 import com.ak.android.akmall.R;
 import com.ak.android.akmall.adapter.SelectAdapter;
 import com.ak.android.akmall.utils.BaseUtils;
-import com.ak.android.akmall.utils.JHYLogger;
-import com.ak.android.akmall.utils.http.URLManager;
-import com.ak.android.akmall.utils.json.Parser;
-import com.ak.android.akmall.utils.json.result.CheckHeightResult;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by 하영 on 2016-11-28.
@@ -80,6 +67,7 @@ public class SelectDialog extends Dialog {
             for(int i=0;i<array.length();i++) {
                 Iterator iter = array.getJSONObject(i).keys();
                 String key = iter.next().toString();
+
                 list.add(key);
                 value.add(array.getJSONObject(i).getString(key));
             }
@@ -101,8 +89,10 @@ public class SelectDialog extends Dialog {
         DIALOG_RECYCLE.setHasFixedSize(true);
         DIALOG_RECYCLE.setLayoutManager(new LinearLayoutManager(context));
         DIALOG_RECYCLE.setNestedScrollingEnabled(false);
-        SelectAdapter adapter = new SelectAdapter(context, list,this,call,value,Integer.parseInt(idx));
+
+        SelectAdapter adapter = new SelectAdapter(context, list, this, call, value, Integer.parseInt(idx));
         DIALOG_RECYCLE.setAdapter(adapter);
     }
+
 
 }

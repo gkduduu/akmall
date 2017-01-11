@@ -15,12 +15,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <WebView
-                android:id="@+id/WEB_WEBVIEW"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:focusable="true"
-                android:layout_weight="1"></WebView>
+                android:layout_height="match_parent">
+
+                <WebView
+                    android:id="@+id/WEB_WEBVIEW"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:layout_weight="1"></WebView>
+
+                <ProgressBar
+                    android:id="@+id/barProgressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressDrawable="@drawable/bar_rogress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:max="100"
+                    android:progress="0" />
+
+            </RelativeLayout>
 
             <include
                 android:visibility="gone"
@@ -35,16 +50,16 @@
             android:id="@+id/FLOATING_LAYOUT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="51dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="11dp">
+            android:layout_marginBottom="55dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <ImageView
                 android:id="@+id/FLOATING_BACK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:src="@drawable/btn_cback" />
+                android:src="@drawable/btn_bottom_back" />
 
             <ImageView
                 android:id="@+id/FLOATING_TOP"
@@ -52,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/btn_top" />
+                android:src="@drawable/btn_bottom_top" />
 
             <ImageView
                 android:id="@+id/FLOATING_MORE"
@@ -60,9 +75,17 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@id/FLOATING_TOP"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="2dp"
-                android:src="@drawable/btn_recent" />
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/btn_bottom_recent" />
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_webview_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logo_1"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

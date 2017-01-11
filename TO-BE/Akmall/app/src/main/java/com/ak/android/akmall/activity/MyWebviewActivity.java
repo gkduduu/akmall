@@ -1,55 +1,80 @@
 package com.ak.android.akmall.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ak.android.akmall.R;
+import com.ak.android.akmall.fragment.SelectPopup;
 import com.ak.android.akmall.utils.BaseUtils;
 import com.ak.android.akmall.utils.Const;
 import com.ak.android.akmall.utils.DataHolder;
 import com.ak.android.akmall.utils.Feature;
 import com.ak.android.akmall.utils.JHYLogger;
+import com.ak.android.akmall.utils.RealPathUtil;
 import com.ak.android.akmall.utils.UriProvider;
+import com.ak.android.akmall.utils.WebViewImageUploadHelper;
 import com.ak.android.akmall.utils.blurbehind.BlurBehind;
 import com.ak.android.akmall.utils.blurbehind.OnBlurCompleteListener;
 import com.ak.android.akmall.utils.http.URLManager;
 import com.ak.android.akmall.utils.json.Parser;
+import com.ak.android.akmall.utils.json.result.LogStateResult;
 import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
 import com.ak.android.akmall.utils.json.result.SMSResult;
+import com.ak.android.akmall.utils.json.result.SharedResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 //akmall내의 웹뷰
 @EActivity(R.layout.activity_mywebview)
@@ -70,8 +95,11 @@ public class MyWebviewActivity extends Activity {
     @ViewById
     RelativeLayout FLOATING_LAYOUT;
 
-    Dialog mDialog;
+    @ViewById
+    ImageView img_webview_logo;
+
     private Context context = MyWebviewActivity.this;
+    private ProgressBar mBarProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,9 +194,21 @@ public class MyWebviewActivity extends Activity {
     String json = "";
     String cate = "";
 
+    private static final String TYPE_IMAGE = "image/*";
+    private static final int INPUT_FILE_REQUEST_CODE = 1;
+
+    private ValueCallback<Uri> mUploadMessage;
+    private ValueCallback<Uri[]> mFilePathCallback;
+    private String mCameraPhotoPath;
+
+
     @AfterViews
     void afterView() {
-        WEB_WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        JHYLogger.d("<< MyWebviewActivity afterView() >>");
+
+        if(Build.VERSION.SDK_INT >= 17) {
+            WEB_WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        }
         String url = "";
 
         //isp 결제 후 return url을 받는 과정 from asis
@@ -184,26 +224,26 @@ public class MyWebviewActivity extends Activity {
                     lastURL = tmpURL;
                 }
                 url = lastURL;
-            }else {
+            } else {
                 url= data.getQueryParameter("returnUrl");
             }
         }
 
         String extraUrl = getIntent().getStringExtra("url");
+        JHYLogger.d("extraUrl >> " + extraUrl);
         if(url.equals("")) {
             if (extraUrl.contains(URLManager.getServerUrl()) || extraUrl.contains("recopick.com")) {
                 url = extraUrl;
 
-            } else if(extraUrl.contains(".com")) {
+            } else if(extraUrl.contains("http://www.akmall.com/") || extraUrl.startsWith("https:")){
                 url = extraUrl;
 
             } else  {
-                JHYLogger.d("MyWebviewActivity afterView() >> " + extraUrl);
                 url = URLManager.getServerUrl() + extraUrl;
             }
         }
-        //카테고리일때 파라미터로 쓸 sjon
 
+        //카테고리일때 파라미터로 쓸 sjon
         cate = BaseUtils.nvl(getIntent().getStringExtra("cate"));
         if (!cate.equals("")) {
             //카테고리일 경우 하단 레이아웃과 플로팅 버튼 gone
@@ -220,13 +260,19 @@ public class MyWebviewActivity extends Activity {
 
         JHYLogger.d("MyWebiew 최종 url = "+url);
 
+        this.mBarProgressBar = (ProgressBar) findViewById(R.id.barProgressBar);
+
         //웹뷰에 각종 옵션세팅
+        WEB_WEBVIEW.getSettings().setTextZoom(100);
         WEB_WEBVIEW.clearCache(true);
-        WEB_WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+//        WEB_WEBVIEW.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         WEB_WEBVIEW.getSettings().setJavaScriptEnabled(true);
-        WEB_WEBVIEW.setWebContentsDebuggingEnabled(true);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WEB_WEBVIEW.setWebContentsDebuggingEnabled(true);
+        }
         WEB_WEBVIEW.getSettings().setUseWideViewPort(true);
-        WEB_WEBVIEW.getSettings().setAppCacheEnabled(false);
+//        WEB_WEBVIEW.getSettings().setAppCacheEnabled(false);
         WEB_WEBVIEW.loadUrl(url);
         WEB_WEBVIEW.setWebViewClient(new WebViewClientClass());
         WEB_WEBVIEW.setWebChromeClient(new ChromeClient());
@@ -234,13 +280,71 @@ public class MyWebviewActivity extends Activity {
         WEB_WEBVIEW.getSettings().setLightTouchEnabled(true);
         WEB_WEBVIEW.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
         WEB_WEBVIEW.getSettings().setSupportMultipleWindows(true);
-        WEB_WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
+
+        WEB_WEBVIEW.getSettings().setBuiltInZoomControls(true);
+        WEB_WEBVIEW.getSettings().setSupportZoom(true);
+
+        if(Build.VERSION.SDK_INT >= 17) {
+            WEB_WEBVIEW.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            WEB_WEBVIEW.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.setAcceptCookie(true);
+            cookieManager.setAcceptThirdPartyCookies(WEB_WEBVIEW, true);
+        }
+
+        WEB_WEBVIEW.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_UP:
+                        if (!v.hasFocus()) {
+                            v.requestFocus();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
 
 //        SLIDE_WEBVIEW.setInitialScale(300);
+        SLIDE_WEBVIEW.getSettings().setTextZoom(100);
         SLIDE_WEBVIEW.getSettings().setJavaScriptEnabled(true);
         SLIDE_WEBVIEW.getSettings().setUseWideViewPort(true);
-        SLIDE_WEBVIEW.setWebContentsDebuggingEnabled(true);
+
+        SLIDE_WEBVIEW.getSettings().setBuiltInZoomControls(true);
+        SLIDE_WEBVIEW.getSettings().setSupportZoom(true);
         SLIDE_WEBVIEW.setWebViewClient(new WebViewClientClass());
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            SLIDE_WEBVIEW.setWebContentsDebuggingEnabled(true);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            SLIDE_WEBVIEW.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.setAcceptCookie(true);
+            cookieManager.setAcceptThirdPartyCookies(SLIDE_WEBVIEW, true);
+        }
+
+        SLIDE_WEBVIEW.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_UP:
+                        if (!v.hasFocus()) {
+                            v.requestFocus();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
 
         //슬라이드 메뉴
         MY_SLIDELAYOUT.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -250,9 +354,31 @@ public class MyWebviewActivity extends Activity {
         JHYLogger.d(json);
     }
 
+    /**
+     * More info this method can be found at
+     * http://developer.android.com/training/camera/photobasics.html
+     *
+     * @return
+     * @throws IOException
+     */
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File imageFile = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        return imageFile;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == Const.VOICE_REQUEST) {
             if (resultCode == Const.VOICE_RESULT) {
                 String voiceResult = BaseUtils.nvl(data.getStringExtra("result"));
@@ -271,10 +397,76 @@ public class MyWebviewActivity extends Activity {
                 SLIDE_WEBVIEW.loadUrl(URLManager.getServerUrl() + Const.MENU_HISTORY);
                 MY_SLIDELAYOUT.openDrawer(MY_SLIDEMENU);
             }
+
+        } else if (requestCode == INPUT_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (mFilePathCallback == null) {
+                    super.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+                Uri[] results = new Uri[]{getResultUri(data)};
+
+                mFilePathCallback.onReceiveValue(results);
+                mFilePathCallback = null;
+            } else {
+                if (mUploadMessage == null) {
+                    super.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+                Uri result = getResultUri(data);
+
+                Log.d(getClass().getName(), "openFileChooser : "+result);
+                mUploadMessage.onReceiveValue(result);
+                mUploadMessage = null;
+            }
+        } else {
+            if (mFilePathCallback != null) mFilePathCallback.onReceiveValue(null);
+            if (mUploadMessage != null) mUploadMessage.onReceiveValue(null);
+            mFilePathCallback = null;
+            mUploadMessage = null;
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
+    private Uri getResultUri(Intent data) {
+        Uri result = null;
+        if(data == null || TextUtils.isEmpty(data.getDataString())) {
+            // If there is not data, then we may have taken a photo
+            if(mCameraPhotoPath != null) {
+                result = Uri.parse(mCameraPhotoPath);
+            }
+        } else {
+            String filePath = "";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                filePath = data.getDataString();
+            } else {
+                filePath = "file:" + RealPathUtil.getRealPath(this, data.getData());
+            }
+            result = Uri.parse(filePath);
+        }
+
+        return result;
+    }
+
     private class ChromeClient extends WebChromeClient {
+        @Override
+        public void onProgressChanged(WebView view, int progress) {
+            mBarProgressBar.setProgress(progress);
+
+            if(progress > 10) {
+                SLIDE_WEBVIEW.setVisibility(View.VISIBLE);
+                WEB_WEBVIEW.setVerticalScrollBarEnabled(true);
+                WEB_WEBVIEW.setHorizontalScrollBarEnabled(true);
+
+            } else {
+                SLIDE_WEBVIEW.setVisibility(View.GONE);
+            }
+
+            if(progress > 30) {
+                img_webview_logo.setVisibility(View.GONE);
+            }
+        }
+
         @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
             return super.onJsAlert(view, url, message, result);
@@ -285,12 +477,117 @@ public class MyWebviewActivity extends Activity {
 
             WebView.HitTestResult result = view.getHitTestResult();
             String data = result.getExtra();
-            JHYLogger.D(data);
+            JHYLogger.D("My _blank >> "+data);
             Context context = view.getContext();
             Intent browserIntent = new Intent(MyWebviewActivity.this,WebviewActivity_.class ).putExtra("url",data);
             context.startActivity(browserIntent);
 
+            final WebSettings settings = view.getSettings();
+            settings.setDomStorageEnabled(true);
+            settings.setJavaScriptEnabled(true);
+            settings.setAllowFileAccess(true);
+            settings.setAllowContentAccess(true);
+            view.setWebChromeClient(this);
+            WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+            transport.setWebView(view);
+            resultMsg.sendToTarget();
+
             return true;
+        }
+
+        @Override
+        public void onCloseWindow(WebView w) {
+            super.onCloseWindow(w);
+            finish();
+        }
+
+//        @Override
+//        public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg) {
+//
+//            return false;
+//        }
+
+        // For Android Version < 3.0
+        public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+            //System.out.println("WebViewActivity OS Version : " + Build.VERSION.SDK_INT + "\t openFC(VCU), n=1");
+            mUploadMessage = uploadMsg;
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType(TYPE_IMAGE);
+            startActivityForResult(intent, INPUT_FILE_REQUEST_CODE);
+        }
+
+        // For 3.0 <= Android Version < 4.1
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+            //System.out.println("WebViewActivity 3<A<4.1, OS Version : " + Build.VERSION.SDK_INT + "\t openFC(VCU,aT), n=2");
+            openFileChooser(uploadMsg, acceptType, "");
+        }
+
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+            Log.d(getClass().getName(), "openFileChooser : "+acceptType+"/"+capture);
+            openFileChooser( uploadMsg, "" );
+        }
+
+        // For 4.1 <= Android Version < 5.0
+//        public void openFileChooser(ValueCallback<Uri> uploadFile, String acceptType, String capture) {
+//            Log.d(getClass().getName(), "openFileChooser : "+acceptType+"/"+capture);
+//            mUploadMessage = uploadFile;
+//            imageChooser();
+//        }
+
+        // For Android Version 5.0+
+        // Ref: https://github.com/GoogleChrome/chromium-webview-samples/blob/master/input-file-example/app/src/main/java/inputfilesample/android/chrome/google/com/inputfilesample/MainFragment.java
+        public boolean onShowFileChooser(WebView webView,
+                                         ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+            System.out.println("WebViewActivity A>5, OS Version : " + Build.VERSION.SDK_INT + "\t onSFC(WV,VCUB,FCP), n=3");
+            if (mFilePathCallback != null) {
+                mFilePathCallback.onReceiveValue(null);
+            }
+            mFilePathCallback = filePathCallback;
+            imageChooser();
+            return true;
+        }
+
+        private void imageChooser() {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                // Create the File where the photo should go
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                    takePictureIntent.putExtra("PhotoPath", mCameraPhotoPath);
+                } catch (IOException ex) {
+                    // Error occurred while creating the File
+                    Log.e(getClass().getName(), "Unable to create Image File", ex);
+                }
+
+                // Continue only if the File was successfully created
+                if (photoFile != null) {
+                    mCameraPhotoPath = "file:"+photoFile.getAbsolutePath();
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                            Uri.fromFile(photoFile));
+                } else {
+                    takePictureIntent = null;
+                }
+            }
+
+            Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+            contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+            contentSelectionIntent.setType(TYPE_IMAGE);
+
+            Intent[] intentArray;
+            if(takePictureIntent != null) {
+                intentArray = new Intent[]{takePictureIntent};
+            } else {
+                intentArray = new Intent[0];
+            }
+
+            Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+            chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+            chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser");
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
+
+            startActivityForResult(chooserIntent, INPUT_FILE_REQUEST_CODE);
         }
     }
 
@@ -299,6 +596,7 @@ public class MyWebviewActivity extends Activity {
 
 
     private class WebViewClientClass extends WebViewClient {
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             JHYLogger.d("MyWebviewActivity >> " + url);
@@ -310,8 +608,14 @@ public class MyWebviewActivity extends Activity {
             }
 
             if (url.contains("/main/Main.do")) {
-                Feature.closeAllActivity();
-                Feature.currentMain.refreshWebMoveTab(url);
+                if(url.startsWith("http://m2.akmall.com/")) {
+                    startActivity(new Intent(MyWebviewActivity.this, MainActivity_.class).putExtra("url", url));
+                    finish();
+                } else {
+                    Feature.closeAllActivity();
+                    Feature.currentMain.refreshWebMoveTab(url);
+                }
+                return true;
             }
 
             if (url.startsWith("akmall://")) {
@@ -326,6 +630,7 @@ public class MyWebviewActivity extends Activity {
 
                 if (decodeString.startsWith("akmall://closePopup")) {
                     MyWebviewActivity.this.finish();
+
                 } else if (decodeString.startsWith("akmall://openWebview")) {
                     //대카테고리페이지에서 카테고리 클릭하면 창 끄고  이전페이지 새 카테고리로 로드함
                     if (decodeString.contains("/display/ShopFront.do")) {
@@ -348,12 +653,14 @@ public class MyWebviewActivity extends Activity {
                         //브랜드카테고리
                         OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
                         goContentWebview(openReult.url);
+
+                    } else if (decodeString.contains("/planshop/PlanShopView.do") || decodeString.contains("/event/EventDetail.do")
+                            || decodeString.contains("/display/BrandCtgMClsf.do") || decodeString.contains("/display/CtgSClsf.do")
+                            || decodeString.contains("/special/ChanelMain.do") || decodeString.contains("/special/Special.do")) {
+                        //추천브랜드
+                        OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
+                        view.loadUrl(URLManager.getServerUrl() + openReult.url);
                     }
-//                    else if (decodeString.contains("/display/BrandShopSClsf.do")) {
-//                        //추천브랜드
-//                        OpenWebViewResult openReult = Parser.parsingOpenWebview(decodeString.replace("akmall://openWebview?", ""));
-//                        goContentWebview(openReult.url);
-//                    }
                 }
 
                 else if (decodeString.startsWith("akmall://voiceSearch")) {
@@ -397,8 +704,52 @@ public class MyWebviewActivity extends Activity {
 //                    FLOATING_LAYOUT.setVisibility(View.VISIBLE);
 //                } else if (decodeString.startsWith("akmall://hideFloat")) {
 //                    FLOATING_LAYOUT.setVisibility(View.GONE);
-//                } else if (decodeString.contains("logState")) {
-//                    BaseUtils.updateWidget(MyWebviewActivity.this);
+                } else if (decodeString.startsWith("akmall://callpWishInpt")) {
+                    String json = decodeString.replace("akmall://callpWishInpt?", "");
+                    SharedResult result = Parser.parsingShared(json);
+
+                    if(!MainActivity_.loginCheck) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        alert.setTitle("AK MALL");
+                        alert.setMessage("로그인 후 이용해주세요.");
+                        alert.show();
+
+                    } else {
+                        new SelectPopup(context, Const.ITME_HEART + "&goods_id=" + result.goodsId).show();
+                    }
+
+                } else if (decodeString.startsWith("akmall://callShareLayer")) {
+                    String json = decodeString.replace("akmall://callShareLayer?", "");
+                    SharedResult result = Parser.parsingShared(json);
+
+                    new SelectPopup(context, Const.ITME_SHARE + "&goods_id=" + result.goodsId).show();
+
+                } else if (decodeString.startsWith("akmall://callShoopingCart")) {
+                    String json = decodeString.replace("akmall://callShoopingCart?", "");
+                    SharedResult result = Parser.parsingShared(json);
+
+                    view.loadUrl(URLManager.getServerUrl() + "/goods/GoodsDetail.do?goods_id="+result.goodsId);
+
+//                    startActivity(new Intent(MyWebviewActivity.this, MyWebviewActivity_.class).putExtra("url", "/goods/GoodsDetail.do?goods_id="+result.goodsId));
+
+                } else if (decodeString.startsWith("akmall://callWishPopup")) {
+                    new SelectPopup(context, Const.ITME_HEART + "&goods_id=" + decodeString.replace("akmall://callWishPopup?", "")).show();
+
+                }else if (decodeString.contains("logState")) {
+                    BaseUtils.updateWidget(MyWebviewActivity.this);
+                    LogStateResult logStateResult = Parser.parsingLogState(decodeString.replace("akmall://logState?", ""));
+
+                    if(logStateResult.r.equals("Y"))
+                        MainActivity_.loginCheck = true;
+                    else
+                        MainActivity_.loginCheck = false;
+                    return true;
                 } else if (decodeString.startsWith("akmall://clipboard")) {
                     //클립보드 복사
                     String link = Parser.parsingTString(decodeString.replace("akmall://clipboard?", ""));
@@ -411,14 +762,23 @@ public class MyWebviewActivity extends Activity {
             } else if (url.contains("/display/ShopFront.do")) {
                 //대카테고리
                 url = url.replace(URLManager.getServerUrl(), "");
+                JHYLogger.d("<< Url >> " + url);
                 goContentWebview(url);
             } else if (url.contains("/display/CtgMClsf.do") || url.contains("/display/CtgSClsf.do")) {
                 //중카테고리
                 url = url.replace(URLManager.getServerUrl(), "");
+                JHYLogger.d("<< Url >> " + url);
                 goContentWebview(url);
             } else if (url.contains("/display/BrandCtgMClsf.do") || url.contains("/display/BrandCtgSClsf.do")) {
                 //브랜드카테고리
                 url = url.replace(URLManager.getServerUrl(), "");
+                JHYLogger.d("<< Url >> " + url);
+                goContentWebview(url);
+
+            } else if (url.contains("/common/AppPage.do")) {
+                //대카테고리
+                url = url.replace(URLManager.getServerUrl(), "");
+                JHYLogger.d("<< Url >> " + url);
                 goContentWebview(url);
             }
 
@@ -493,15 +853,54 @@ public class MyWebviewActivity extends Activity {
         }
 
         @Override
+        public void onReceivedError(final WebView view, int errorCode, String description, final String failingUrl) {
+            super.onReceivedError(view, errorCode, description, failingUrl);
+
+            switch (errorCode) {
+                case ERROR_AUTHENTICATION:               // 서버에서 사용자 인증 실패
+                case ERROR_BAD_URL:                            // 잘못된 URL
+                case ERROR_CONNECT:                           // 서버로 연결 실패
+                case ERROR_FAILED_SSL_HANDSHAKE:     // SSL handshake 수행 실패
+                case ERROR_FILE:                                   // 일반 파일 오류
+                case ERROR_FILE_NOT_FOUND:                // 파일을 찾을 수 없습니다
+                case ERROR_HOST_LOOKUP:            // 서버 또는 프록시 호스트 이름 조회 실패
+                case ERROR_IO:                               // 서버에서 읽거나 서버로 쓰기 실패
+                case ERROR_PROXY_AUTHENTICATION:    // 프록시에서 사용자 인증 실패
+                case ERROR_REDIRECT_LOOP:                // 너무 많은 리디렉션
+                case ERROR_TIMEOUT:                          // 연결 시간 초과
+                case ERROR_TOO_MANY_REQUESTS:            // 페이지 로드중 너무 많은 요청 발생
+                case ERROR_UNKNOWN:                         // 일반 오류
+                case ERROR_UNSUPPORTED_AUTH_SCHEME:  // 지원되지 않는 인증 체계
+                case ERROR_UNSUPPORTED_SCHEME:
+
+                    if( !(failingUrl.startsWith(URLManager.getServerUrl()) || failingUrl.contains("/search/PowerLink.do")) ) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MyWebviewActivity.this);
+                        builder.setPositiveButton("앱종료", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                ActivityCompat.finishAffinity(MyWebviewActivity.this);
+                            }
+                        });
+
+                        builder.setNegativeButton("재시도", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                view.loadUrl(failingUrl);
+                            }
+                        });
+                        builder.setTitle("AK MALL");
+                        builder.setMessage("네트워크에 접속할 수 없습니다. 네트워크 연결상태를 확인해 주세요.");
+                        builder.show();
+                    }
+
+                    break;          // URI가 지원되지 않는 방식
+            }
+        }
+
+        @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            if (null == mDialog) {
-                mDialog = new Dialog(MyWebviewActivity.this, R.style.NewDialog);
-                mDialog.addContentView(
-                        new ProgressBar(MyWebviewActivity.this),
-                        new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT));
-                mDialog.show();
-            }
+            mBarProgressBar.setVisibility(View.VISIBLE);
         }
 
         boolean isFirst = true;
@@ -509,9 +908,8 @@ public class MyWebviewActivity extends Activity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            if (null != mDialog && mDialog.isShowing()) {
-                mDialog.dismiss();
-            }
+            mBarProgressBar.setVisibility(View.GONE);
+
             CookieSyncManager.getInstance().sync();
             if (isFirst) {
                 if (cate.equals("big")) {
@@ -541,17 +939,21 @@ public class MyWebviewActivity extends Activity {
 
     //상품 리스트 페이지로 이동
     private void goContentWebview(String link) {
+        if(link.startsWith("https://m2.akmall.com")) {
+            link = link.replace("https://m2.akmall.com", "");
+        }
+
         JHYLogger.d("goContentWebview() >> link = " + link);
 
         if (getIntent().getBooleanExtra("isReload", false)) {
             JHYLogger.d("goContentWebview() if() >> ");
             setResult(Const.CATEGORY_BIG_RESULT, new Intent().putExtra("url", URLManager.getServerUrl() + link));
+            finish();
 
-        }  else {
+        } else {
             JHYLogger.d("goContentWebview() else() >> ");
             startActivity(new Intent(MyWebviewActivity.this, ShopContentActivity_.class).putExtra("url", link));
         }
-        finish();
     }
 
     @Override
@@ -560,10 +962,12 @@ public class MyWebviewActivity extends Activity {
             if (MY_SLIDELAYOUT.isDrawerOpen(MY_SLIDEMENU)) {
                 MY_SLIDELAYOUT.closeDrawer(MY_SLIDEMENU);
                 return true;
-            }
-            if (WEB_WEBVIEW.canGoBack()) {
-                WEB_WEBVIEW.goBack();
-                return true;
+            } else {
+                if(WEB_WEBVIEW.canGoBack()) {
+                    WEB_WEBVIEW.goBack();
+                } else {
+                    finish();
+                }
             }
 //            return true;
         }

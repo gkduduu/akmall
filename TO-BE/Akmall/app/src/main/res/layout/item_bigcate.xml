@@ -19,7 +19,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
             android:textColor="#333"
-            android:textSize="13sp" />
+            android:textSize="13dp" />
 
         <ImageView
             android:id="@+id/I_BIG_ARROW1"

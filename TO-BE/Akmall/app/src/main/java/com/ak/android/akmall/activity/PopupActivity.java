@@ -13,6 +13,7 @@ import com.ak.android.akmall.utils.JHYLogger;
 import com.ak.android.akmall.utils.SharedPreferencesManager;
 import com.ak.android.akmall.utils.json.result.MainPopupResult;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -72,6 +73,7 @@ public class PopupActivity extends Activity {
         data = (MainPopupResult) getIntent().getSerializableExtra("data");
         Glide.with(this).load(BaseUtils.nvl(data.file.get(0).banner_url))
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(POPUP_MAINIV);
     }
 }

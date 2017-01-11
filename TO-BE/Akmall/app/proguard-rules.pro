@@ -19,14 +19,18 @@
 -keep class net.daum.** {*;}
 -keep class com.dialoid.** {*;}
 
--dontwarn org.w3c.dom.bootstrap.**
 -dontwarn android.app.**
-
--keepnames class com.fasterxml.jackson.** { *; }
--keepnames interface com.fasterxml.jackson.** { *; }
 
 -keepattributes SourceFile,LineNumberTable
 
 -keep class com.ak.android.akmall.utils.http.** { public *; }
--keep class com.ak.android.akmall.utils.gcm2.** { public *; }
 -keepclassmembers class com.ak.android.akmall.utils.json.** { public *; }
+
+-dontwarn org.w3c.dom.bootstrap.DOMImplementationRegistry
+-dontwarn com.fasterxml.jackson.databind.**
+#-keep class com.fasterxml.jackson.annotation.** { *; }
+
+-keepnames class com.fasterxml.jackson.** {*;}
+-keepnames interface com.fasterxml.jackson.** {*;}
+
+-keepattributes *Annotation*,EnclosingMethod,Signature

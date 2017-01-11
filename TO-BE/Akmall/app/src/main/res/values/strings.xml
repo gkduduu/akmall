@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Akmall</string>
+    <string name="app_name">터치AK몰</string>
 
     <!--사용자설정-->
     <string name="setting_title">사용자 설정</string>

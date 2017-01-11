@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="주문배송"
                 android:textColor="#333"
-                android:textSize="13sp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
         <RelativeLayout
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:text="출석체크"
                 android:textColor="#333"
-                android:textSize="13sp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
         <RelativeLayout
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:text="나만의 공간"
                 android:textColor="#333"
-                android:textSize="13sp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
     </LinearLayout>

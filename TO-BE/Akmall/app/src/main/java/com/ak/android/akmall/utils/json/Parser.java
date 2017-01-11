@@ -3,6 +3,7 @@ package com.ak.android.akmall.utils.json;
 import com.ak.android.akmall.utils.Const;
 import com.ak.android.akmall.utils.json.result.AddingResult;
 import com.ak.android.akmall.utils.json.result.ChangeParamResult;
+import com.ak.android.akmall.utils.json.result.LogStateResult;
 import com.ak.android.akmall.utils.json.result.MainPopupResult;
 import com.ak.android.akmall.utils.json.result.MainResult;
 import com.ak.android.akmall.utils.json.result.OpenWebViewResult;
@@ -13,6 +14,7 @@ import com.ak.android.akmall.utils.json.result.BigCategoryResult;
 import com.ak.android.akmall.utils.json.result.CheckHeightResult;
 import com.ak.android.akmall.utils.json.result.PushSettingResult;
 import com.ak.android.akmall.utils.json.result.SMSResult;
+import com.ak.android.akmall.utils.json.result.SharedResult;
 import com.ak.android.akmall.utils.json.result.SplashResult;
 import com.ak.android.akmall.utils.json.result.UserInfoResult;
 
@@ -100,6 +102,34 @@ public class Parser {
         try {
             JSONObject res = new JSONObject(response);
             result = new ObjectMapper().readValue(res.toString(), AddingResult.class);
+        } catch (IOException e) {
+            e.getMessage();
+        } catch (JSONException e) {
+            e.getMessage();
+        }
+        return result;
+    }
+
+    //추천상품 공유하기
+    public static LogStateResult parsingLogState(String response) {
+        LogStateResult result = new LogStateResult();
+        try {
+            JSONObject res = new JSONObject(response);
+            result = new ObjectMapper().readValue(res.toString(), LogStateResult.class);
+        } catch (IOException e) {
+            e.getMessage();
+        } catch (JSONException e) {
+            e.getMessage();
+        }
+        return result;
+    }
+
+    //추천상품 공유하기
+    public static SharedResult parsingShared(String response) {
+        SharedResult result = new SharedResult();
+        try {
+            JSONObject res = new JSONObject(response);
+            result = new ObjectMapper().readValue(res.toString(), SharedResult.class);
         } catch (IOException e) {
             e.getMessage();
         } catch (JSONException e) {
